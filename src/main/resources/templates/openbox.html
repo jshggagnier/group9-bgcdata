@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <table>
+        <th>Database Output</th>
+        <tr>
+            <td>Name of the Box</td>
+            <td th:text="${boxname}"></td>
+        </tr>
+        <tr>
+            <td>Height of the Box</td>
+            <td th:text="${height}"></td>
+        </tr>
+        <tr>
+            <td>Width of the Box</td>
+            <td th:text="${width}"></td>
+        </tr>
+        <tr>
+            <td>Color of the Box</td>
+            <td th:text="${boxcolor}"></td>
+        </tr>
+        <tr>
+            <td>Is the Box Outlined?</td>
+            <td th:text="${outlined}"></td>
+        </tr>
+    </table>
+    <button onclick="window.location.href='/'">Return to the Database</button>
+    <a th:href="@{/deletebox(id=${id})}">Delete Square</a>
+    <div>Box Shown Below</div>
+    <div th:style="|width:${width}px; height:${height}px; background-color:${boxcolor}; ${outlined ? 'border:2px solid black':'border:0px'}|"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Submission</title>
+</head>
+<body>
+    <header>Square Submission Form</header>
+    <form action="#" method="post" th:action="@{/AddSquare}" th:object="${square}">
+        Name : <input type="text" th:field=*{boxname} placeholder="name of box"> <br>
+        Height : <input type="number" th:field=*{height}> pixels <br>
+        Width : <input type="number" th:field=*{width}> pixels <br>
+        Color : <input type="color" th:field=*{boxcolor} placeholder="#000000"> <br>
+        Outlined : <input type="checkbox" th:field=*{outlined}> <br>
+        <input type="submit" value="Submit Square to Database">
+    </form>
+</body>
+</html>
