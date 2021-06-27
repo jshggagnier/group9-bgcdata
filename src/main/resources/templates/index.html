@@ -8,17 +8,6 @@
   <title>Square Database</title>
 </head>
 <body>
-  Viewing Contents of the Square Database
-  <div class="container">
-    <table>
-        <th>Database Output</th>
-        <tr th:each="boxname,iteration : ${boxes}">
-          <td th:text="${boxname}"></td>
-          <td th:text="${colors[iteration.index]}"></td>
-          <td><a th:href="@{/openbox(id=${idlist[iteration.index]})}">View/Delete</a></td>
-        </tr>
-    </table>
-    <button onclick="window.location.href='/AddSquare'">Submit a new Square to be recorded</button>
-  </div>
+  Welcome to the future location of the Group 9 BGC Project
 </body>
 </html>
