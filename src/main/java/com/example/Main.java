@@ -55,27 +55,28 @@ public class Main {
 
   @RequestMapping("/")
   String index(Map<String, Object> model) {
-  try (Connection connection = dataSource.getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      //stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname varchar(20), height int, width int, boxcolor char(7), outlined boolean)");
+      // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname
+      // varchar(20), height int, width int, boxcolor char(7), outlined boolean)");
       return "index";
-    } 
-  catch (Exception e) {
+    } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
 
-
-  
   @GetMapping("/WorkItemSubmit")
-  String LoadFormWorkItem(Map<String, Object> model) 
-  {return "WorkItemSubmit";}
-  
-  @GetMapping("/PositionSubmit")
-  String LoadFormPosition(Map<String, Object> model) 
-  {return "PositionSubmit";}
+  String LoadFormWorkItem(Map<String, Object> model) {
+    return "WorkItemSubmit";
+  }
 
+  @GetMapping("/PositionSubmit")
+  String LoadFormPosition(Map<String, Object> model) {
+    Position position = new Position();
+    model.put("Position", position);
+    return "PositionSubmit";
+  }
 
   @Bean
   public DataSource dataSource() throws SQLException {

@@ -7,7 +7,67 @@
   <link rel="stylesheet" href="stylesheets/style.css">
   <title>Square Database</title>
 </head>
+
 <body>
- Welcome to the Position Submit Page
-</body>
+    public boolean isFilled;
+    public boolean isPermanent;
+   <h1>New Position Form</h1>
+    <h5>Enter the details for the new position</h5>
+    <div class="form-data">
+      <form
+        action="#"
+        method="post"
+        th:action="@{/PositionSubmit}"
+        th:object="${Position}"
+      >
+        Name
+        <input
+          type="text"
+          id="name"
+          th:field="*{Name}"
+          placeholder="Name of the Employee"
+          required
+        /><br />
+        Width
+        <input
+          type="text"
+          id="width"
+          th:field="*{Team}"
+          placeholder="Name of the Team"
+          required
+        /><br />
+        Height
+        <input
+          type="text"
+          id="height"
+          th:field="*{Role}"
+          placeholder="Title of the position"
+          required
+        /><br />
+        Color
+        <input
+          type="date"
+          id="color"
+          th:field="*{StartDate}"
+          placeholder="Starting Date"
+          required
+        /><br />
+        <input
+          type="date"
+          id="color"
+          th:field="*{EndDate}"
+          placeholder="Ending Date (If Applicable) "
+          required
+        /><br />
+        <input
+          type="checkbox"
+          id="checkbox"
+          th:field="*{isPermanent}"
+          placeholder=""
+          required
+        /><label for="checkbox"> This is a Permanent Position</label><br><br />
+        <input type="submit" value="Submit Data" />
+      </form>
+    </div>
+  </body>
 </html>
