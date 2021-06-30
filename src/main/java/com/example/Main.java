@@ -67,6 +67,15 @@ public class Main {
   }
 
 
+  
+  @GetMapping("/WorkItemSubmit")
+  String LoadFormWorkItem(Map<String, Object> model) 
+  {return "WorkItemSubmit";}
+  
+  @GetMapping("/PositionSubmit")
+  String LoadFormPosition(Map<String, Object> model) 
+  {return "PositionSubmit";}
+
 
   @Bean
   public DataSource dataSource() throws SQLException {

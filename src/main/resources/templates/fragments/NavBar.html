@@ -1,0 +1,28 @@
+<html th:fragment="NavBar">
+<link rel="stylesheet" href="stylesheets/NavBar.css">
+
+<div class="TopBar">
+    BGC Data Analysis Tool
+    <div class="dropdown">
+        <Button class="dropbtn" onclick="">Log Out</Button>
+    </div>
+    <div class="dropdown">
+        <Button class="dropbtn">Submit</Button>
+        <div class="dropdown-content">
+            <a th:href="@{/WorkItemSubmit}">Work Items</a>
+            <a th:href="@{/PositionSubmit}">Position</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <Button class="dropbtn">View/Edit</Button>
+        <div class="dropdown-content">
+            Not Available on this Release
+        </div>
+    </div>
+    <div class="dropdown">
+        <Button class="dropbtn">View Graphs</Button>
+        <div class="dropdown-content">
+            Not Available on this Release
+        </div>
+    </div>
+</div>
