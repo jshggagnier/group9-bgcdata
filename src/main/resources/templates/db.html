@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <title>Square Database</title>
+</head>
+
+<body>
+  <div class="container">
+      <h1>Database Output</h1>
+      <table class="styled-table" >
+        <tr class="heading">
+          <th>Name</th>
+          <th>Team</th>
+          <th>Position</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Permanent Position</th>
+
+          <tr th:each="n:${E}">
+          <td th:text="${n.name}"></td>
+          <td th:text="${n.team}"></td>
+          <td th:text="${n.role}"></td>
+          <td th:text="${n.StartDate}"></td>
+          <td th:text="${n.EndDate}"></td>
+          <td th:text="${n.isPermanent}"></td>
+          <td>
+            <form th:action="@{/editdata/{id}(id=${n.name})}">
+              <input type="submit" value="Edit" />
+            </form>
+          </td>
+          </tr>
+      </table>
+      </div>
+  </body>
+</html>
