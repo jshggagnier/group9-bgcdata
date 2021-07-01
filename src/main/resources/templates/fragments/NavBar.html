@@ -4,9 +4,6 @@
 <div class="TopBar">
     BGC Data Analysis Tool
     <div class="dropdown">
-        <Button class="dropbtn" onclick="">Log Out</Button>
-    </div>
-    <div class="dropdown">
         <Button class="dropbtn">Submit</Button>
         <div class="dropdown-content">
             <a th:href="@{/WorkItemSubmit}">Work Items</a>
@@ -24,5 +21,13 @@
         <div class="dropdown-content">
             Not Available on this Release
         </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/oauth2/authorization/auth0}">Log In</a>
+        </button>
+        <button class="dropbtn" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Log Out</a>
+        </button>
     </div>
 </div>
