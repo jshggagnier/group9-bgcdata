@@ -9,15 +9,6 @@
 </head>
 <body>
   Welcome to the future location of the Group 9 BGC Project
-
-  <div sec:authorize="!isAuthenticated()">
-    <a th:href="@{/oauth2/authorization/auth0}">Log In</a>
-  </div>
-  <div sec:authorize="isAuthenticated()">
-      <p>You are logged in!</p>
-      <a th:href="@{/logout}">Log Out</a>
-  </div>
-  
   <br>
   <br>
   <br>

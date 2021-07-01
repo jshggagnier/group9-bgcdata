@@ -24,10 +24,10 @@
     </div>
     <div class="dropdown">
         <button class="dropbtn" sec:authorize="!isAuthenticated()">
-            <a th:href="@{/oauth2/authorization/auth0}">Log In</a>
+            <a class="dropbtn" th:href="@{/oauth2/authorization/auth0}">Log In</a>
         </button>
         <button class="dropbtn" sec:authorize="isAuthenticated()">
-            <a th:href="@{/logout}">Log Out</a>
+            <a class="dropbtn" th:href="@{/logout}">Log Out</a>
         </button>
     </div>
 </div>
