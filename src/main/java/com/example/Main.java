@@ -15,6 +15,7 @@
  */
 
 package com.example;
+package com.auth0.example;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -39,9 +40,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
+//auth0 login imports
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 @Controller
 @SpringBootApplication
 public class Main {
+
+  @Configuration
+  public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      http.oauth2Login();
+      http.authorizeRequests().mvcMatchers("/").permitAll().anyRequest().authenticated().and().oauth2Login();
+    }
+  }
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
