@@ -80,6 +80,26 @@ public class Main {
     return "PositionSubmit";
   }
 
+  //Submit Catch
+  @PostMapping(
+    path = "/WorkItemSubmit",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      //Need to create Table first
+      //String sql = "INSERT INTO workitems (name, startdate, enddate, teamassigned, itemtype, fundinginformation) VALUES 
+      //('"+workitem.getItemName()+ "', '"+ "'"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"+
+      //"'"+workitem.getItemType()+ "', '"+ "'"+workitem.getFundingInformation()+ "');";
+      //stmt.executeUpdate(sql);
+      return "redirect:/";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @Bean
   public DataSource dataSource() throws SQLException {
     if (dbUrl == null || dbUrl.isEmpty()) {
