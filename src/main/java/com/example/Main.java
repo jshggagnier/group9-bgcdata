@@ -68,6 +68,8 @@ public class Main {
 
   @GetMapping("/WorkItemSubmit")
   String LoadFormWorkItem(Map<String, Object> model) {
+    WorkItem workitem = new WorkItem();
+    model.put("WorkItem", workitem);
     return "WorkItemSubmit";
   }
 
