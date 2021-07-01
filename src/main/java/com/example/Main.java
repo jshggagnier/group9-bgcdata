@@ -90,9 +90,7 @@ public class Main {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20),
       startdate char(10), enddate char(10), teams [],itemtype varchar(3), fundinginformation varchar(100))");
-      String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"
-      +workitem.getItemName()+ "', '"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"
-      +workitem.getItemType()+ "', '"+workitem.getFundingInformation()+ "');";
+      String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"+workitem.getItemName()+ "', '"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"+workitem.getItemType()+ "', '"+workitem.getFundingInformation()+ "');";
       //stmt.executeUpdate(sql);
       return "redirect:/";
     } catch (Exception e) {
