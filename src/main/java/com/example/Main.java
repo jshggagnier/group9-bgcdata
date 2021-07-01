@@ -15,7 +15,6 @@
  */
 
 package com.example;
-package com.auth0.example;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -44,20 +43,16 @@ import java.util.Map;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
 
 @Controller
 @SpringBootApplication
 public class Main {
-
-  @Configuration
-  public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.oauth2Login();
-      http.authorizeRequests().mvcMatchers("/").permitAll().anyRequest().authenticated().and().oauth2Login();
-    }
-  }
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
@@ -70,7 +65,8 @@ public class Main {
   }
 
   @RequestMapping("/")
-  String index(Map<String, Object> model) {
+  String index(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+    if (principal != null) {model.put("profile", principal.getClaims());}
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname
