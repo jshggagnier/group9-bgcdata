@@ -88,10 +88,11 @@ public class Main {
   public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      //Need to create Table first
-      //String sql = "INSERT INTO workitems (name, startdate, enddate, teamassigned, itemtype, fundinginformation) VALUES 
-      //('"+workitem.getItemName()+ "', '"+ "'"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"+
-      //"'"+workitem.getItemType()+ "', '"+ "'"+workitem.getFundingInformation()+ "');";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname, varchar(20),
+      startdate char(10), enddate char(10), itemtype varchar(3), fundinginformation varchar(50))");
+      String sql = "INSERT INTO workitems (name, startdate, enddate, teamassigned, itemtype, fundinginformation) VALUES ('"
+      +workitem.getItemName()+ "', '"+ "'"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"+
+      "'"+workitem.getItemType()+ "', '"+ "'"+workitem.getFundingInformation()+ "');";
       //stmt.executeUpdate(sql);
       return "redirect:/";
     } catch (Exception e) {
