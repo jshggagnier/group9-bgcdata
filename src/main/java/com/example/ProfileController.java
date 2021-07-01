@@ -1,4 +1,4 @@
-package com.auth0.example;
+package com.example;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 
 /**
- * Controller for requests to the {@code /profile} resource. Populates the model with the claims from the
- * {@linkplain OidcUser} for use by the view.
+ * Controller for requests to the {@code /profile} resource. Populates the model
+ * with the claims from the {@linkplain OidcUser} for use by the view.
  */
 @Controller
 public class ProfileController {

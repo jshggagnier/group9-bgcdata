@@ -58,21 +58,21 @@
           placeholder="Ending Date (If Applicable) "
           required
         /><br />
-       <label for="checkbox"> This is a Permanent Position</label><br />
+         <label for="checkbox"> This is a Permanent Position</label><br />
          </input>
         <input type="radio"
-            name="affirmative"
+            name="negative"
             th:field="*{isPermanent}"
-            value="yes"
-       >Yes
+            value="no"
+       >No
         </input><br/>
         <input type="radio"
-          name="negative"
+          name="affirmative"
           th:field="*{isPermanent}"
-          value="no"
-          checked
-       >No</input><br/>
-        <input type="submit" value="Submit Data" />
+          value="yes"
+          checked="false"
+       >Yes
+        <br/>
         <input type="submit" value="Submit Data" />
       </form>
     </div>
