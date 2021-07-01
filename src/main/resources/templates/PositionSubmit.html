@@ -45,7 +45,7 @@
         Starting Date
         <input
           type="date"
-          id="color"
+          id="sd"
           th:field="*{StartDate}"
           placeholder="Starting Date"
           required
@@ -53,7 +53,7 @@
         Ending Date (If Applicable)
         <input
           type="date"
-          id="color"
+          id="ed"
           th:field="*{EndDate}"
           placeholder="Ending Date (If Applicable) "
           required
@@ -63,19 +63,34 @@
         <input type="radio"
             name="negative"
             th:field="*{isPermanent}"
+            id="noCheck"
+            onclick="javascript:yesnoCheck();"
             value="no"
        >No
         </input><br/>
         <input type="radio"
           name="affirmative"
+          id="yesCheck"
+          onclick="javascript:yesnoCheck();"
           th:field="*{isPermanent}"
           value="yes"
           checked="false"
        >Yes
         <br/>
         <input type="submit" value="Submit Data" />
-        <input type="reset" value="Reset">
+         <input type="reset" value="Reset">
       </form>
     </div>
+    <script type="text/javascript">
+      function yesnoCheck() {
+          if (document.getElementById('yesCheck').checked) {
+              document.getElementById('ed').style.display="none";
+          }
+          else if(document.getElementById('noCheck').checked)
+          {
+            document.getElementById('ed').style.display="block";
+          }
+        }
+    </script>
   </body>
 </html>
