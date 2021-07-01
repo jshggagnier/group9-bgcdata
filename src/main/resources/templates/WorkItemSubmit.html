@@ -12,12 +12,12 @@
     <h1>New Work Item</h1>
     <h5>Enter the details for the new Work Item</h5>
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
-        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name"> <br>
-        <input type="date" th:field="*{StartDate}" placeholder="Start Date"> <input type="date" th:field="*{EndDate}" placeholder="End Date"> <br>
-        <label>Dev</label><input type="radio" value="Dev" name="itemtype"> <br>
-        <label>QA</label><input type="radio" value="QA" name="itemtype"> <br>
-        <input type="text" th:field="*{TeamsAssigned}" placeholder="Teams Assigned"> <br>
-        <input type="text" th:field="*{FundingInformation}" placeholder="Funding Information"> <br>
+        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required> <br>
+        <input type="date" th:field="*{StartDate}" placeholder="Start Date" required> <input type="date" th:field="*{EndDate}" placeholder="End Date" required> <br>
+        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType"> <br>
+        <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType"> <br>
+        <input type="text" placeholder="Teams Assigned" required> <br>
+        <input type="text" th:field="*{FundingInformation}" placeholder="Funding Information" required> <br>
         <input type="submit" value="New Work Item">
     </form>
   </div>

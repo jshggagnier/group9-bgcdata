@@ -45,7 +45,7 @@
         Starting Date
         <input
           type="date"
-          id="color"
+          id="sd"
           th:field="*{StartDate}"
           placeholder="Starting Date"
           required
@@ -53,7 +53,7 @@
         Ending Date (If Applicable)
         <input
           type="date"
-          id="color"
+          id="ed"
           th:field="*{EndDate}"
           placeholder="Ending Date (If Applicable) "
           required
@@ -63,11 +63,15 @@
         <input type="radio"
             name="negative"
             th:field="*{isPermanent}"
+            id="noCheck"
+            onclick="javascript:yesnoCheck();"
             value="no"
        >No
         </input><br/>
         <input type="radio"
           name="affirmative"
+          id="yesCheck"
+          onclick="javascript:yesnoCheck();"
           th:field="*{isPermanent}"
           value="yes"
           checked="false"
@@ -77,5 +81,112 @@
          <input type="reset" value="Reset">
       </form>
     </div>
+    <script type="text/javascript">
+      function yesnoCheck() {
+          if (document.getElementById('yesCheck').checked) {
+              document.getElementById('ed').style.display="none";
+          }
+          else if(document.getElementById('noCheck').checked)
+          {
+            document.getElementById('ed').style.display="block";
+          }
+        }
+    </script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <title>Square Database</title>
+</head>
+
+<body>
+   <h1>New Position Form</h1>
+    <h5>Enter the details for the new position</h5>
+    <div class="form-data">
+      <form
+        action="#"
+        method="post"
+        th:action="@{/PositionSubmit}"
+        th:object="${Position}"
+      >
+        Name
+        <input
+          type="text"
+          id="name"
+          th:field="*{Name}"
+          placeholder="Name of the Employee"
+          required
+        /><br />
+        Team
+        <input
+          type="text"
+          id="width"
+          th:field="*{Team}"
+          placeholder="Name of the Team"
+          required
+        /><br />
+        Title
+        <input
+          type="text"
+          id="height"
+          th:field="*{Role}"
+          placeholder="Title of the position"
+          required
+        /><br />
+        Starting Date
+        <input
+          type="date"
+          id="sd"
+          th:field="*{StartDate}"
+          placeholder="Starting Date"
+          required
+        /><br />
+        Ending Date (If Applicable)
+        <input
+          type="date"
+          id="ed"
+          th:field="*{EndDate}"
+          placeholder="Ending Date (If Applicable) "
+          required
+        /><br />
+         <label for="checkbox"> This is a Permanent Position</label><br />
+         </input>
+        <input type="radio"
+            name="negative"
+            th:field="*{isPermanent}"
+            id="noCheck"
+            onclick="javascript:yesnoCheck();"
+            value="no"
+       >No
+        </input><br/>
+        <input type="radio"
+          name="affirmative"
+          id="yesCheck"
+          onclick="javascript:yesnoCheck();"
+          th:field="*{isPermanent}"
+          value="yes"
+          checked="false"
+       >Yes
+        <br/>
+        <input type="submit" value="Submit Data" />
+         <input type="reset" value="Reset">
+      </form>
+    </div>
+    <script type="text/javascript">
+      function yesnoCheck() {
+          if (document.getElementById('yesCheck').checked) {
+              document.getElementById('ed').style.display="none";
+          }
+          else if(document.getElementById('noCheck').checked)
+          {
+            document.getElementById('ed').style.display="block";
+          }
+        }
+    </script>
   </body>
 </html>
