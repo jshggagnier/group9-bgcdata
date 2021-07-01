@@ -48,8 +48,6 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 @Controller
 @SpringBootApplication
 public class Main {
