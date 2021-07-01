@@ -64,7 +64,9 @@ public class Main {
 
   @RequestMapping("/")
   String index(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    if (principal != null) {model.put("profile", principal.getClaims());}
+    if (principal != null) {
+      model.put("profile", principal.getClaims());
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname
@@ -90,24 +92,26 @@ public class Main {
     return "PositionSubmit";
   }
 
-  //Submit Catch
-  @PostMapping(
-    path = "/WorkItemSubmit",
-    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-  )
+  // Submit Catch
+  @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      //stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate char(10), enddate char(10), teams [],itemtype varchar(3), fundinginformation varchar(100))");
-      String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"+workitem.getItemName()+ "', '"+workitem.getStartDate()+ "', '"+ "'"+workitem.getEndDate()+ "', '"+workitem.getItemType()+ "', '"+workitem.getFundingInformation()+ "');";
-      //stmt.executeUpdate(sql);
+      // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname
+      // varchar(20), startdate char(10), enddate char(10), teams [],itemtype
+      // varchar(3), fundinginformation varchar(100))");
+      String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"
+          + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + "'" + workitem.getEndDate() + "', '"
+          + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
+      // stmt.executeUpdate(sql);
       return "redirect:/";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
-//submitting data into database
+
+  // submitting data into database
   @PostMapping(path = "/PositionSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handlePositionSubmit(Map<String, Object> model, Position pos) throws Exception {
     // Establishing connection with database
