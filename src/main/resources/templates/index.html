@@ -15,6 +15,12 @@
   <br>
   <br>
   <br>
+  <div sec:authorize="isAuthenticated()">
+    <div>Your User info:</div>
+    <img th:src="${profile.get('picture')}"/>
+    <div th:text="${profile.get('name')}"></div>
+    <p th:text="${profile.get('email')}"></p>
+  </div>
   <br>
   <br>
   <br>
