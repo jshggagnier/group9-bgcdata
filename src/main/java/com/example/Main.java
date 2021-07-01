@@ -107,6 +107,44 @@ public class Main {
       return "error";
     }
   }
+//submitting data into database
+  @PostMapping(path = "/PositionSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handlePositionSubmit(Map<String, Object> model, Position pos) throws Exception {
+    // Establishing connection with database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, isPermanent varchar(10))");
+
+      String sql = "INSERT INTO Employees (name,team,role,StartDate,EndDate,isPermanent) VALUES ('" + pos.getName()
+          + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','" + pos.getEndDate()
+          + "','" + pos.getIsPermanent() + "')";
+
+      stmt.executeUpdate(sql);
+
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.setIsPermanent(rs.getBoolean("isPermanent"));
+
+        dataList.add(obj);
+        System.out.println(obj.Name);
+      }
+
+      model.put("E", dataList);
+      return "db";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @Bean
   public DataSource dataSource() throws SQLException {
