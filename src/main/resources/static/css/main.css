@@ -1,0 +1,39 @@
+table, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: left;
+
+}
+
+td{
+    padding-left: 5px;
+    padding-right: 20px;
+    text-align: left;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn{
+    background-color: #f2c1f5;
+  border: none;
+  color: black;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#buttons{
+    text-align:center;
+    margin-top: 40px;
+}
+
+

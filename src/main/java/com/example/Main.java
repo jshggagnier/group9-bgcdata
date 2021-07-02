@@ -126,12 +126,26 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams [],itemtype varchar(3), fundinginformation varchar(100))");
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(300), itemtype varchar(3), fundinginformation varchar(100));");
       String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + "'" + workitem.getEndDate() + "', '"
           + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
       stmt.executeUpdate(sql);
-      return "redirect:/";
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+
+        dataList.add(obj);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
