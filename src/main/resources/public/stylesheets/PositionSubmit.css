@@ -79,6 +79,13 @@ input[type="reset"] {
   font-weight: 700;
 }
 
+input[type="reset"]:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+}
+
 
 .form-data {
   margin: 0 auto;
