@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" th:action="@{/viewDetails}" href="stylesheets/PositionSubmit.css">
   <title>Square Database</title>
 </head>
 
@@ -57,9 +57,10 @@
           th:field="*{EndDate}"
           placeholder="Ending Date (If Applicable) "
           required
-        /><br />
-         <label for="checkbox"> This is a Permanent Position</label><br />
+        />
          </input>
+         <br/>
+         <label for="checkbox"> This is a Permanent Position</label>
         <input type="radio"
             name="negative"
             th:field="*{isPermanent}"
@@ -67,7 +68,7 @@
             onclick="javascript:yesnoCheck();"
             value="no"
        >No
-        </input><br/>
+        </input>
         <input type="radio"
           name="affirmative"
           id="yesCheck"
@@ -76,7 +77,7 @@
           value="yes"
           checked="false"
        >Yes
-        <br/>
+      </input>
         <input type="submit" value="Submit Data" />
          <input type="reset" value="Reset">
       </form>
