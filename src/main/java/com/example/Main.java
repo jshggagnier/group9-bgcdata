@@ -115,8 +115,7 @@ public class Main {
         obj.setFundingInformation(rs.getString("fundinginformation"));
 
         dataList.add(obj);
-        System.out.println(obj.Name);
-      }
+        }
       model.put("WorkItems", dataList);
       return "WorkItemView";
     } catch (Exception e) {
