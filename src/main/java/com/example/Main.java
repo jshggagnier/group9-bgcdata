@@ -91,6 +91,34 @@ public class Main {
     model.put("Position", position);
     return "PositionSubmit";
   }
+  
+  @GetMapping("/viewDetails")
+  String viewDetails(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.setIsPermanent(rs.getBoolean("isPermanent"));
+
+        dataList.add(obj);
+        System.out.println(obj.Name);
+      }
+
+      model.put("Details", dataList);
+      return "viewEdit";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   // Submit Catch
   @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
