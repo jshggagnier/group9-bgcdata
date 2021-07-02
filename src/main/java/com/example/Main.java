@@ -103,7 +103,22 @@ public class Main {
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + "'" + workitem.getEndDate() + "', '"
           + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
       stmt.executeUpdate(sql);
-      return "redirect:/";
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+
+        dataList.add(obj);
+        System.out.println(obj.Name);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";

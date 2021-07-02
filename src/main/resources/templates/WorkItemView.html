@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <title>Square Database</title>
+</head>
+
+<body>
+  <div class="container">
+      <h1>Database Output</h1>
+      <table class="styled-table" >
+        <tr class="heading">
+          <th>Item Name</th>
+          <th>Item Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Funding Information</th>
+
+          <tr th:each="n:${WorkItems}">
+          <td th:text="${n.ItemName}"></td>
+          <td th:text="${n.ItemType}"></td>
+          <td th:text="${n.StartDate}"></td>
+          <td th:text="${n.EndDate}"></td>
+          <td th:text="${n.FundingInformation}"></td>
+          <td>
+            <form th:action="@{/editdata/{id}(id=${n.ItemName})}">
+              <input type="submit" value="Edit" />
+            </form>
+          </td>
+          </tr>
+      </table>
+      <button onclick="window.history.back();">Go Back</button>
+      </div>
+  </body>
+</html>
