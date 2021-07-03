@@ -60,15 +60,14 @@ public class WorkItem {
         this.FundingInformation = FundingInformation;
     }
 
-    private class Team
-    {
+    private class Team {
         private String teamname;
         private ArrayList<Integer> Weights;
-        
+
         public String getteamname() {
             return this.teamname;
         }
-    
+
         public void setteamname(String teamname) {
             this.teamname = teamname;
         }
@@ -76,7 +75,7 @@ public class WorkItem {
         public ArrayList<Integer> getWeights() {
             return this.Weights;
         }
-    
+
         public void setWeights(ArrayList<Integer> Weights) {
             this.Weights = Weights;
         }

@@ -1,33 +1,38 @@
 <html th:fragment="NavBar">
-<link rel="stylesheet" href="/stylesheets/NavBar.css">
+  <link rel="stylesheet" href="/stylesheets/NavBar.css" />
 
-<div class="TopBar">
+  <div class="TopBar">
     BGC Data Analysis Tool
     <div class="dropdown">
-        <Button class="dropbtn">Submit</Button>
-        <div class="dropdown-content">
-            <a th:href="@{/WorkItemSubmit}">Work Items</a>
-            <a th:href="@{/PositionSubmit}">Position</a>
-        </div>
+      <button class="dropbtn">Submit</button>
+      <div class="dropdown-content">
+        <a th:href="@{/WorkItemSubmit}">Work Items</a>
+        <a th:href="@{/PositionSubmit}">Position</a>
+      </div>
     </div>
     <div class="dropdown">
-        <Button class="dropbtn">View/Edit</Button>
-        <div class="dropdown-content">
-            Not Available on this Release
-        </div>
-    </div>
-    <div class="dropdown">
-        <Button class="dropbtn">View Graphs</Button>
+          <button class="dropbtn">
+        <a th:href="@{/viewDetails}">View/Edit</a>
+         </button>
         <div class="dropdown-content">
             Not Available on this Release
         </div>
     </div>
     <div class="dropdown">
-        <button class="dropbtn" sec:authorize="!isAuthenticated()">
-            <a class="dropbtn" th:href="@{/oauth2/authorization/auth0}">Log In</a>
-        </button>
-        <button class="dropbtn" sec:authorize="isAuthenticated()">
-            <a class="dropbtn" th:href="@{/logout}">Log Out</a>
-        </button>
+      <button class="dropbtn">View Graphs</button>
+      <div class="dropdown-content">Not Available on this Release</div>
     </div>
+    <div class="dropdown">
+      <button class="dropbtn" sec:authorize="!isAuthenticated()">
+        <a class="dropbtn" th:href="@{/oauth2/authorization/auth0}">Log In</a>
+      </button>
+      <button class="dropbtn" sec:authorize="isAuthenticated()">
+        <a class="dropbtn" th:href="@{/logout}">Log Out</a>
+      </button>
+    </div>
+<<<<<<< HEAD
+  </div>
+</html>
+=======
 </div>
+>>>>>>> 77fa2788c07fff11eae54bec58a273bd19040154

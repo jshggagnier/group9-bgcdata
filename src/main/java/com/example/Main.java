@@ -92,6 +92,34 @@ public class Main {
     return "PositionSubmit";
   }
 
+  @GetMapping("/viewDetails")
+  String viewDetails(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.setIsPermanent(rs.getBoolean("isPermanent"));
+
+        dataList.add(obj);
+        System.out.println(obj.Name);
+      }
+
+      model.put("Details", dataList);
+      return "viewEdit";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   // Submit Catch
   @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
@@ -99,7 +127,7 @@ public class Main {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
           "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(300), itemtype varchar(3), fundinginformation varchar(100));");
-      String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"
+      String sql = "INSERT INTO workitems (itemname, startdate, enddate, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
       stmt.executeUpdate(sql);
@@ -115,7 +143,7 @@ public class Main {
         obj.setFundingInformation(rs.getString("fundinginformation"));
 
         dataList.add(obj);
-        }
+      }
       model.put("WorkItems", dataList);
       return "WorkItemView";
     } catch (Exception e) {
