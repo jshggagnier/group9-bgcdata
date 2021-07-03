@@ -100,7 +100,7 @@ public class Main {
       stmt.executeUpdate(
           "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(300), itemtype varchar(3), fundinginformation varchar(100));");
       String sql = "INSERT INTO workitems (name, startdate, enddate, itemtype, fundinginformation) VALUES ('"
-          + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + "'" + workitem.getEndDate() + "', '"
+          + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
