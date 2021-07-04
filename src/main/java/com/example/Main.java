@@ -113,7 +113,7 @@ public class Main {
       }
 
       model.put("Positions", dataList);
-      return "PositionDB";
+      return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -184,7 +184,7 @@ public class Main {
       }
 
       model.put("Positions", dataList);
-      return "PositionDB";
+      return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
