@@ -93,7 +93,7 @@ public class Main {
   }
 
   @GetMapping("/viewPositions")
-  String viewDetails(Map<String, Object> model) {
+  String viewPositions(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
@@ -119,6 +119,32 @@ public class Main {
       return "error";
     }
   }
+
+  @GetMapping("/viewWorkItems")
+  String viewWorkItems(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+
+        dataList.add(obj);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
 
   // Submit Catch
   @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
