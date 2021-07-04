@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/style.css">
-  <title>Square Database</title>
+  <link rel="stylesheet" href="/stylesheets/PositionDB.css">
+  <title>View Position Database</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
           <th>End Date</th>
           <th>Permanent Position</th>
 
-          <tr th:each="n:${E}">
+          <tr th:each="n:${Positions}">
           <td th:text="${n.name}"></td>
           <td th:text="${n.team}"></td>
           <td th:text="${n.role}"></td>

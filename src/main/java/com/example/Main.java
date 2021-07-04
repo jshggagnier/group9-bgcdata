@@ -112,7 +112,7 @@ public class Main {
         System.out.println(obj.Name);
       }
 
-      model.put("Details", dataList);
+      model.put("Positions", dataList);
       return "PositionDB";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -183,7 +183,7 @@ public class Main {
         System.out.println(obj.Name);
       }
 
-      model.put("E", dataList);
+      model.put("Positions", dataList);
       return "PositionDB";
     } catch (Exception e) {
       model.put("message", e.getMessage());
