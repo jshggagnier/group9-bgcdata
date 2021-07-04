@@ -11,11 +11,10 @@
       </div>
     </div>
     <div class="dropdown">
-          <button class="dropbtn">
-        <a th:href="@{/viewDetails}">View/Edit</a>
-         </button>
+          <button class="dropbtn">View/Edit</button>
         <div class="dropdown-content">
-            Not Available on this Release
+          <a th:href="@{/viewWorkItems}">Work Items</a>
+          <a th:href="@{/viewPositions}">Positions</a>
         </div>
     </div>
     <div class="dropdown">
@@ -23,16 +22,9 @@
       <div class="dropdown-content">Not Available on this Release</div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn" sec:authorize="!isAuthenticated()">
-        <a class="dropbtn" th:href="@{/oauth2/authorization/auth0}">Log In</a>
-      </button>
-      <button class="dropbtn" sec:authorize="isAuthenticated()">
-        <a class="dropbtn" th:href="@{/logout}">Log Out</a>
-      </button>
+        <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a>
+        <a class="linkbutton" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
     </div>
-<<<<<<< HEAD
   </div>
 </html>
-=======
 </div>
->>>>>>> 77fa2788c07fff11eae54bec58a273bd19040154

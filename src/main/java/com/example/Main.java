@@ -92,7 +92,7 @@ public class Main {
     return "PositionSubmit";
   }
 
-  @GetMapping("/viewDetails")
+  @GetMapping("/viewPositions")
   String viewDetails(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -113,7 +113,7 @@ public class Main {
       }
 
       model.put("Details", dataList);
-      return "viewEdit";
+      return "PositionDB";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -184,7 +184,7 @@ public class Main {
       }
 
       model.put("E", dataList);
-      return "db";
+      return "PositionDB";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
