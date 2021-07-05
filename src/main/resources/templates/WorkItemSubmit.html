@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
   <title>Square Database</title>
-  <script>
+  <script th:inline="javascript">
     var TableRows = 1;
     function AddTeam(){
       TableRows++;
@@ -28,7 +28,7 @@
       var Teams = "";
       for (let i = 1; i <= TableRows; i++) {
         Teams += "N:"+document.getElementById("TR"+i+"N").value;
-        Teams += "W1:" = document.getElementById('TR'+i+'W').value;
+        Teams += "W1:"+document.getElementById('TR'+i+'W').value;
       }
       //[("*{WorkItem.TeamsAssigned}")] = Teams;
     }
@@ -43,7 +43,7 @@
         <input type="date" th:field="*{StartDate}" placeholder="Start Date" required> <input type="date" th:field="*{EndDate}" placeholder="End Date" required> <br>
         <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked> <br>
         <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType"> <br>
-        <table id="TeamTable">
+        <table>
           <tr><th>Team Name</th><th>Weight</th></tr>
           <tr id="TR1"><td><input id="TR1N" type="text" placeholder="Team Name" required></td><td><input id="TR1W" type="text" placeholder="Weight" required></td></tr>
         </table></br>
