@@ -14,15 +14,15 @@
     <h5>Enter the details for the new Work Item</h5>
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
-        <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
-        <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <input type="date" th:field="*{StartDate}" oninput="UpdateTable()" id="startDate" required>
+        <input type="date" th:field="*{EndDate}" oninput="UpdateTable()" id="endDate" required>
         <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked>
         <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType">
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Team Name</th><th>Week 1</th></tr>
           <tr id="Row1"><td><input type='text' id="cell1:0"></td><td><input type='number' id="cell1:1"></td></tr>
         </table>
-        <hidden id="TBstring" th:feild="*{Teams}"></hidden>
+        <hidden id="TBstring" ></hidden>
         <button type="button" onclick="AddTeam()">Add Team</button> <button type="button" onclick="DeleteTeam()">Delete Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="New Work Item">
