@@ -159,7 +159,6 @@ public class Main {
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-
       while (rs.next()) {
         WorkItem obj = new WorkItem();
         obj.setItemName(rs.getString("itemname"));

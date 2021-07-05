@@ -73,7 +73,7 @@ function createTeamString(){
             }
         }
         TableString += "|";
-    
     }
+    console.log(TableString);
     document.getElementById("TBstring").value = TableString;
 }
