@@ -133,6 +133,7 @@ public class Main {
         obj.setStartDate(rs.getString("startdate"));
         obj.setEndDate(rs.getString("enddate"));
         obj.setItemType(rs.getString("itemtype"));
+        obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
 
         dataList.add(obj);
