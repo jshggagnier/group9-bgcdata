@@ -31,6 +31,11 @@ body {
     border-radius: 4px;
     box-sizing: border-box;
   }
+
+  input[type="number"]
+  {
+    width: 40px;
+  }
   
   input[type="submit"] {
     width: 100%;
@@ -92,7 +97,7 @@ body {
     margin: 0 auto;
     left: 0;
     right: 0;
-    max-width: 600px;
+    max-width: 60000px;
     margin-top: 3%;
   }
 
