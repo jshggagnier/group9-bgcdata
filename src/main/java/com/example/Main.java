@@ -152,10 +152,10 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(300), itemtype varchar(3), fundinginformation varchar(100));");
-      String sql = "INSERT INTO workitems (itemname, startdate, enddate, itemtype, fundinginformation) VALUES ('"
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
+      String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
-          + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
+          + workitem.getTeamsAssigned()+ "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
@@ -166,6 +166,7 @@ public class Main {
         obj.setStartDate(rs.getString("startdate"));
         obj.setEndDate(rs.getString("enddate"));
         obj.setItemType(rs.getString("itemtype"));
+        obg.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
 
         dataList.add(obj);

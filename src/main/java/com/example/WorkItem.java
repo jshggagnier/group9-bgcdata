@@ -8,7 +8,7 @@ public class WorkItem {
     private String ItemName;
     private String StartDate;
     private String EndDate;
-    private ArrayList<Team> TeamsAssigned;
+    private String TeamsAssigned;
     private String ItemType;
     private String FundingInformation;
 
@@ -36,11 +36,11 @@ public class WorkItem {
         this.EndDate = EndDate;
     }
 
-    public ArrayList<Team> getTeamsAssigned() {
+    public String getTeamsAssigned() {
         return this.TeamsAssigned;
     }
 
-    public void setTeamsAssigned(ArrayList<Team> TeamsAssigned) {
+    public void setTeamsAssigned(String TeamsAssigned) {
         this.TeamsAssigned = TeamsAssigned;
     }
 

@@ -24,6 +24,7 @@
           <td th:text="${n.ItemType}"></td>
           <td th:text="${n.StartDate}"></td>
           <td th:text="${n.EndDate}"></td>
+          <td th:text="${n.TeamsAssigned}"></td>
           <td th:text="${n.FundingInformation}"></td>
           <td>
             <form th:action="@{/editdata/{id}(id=${n.ItemName})}">
