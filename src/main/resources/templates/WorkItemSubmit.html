@@ -5,53 +5,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
+  <script src="JavaScript/WorkItemForm.js"></script>
   <title>Square Database</title>
-  <script>
-    var TableRows = 1;
-    function AddTeam(){
-      var tabler = document.getElementById("TR"+(TableRows));
-      TableRows++;
-      var Rows = '<td><input id="TR'+TableRows+'W" type="text" placeholder="Weight" required></td>';
-      tabler.insertAdjacentHTML("afterend",'<tr id="TR'+TableRows+'"><td><input id="TR'+TableRows+'N" type="text" placeholder="Team Name" required></td>'+Rows+'</tr>');
-    }
-    function DeleteTeam(){
-      if(TableRows == 1){
-        alert("Must have at least one Team");
-      }else{
-      var tabler = document.getElementById("TR"+TableRows);
-      tabler.remove();
-      TableRows--;
-      }
-    }
-    /*
-    function TableDataGather(){
-      //Gathers the table data into a single Array
-      var Teams = "";
-      for (let i = 1; i <= TableRows; i++) {
-        Teams += "N:"+document.getElementById("TR"+i+"N").value;
-        Teams += "W1:"+document.getElementById('TR'+i+'W').value;
-      }
-    }
-    */
-  </script>
 </head>
 <body>
   <div class="form-data">
     <h1>New Work Item</h1>
     <h5>Enter the details for the new Work Item</h5>
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
-        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required> <br>
-        <input type="date" th:field="*{StartDate}" placeholder="Start Date" required> <input type="date" th:field="*{EndDate}" placeholder="End Date" required> <br>
-        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked> <br>
-        <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType"> <br>
-        <table>
-          <tr><th>Team Name</th><th>Weight</th></tr>
-          <tr id="TR1"><td><input id="TR1N" type="text" placeholder="Team Name" required></td><td><input id="TR1W" type="text" placeholder="Weight" required></td></tr>
-        </table></br>
-        <button onclick="AddTeam()">Add Team</button><button onclick="DeleteTeam()">Delete Team</button> <br>
-        <textarea cols="50" rows="5" th:feild="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea> <br>
+        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
+        <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
+        <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked>
+        <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType">
+        <table id="InputTable" onchange="createTeamString()">
+          <tr id="Row0"><th>Team Name</th><th>Week 1</th></tr>
+          <tr id="Row1"><td><input type='text' id="cell1:0"></td><td><input type='number' id="cell1:1"></td></tr>
+        </table>
+        <hidden id="TBstring" th:feild="*{Teams}"></hidden>
+        <button type="button" onclick="AddTeam()">Add Team</button> <button type="button" onclick="DeleteTeam()">Delete Team</button>
+        <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="New Work Item">
     </form>
   </div>
+<script>
+  document.getElementById('startDate').valueAsDate = new Date();
+  document.getElementById('endDate').valueAsDate = new Date();
+</script>
 </body>
 </html>
