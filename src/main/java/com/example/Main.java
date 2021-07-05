@@ -185,7 +185,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, isPermanent varchar(10))");
+          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(300), role varchar(20),StartDate DATE,EndDate DATE, isPermanent varchar(10))");
 
       String sql = "INSERT INTO Employees (name,team,role,StartDate,EndDate,isPermanent) VALUES ('" + pos.getName()
           + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','" + pos.getEndDate()

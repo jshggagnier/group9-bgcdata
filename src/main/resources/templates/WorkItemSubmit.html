@@ -6,18 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
   <title>Square Database</title>
+  <script th:inline="javascript" th:object="${WorkItem}">
+    var TableRows = 1;
+    function AddTeam(){
+      TableRows++;
+      var tabler = document.getElementById("TR"+(TableRows-1));
+      var Rows = '<td><input id="TR'+TableRows+'W" type="text" placeholder="Weight" required></td>';
+      tabler.insertAdjacentHTML("afterend",'<tr id="TR'+TableRows+'"><td><input id="TR'+TableRows+'N" type="text" placeholder="Team Name" required></td>'+Rows+'</tr>');
+    }
+    function DeleteTeam(){
+      if(TableRows == 1){
+        alert("Must have at least one Team");
+      }else{
+      var tabler = document.getElementById("TR"+TableRows);
+      tabler.remove();
+      TableRows--;
+      }
+    }
+    function TableDataGather(){
+      //Gathers the table data into a single Array
+      var Teams = "";
+      for (let i = 1; i <= TableRows; i++) {
+        Teams += "N:"+document.getElementById("TR"+i+"N").value;
+        Teams += "W1:" = document.getElementById('TR'+i+'W').value;
+      }
+      //[("*{WorkItem.TeamsAssigned}")] = Teams;
+    }
+  </script>
 </head>
 <body>
   <div class="form-data">
     <h1>New Work Item</h1>
     <h5>Enter the details for the new Work Item</h5>
-    <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
+    <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}" onsubmit="TableDataGather()">
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required> <br>
         <input type="date" th:field="*{StartDate}" placeholder="Start Date" required> <input type="date" th:field="*{EndDate}" placeholder="End Date" required> <br>
-        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType"> <br>
+        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked> <br>
         <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType"> <br>
-        <input type="text" placeholder="Teams Assigned" required> <br>
-        <input type="text" th:field="*{FundingInformation}" placeholder="Funding Information" required> <br>
+        <table id="TeamTable">
+          <tr><th>Team Name</th><th>Weight</th></tr>
+          <tr id="TR1"><td><input id="TR1N" type="text" placeholder="Team Name" required></td><td><input id="TR1W" type="text" placeholder="Weight" required></td></tr>
+        </table></br>
+        <button onclick="AddTeam()">Add Team</button><button onclick="DeleteTeam()">Delete Team</button> <br>
+        <textarea cols="50" rows="5" th:feild="*{FundingInformation}" name="FundingInformaiton" placeholder="Funding Information" required></textarea> <br>
         <input type="submit" value="New Work Item">
     </form>
   </div>
