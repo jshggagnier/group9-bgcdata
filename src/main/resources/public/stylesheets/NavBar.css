@@ -9,6 +9,7 @@
     padding: 0px;
     width: 100%;
     height:auto;
+    overflow: auto;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -17,6 +18,7 @@
     padding: 16px;
     font-size: 16px;
     border: none;
+    float: right;
   }
 
 
@@ -26,8 +28,10 @@
     text-align: right;
     position: relative;
     right: 0px;
-    display: inline-block;
+    display: block;
     color: #603f83ff;
+    float: right;
+    margin: 4px;
   }
   
   /* Dropdown Content (Hidden by Default) */
