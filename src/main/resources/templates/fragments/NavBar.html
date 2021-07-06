@@ -6,20 +6,22 @@
     <div class="dropdown">
       <button class="dropbtn">Submit</button>
       <div class="dropdown-content">
-        <a th:href="@{/WorkItemSubmit}">Work Items</a>
-        <a th:href="@{/PositionSubmit}">Position</a>
+        <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
+        <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
       </div>
     </div>
     <div class="dropdown">
           <button class="dropbtn">View/Edit</button>
         <div class="dropdown-content">
-          <a th:href="@{/viewWorkItems}">Work Items</a>
-          <a th:href="@{/viewPositions}">Positions</a>
+          <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
+          <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
         </div>
     </div>
     <div class="dropdown">
       <button class="dropbtn">View Graphs</button>
-      <div class="dropdown-content">Not Available on this Release</div>
+      <div class="dropdown-content">
+        <a style="width: 95.312px;">W.I.P</a>
+      </div>
     </div>
     <div class="dropdown">
         <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a>
