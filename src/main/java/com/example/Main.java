@@ -38,6 +38,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.function.Function;
 
 //auth0 login imports
 import org.springframework.context.annotation.Configuration;
@@ -64,9 +65,7 @@ public class Main {
 
   @RequestMapping("/")
   String index(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    if (principal != null) {
-      model.put("profile", principal.getClaims());
-    }
+    GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname
@@ -79,21 +78,24 @@ public class Main {
   }
 
   @GetMapping("/WorkItemSubmit")
-  String LoadFormWorkItem(Map<String, Object> model) {
+  String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+    GetuserAuthenticationData(model,principal);
     WorkItem workitem = new WorkItem();
     model.put("WorkItem", workitem);
     return "WorkItemSubmit";
   }
 
   @GetMapping("/PositionSubmit")
-  String LoadFormPosition(Map<String, Object> model) {
+  String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+    GetuserAuthenticationData(model,principal);
     Position position = new Position();
     model.put("Position", position);
     return "PositionSubmit";
   }
 
   @GetMapping("/viewPositions")
-  String viewPositions(Map<String, Object> model) {
+  String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+    GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
@@ -121,7 +123,8 @@ public class Main {
   }
 
   @GetMapping("/viewWorkItems")
-  String viewWorkItems(Map<String, Object> model) {
+  String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+    GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
@@ -229,4 +232,42 @@ public class Main {
     }
   }
 
+
+  public void GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
+  {
+    String defaultrole = "user";
+    if (principal != null) 
+    {
+      model.put("profile", principal.getClaims());
+      String email = (String) principal.getClaims().get("email");
+      System.out.println(email);
+      try (Connection connection = dataSource.getConnection()) 
+      {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (email varchar(50),role varchar(10));");
+        ResultSet rs = stmt.executeQuery(("SELECT * FROM users WHERE email='"+email+"'"));
+        if(rs.next())
+        {
+          model.put("userRole",rs.getString("role"));
+        }
+        else
+        {
+          if(email.equals("testuser@redfoxtech.ca")) {defaultrole = "admin";}
+          System.out.println(defaultrole);
+          stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('"+email+"','"+defaultrole+"');");
+          model.put("userRole","user");
+        }
+      } 
+      catch (Exception e) 
+      {
+        model.put("message", e.getMessage());
+        System.out.println(e);
+      }
+    }
+    else
+    {
+      model.put("userRole","Not Logged In");
+    }
+    //Database calls for the role in question
+  }
 }
