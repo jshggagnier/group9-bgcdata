@@ -79,7 +79,12 @@ public class Main {
 
   @GetMapping("/WorkItemSubmit")
   String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model,principal);
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("user")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
     WorkItem workitem = new WorkItem();
     model.put("WorkItem", workitem);
     return "WorkItemSubmit";
@@ -87,7 +92,12 @@ public class Main {
 
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model,principal);
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("user")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
     Position position = new Position();
     model.put("Position", position);
     return "PositionSubmit";
@@ -95,7 +105,7 @@ public class Main {
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model,principal);
+    String Role = GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
@@ -233,7 +243,7 @@ public class Main {
   }
 
 
-  public void GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
+  public String GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
   {
     String defaultrole = "user";
     if (principal != null) 
@@ -249,6 +259,7 @@ public class Main {
         if(rs.next())
         {
           model.put("userRole",rs.getString("role"));
+          return rs.getString("role");
         }
         else
         {
@@ -256,17 +267,20 @@ public class Main {
           System.out.println(defaultrole);
           stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('"+email+"','"+defaultrole+"');");
           model.put("userRole","user");
+          return defaultrole;
         }
       } 
       catch (Exception e) 
       {
         model.put("message", e.getMessage());
         System.out.println(e);
+        return "error";
       }
     }
     else
     {
       model.put("userRole","Not Logged In");
+      return "Not Logged In";
     }
     //Database calls for the role in question
   }
