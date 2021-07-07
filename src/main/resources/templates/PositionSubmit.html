@@ -86,12 +86,16 @@
       function yesnoCheck() {
           if (document.getElementById('yesCheck').checked) {
               document.getElementById('ed').style.display="none";
+              document.getElementById('ed').required = false;
           }
           else if(document.getElementById('noCheck').checked)
           {
             document.getElementById('ed').style.display="block";
+            document.getElementById('ed').required = true;
           }
         }
+      document.getElementById('sd').valueAsDate = new Date();
+      document.getElementById('ed').valueAsDate = new Date();
     </script>
   </body>
 </html>
