@@ -19,6 +19,7 @@
     <div>Your User info:</div>
     <img th:src="${profile.get('picture')}"/>
     <div th:text="${profile.get('name')}"></div>
+    <div th:text="${userRole}"></div>
     <p th:text="${profile.get('email')}"></p>
   </div>
   <br>
