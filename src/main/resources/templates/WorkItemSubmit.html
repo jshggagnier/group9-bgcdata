@@ -24,7 +24,7 @@
           <tr id="Row0"><th>Team Name</th><th>Week 1</th></tr>
           <tr id="Row1"><td><input type='text' id="cell1:0"></td><td><input type='number' id="cell1:1"></td></tr>
         </table>
-        <input type="hidden" id="TBstring" th:feild="*{TeamsAssigned}"></input>
+        <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button> <button type="button" class="inside_btn" onclick="DeleteTeam()">Delete Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="New Work Item">
