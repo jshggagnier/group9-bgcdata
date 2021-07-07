@@ -16,14 +16,16 @@
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <div>
         <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked>
         <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType">
+        </div>
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Team Name</th><th>Week 1</th></tr>
           <tr id="Row1"><td><input type='text' id="cell1:0"></td><td><input type='number' id="cell1:1"></td></tr>
         </table>
         <input type="hidden" id="TBstring" th:feild="*{TeamsAssigned}"></input>
-        <button type="button" onclick="AddTeam()">Add Team</button> <button type="button" onclick="DeleteTeam()">Delete Team</button>
+        <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button> <button type="button" class="inside_btn" onclick="DeleteTeam()">Delete Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="New Work Item">
     </form>
