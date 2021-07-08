@@ -1,8 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap");
+
 body {
   background-color: #603f83ff;
   color: lavenderblush;
-  }
-table,td,th{
-  border: 2px solid;
+}
+
+h1 {
+  font-family: "Otomanopee One", sans-serif;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 600px;
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+
+input[type="submit"] {
+  width: 10vw;
+  height: 5vh;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background-color: lavenderblush;
+  color: #603f83ff;
+}
+
+input[type="submit"]:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+  cursor: pointer;
+}
+
+table {
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+  background-color: rgba(255, 240, 245, 0.8);
+}
+
+button {
+  margin: auto;
+  display: block;
+  margin-top: 3vh;
+  height: 8vh;
+  width: 18vh;
+  font-weight: 700;
+  border-radius: 20px;
+  background-color: lavenderblush;
+  color: #603f83ff;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+  cursor: pointer;
+}
+
+table,
+td,
+th {
+  border: 2px solid #3c1053ff;
   border-collapse: collapse;
+}
+
+td,
+th {
+  width: 10vw;
+  height: 5vh;
+  color: #603f83ff;
+  font-size: 1rem;
+  font-weight: 900;
 }
