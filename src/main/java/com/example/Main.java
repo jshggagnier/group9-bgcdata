@@ -181,6 +181,7 @@ public class Main {
         obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getInt("id"));
 
         dataList.add(obj);
       }

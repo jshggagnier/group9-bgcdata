@@ -5,12 +5,21 @@ import java.lang.Integer;
 import java.util.ArrayList;
 
 public class WorkItem {
+    private Integer Id;
     private String ItemName;
     private String StartDate;
     private String EndDate;
     private String TeamsAssigned;
     private String ItemType;
     private String FundingInformation;
+
+    public Integer getId() {
+        return this.Id;
+    }
+
+    public void setId(Integer Id) {
+        this.Id = Id;
+    }
 
     public String getItemName() {
         return this.ItemName;

@@ -35,7 +35,7 @@
         <td style="padding-right: 100px" th:text="${n.TeamsAssigned}"></td>
         <td style="padding-right: 20px" th:text="${n.FundingInformation}"></td>
         <td>
-          <form th:action="@{/editdata/{id}(id=${n.ItemName})}">
+          <form th:action="@{/editdata/{id}(id=${n.Id})}">
             <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
           </form>
         </td>
