@@ -2,7 +2,46 @@ body {
   background-color: #603f83ff;
   color: lavenderblush;
   }
-table,td,th{
-  border: 2px solid;
+
+
+table,td,th {
   border-collapse: collapse;
+  padding: 10px;
+  margin: 0 auto;
+
+}
+
+table {
+  background-color:#ffffff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  overflow: scroll;
+  max-height: 600px;
+}
+
+td {
+  border-bottom: 2px solid ghostwhite;
+}
+
+tr:hover {
+  background-color:#bdb4e0;
+}
+
+.db-container {
+  margin: 0 auto;
+  margin-top: 3%;
+  text-align: center;
+  font-family: 'Lato';
+}
+
+.header-name {
+  background-color: #2f3c9e;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  font-weight: 2000;
+  font-size: medium;
+}
+
+.table-header {
+  border: none;
 }
