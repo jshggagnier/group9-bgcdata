@@ -5,12 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" th:action="@{/viewDetails}" href="stylesheets/PositionSubmit.css">
+  <link rel="stylesheet" href="styles.css" />
   <title>Square Database</title>
 </head>
 
 <body>
    <h1>New Position Form</h1>
-    <h5>Enter the details for the new position</h5>
+    <h4>Enter the details for the new position</h4>
     <div class="form-data">
       <form
         action="#"
@@ -18,7 +19,7 @@
         th:action="@{/PositionSubmit}"
         th:object="${Position}"
       >
-        Name
+        Name<sup>*</sup>
         <input
           type="text"
           id="name"
@@ -26,7 +27,7 @@
           placeholder="Name of the Employee"
           required
         /><br />
-        Team
+        Team<sup>*</sup>
         <input
           type="text"
           id="width"
@@ -34,7 +35,7 @@
           placeholder="Name of the Team"
           required
         /><br />
-        Title
+        Title<sup>*</sup>
         <input
           type="text"
           id="height"
@@ -42,7 +43,7 @@
           placeholder="Title of the position"
           required
         /><br />
-        Starting Date
+        Starting Date<sup>*</sup>
         <input
           type="date"
           id="sd"
@@ -60,7 +61,7 @@
         />
          </input>
          <br/>
-         <label for="checkbox"> This is a Permanent Position</label>
+         <label for="checkbox">Is this a permanent position? <sup>*</sup></label>
         <input type="radio"
             name="negative"
             th:field="*{isPermanent}"
