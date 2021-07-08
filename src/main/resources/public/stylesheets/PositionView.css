@@ -41,7 +41,7 @@ table {
   background-color: rgba(255, 240, 245, 0.8);
 }
 
-button {
+.goback {
   margin: auto;
   display: block;
   margin-top: 3vh;
@@ -54,7 +54,7 @@ button {
   font-size: 0.9rem;
 }
 
-button:hover {
+.goback:hover {
   background-color: #3c1053ff;
   border: 2px solid lavenderblush;
   color: lavenderblush;
