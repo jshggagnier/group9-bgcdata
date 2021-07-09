@@ -5,8 +5,9 @@ public class Position
     public String StartDate;
     public String Team;
     public String Role;
+    public boolean isCoop;
+    public boolean hasEndDate;
     public boolean isFilled;
-    public boolean isPermanent;
     public String EndDate;
 
     public String getName() {
@@ -41,28 +42,40 @@ public class Position
         this.Role = Role;
     }
 
-    public boolean isIsFilled() {
+    public boolean isisCoop() {
+        return this.isCoop;
+    }
+
+    public boolean getisCoop() {
+        return this.isCoop;
+    }
+
+    public void setisCoop(boolean isCoop) {
+        this.isCoop = isCoop;
+    }
+
+    public boolean isisFilled() {
         return this.isFilled;
     }
 
-    public boolean getIsFilled() {
+    public boolean getisFilled() {
         return this.isFilled;
     }
 
-    public void setIsFilled(boolean isFilled) {
+    public void setisFilled(boolean isFilled) {
         this.isFilled = isFilled;
     }
 
-    public boolean isIsPermanent() {
-        return this.isPermanent;
+    public boolean ishasEndDate() {
+        return this.hasEndDate;
     }
 
-    public boolean getIsPermanent() {
-        return this.isPermanent;
+    public boolean gethasEndDate() {
+        return this.hasEndDate;
     }
 
-    public void setIsPermanent(boolean isPermanent) {
-        this.isPermanent = isPermanent;
+    public void sethasEndDate(boolean hasEndDate) {
+        this.hasEndDate = hasEndDate;
     }
 
     public String getEndDate() {

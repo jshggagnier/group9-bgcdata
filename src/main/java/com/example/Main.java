@@ -118,7 +118,9 @@ public class Main {
         obj.setRole(rs.getString("role"));
         obj.setStartDate(rs.getString("StartDate"));
         obj.setEndDate(rs.getString("EndDate"));
-        obj.setIsPermanent(rs.getBoolean("isPermanent"));
+        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+        obj.setisCoop(rs.getBoolean("isCoop"));
+        obj.setisFilled(rs.getBoolean("isFilled"));
 
         dataList.add(obj);
         System.out.println(obj.Name);
@@ -200,11 +202,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, isPermanent varchar(10))");
+          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
 
-      String sql = "INSERT INTO Employees (name,team,role,StartDate,EndDate,isPermanent) VALUES ('" + pos.getName()
+      String sql = "INSERT INTO Employees (name,team,role,StartDate,EndDate,hasEndDate,isCoop,isFilled) VALUES ('" + pos.getName()
           + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','" + pos.getEndDate()
-          + "','" + pos.getIsPermanent() + "')";
+          + "','" + pos.gethasEndDate() + "','" + pos.getisCoop() + "','" + pos.getisFilled() + "')";
 
       stmt.executeUpdate(sql);
 
@@ -218,7 +220,9 @@ public class Main {
         obj.setRole(rs.getString("role"));
         obj.setStartDate(rs.getString("StartDate"));
         obj.setEndDate(rs.getString("EndDate"));
-        obj.setIsPermanent(rs.getBoolean("isPermanent"));
+        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+        obj.setisCoop(rs.getBoolean("isCoop"));
+        obj.setisFilled(rs.getBoolean("isFilled"));
 
         dataList.add(obj);
         System.out.println(obj.Name);

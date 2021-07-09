@@ -1,102 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}">
+
+</html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:action="@{/viewDetails}" href="stylesheets/PositionSubmit.css">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" th:action="@{/viewDetails}" href="/stylesheets/PositionSubmit.css">
   <title>Square Database</title>
 </head>
 
 <body>
-   <h1>New Position Form</h1>
-    <h4>Enter the details for the new position</h4>
-    <div class="form-data">
-      <form
-        action="#"
-        method="post"
-        th:action="@{/PositionSubmit}"
-        th:object="${Position}"
-      >
-        Name<sup>*</sup>
-        <input
-          type="text"
-          id="name"
-          th:field="*{Name}"
-          placeholder="Name of the Employee"
-          required
-        /><br />
-        Team<sup>*</sup>
-        <input
-          type="text"
-          id="width"
-          th:field="*{Team}"
-          placeholder="Name of the Team"
-          required
-        /><br />
-        Title<sup>*</sup>
-        <input
-          type="text"
-          id="height"
-          th:field="*{Role}"
-          placeholder="Title of the position"
-          required
-        /><br />
-        Starting Date<sup>*</sup>
-        <input
-          type="date"
-          id="sd"
-          th:field="*{StartDate}"
-          placeholder="Starting Date"
-          required
-        /><br />
-        Ending Date (If Applicable)
-        <input
-          type="date"
-          id="ed"
-          th:field="*{EndDate}"
-          placeholder="Ending Date (If Applicable) "
-          required
-        />
-         </input>
-         <br/>
-         <label for="checkbox">Is this a permanent position? <sup>*</sup></label>
-        <input type="radio"
-            name="negative"
-            th:field="*{isPermanent}"
-            id="noCheck"
-            onclick="javascript:yesnoCheck();"
-            value="no"
-       >No
-        </input>
-        <input type="radio"
-          name="affirmative"
-          id="yesCheck"
-          onclick="javascript:yesnoCheck();"
-          th:field="*{isPermanent}"
-          value="yes"
-          checked="false"
-       >Yes
+  <h1>New Position Form</h1>
+  <h4>Enter the details for the new position</h4>
+  <div class="form-data">
+    <form action="#" method="post" th:action="@{/PositionSubmit}" th:object="${Position}">
+      <div>Name<sup>*</sup></div>
+      <input type="text" id="Name" th:field="*{Name}" placeholder="Name of the Resource" required />
+      <div>Team<sup>*</sup></div>
+      <input type="text" id="Team" th:field="*{Team}" placeholder="Name of the Team" required />
+      <div>Role<sup>*</sup></div>
+      <input type="text" id="Role" th:field="*{Role}" placeholder="Role of the position" required />
+      <div>Starting Date<sup>*</sup></div>
+      <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" required />
+      <div id="endDateLabel">Ending Date (If Applicable)</div>
+      <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable) " required />
       </input>
-        <input type="submit" value="Submit Data" />
-         <input type="reset" value="Reset">
-      </form>
-    </div>
-    <script type="text/javascript">
-      function yesnoCheck() {
-          if (document.getElementById('yesCheck').checked) {
-              document.getElementById('ed').style.display="none";
-              document.getElementById('ed').required = false;
-          }
-          else if(document.getElementById('noCheck').checked)
-          {
-            document.getElementById('ed').style.display="block";
-            document.getElementById('ed').required = true;
-          }
-        }
+      <br />
+      <label for="checkbox">Does this Position have an End Date?<sup>*</sup></label>
+      <input type="radio" name="negative" th:field="*{hasEndDate}" id="noCheck" onclick="javascript:yesnoCheck();"
+        value="no">No
+      </input>
+      <input type="radio" name="affirmative" id="yesCheck" onclick="javascript:yesnoCheck();" th:field="*{hasEndDate}"
+        value="yes" checked="false">Yes
+      </input>
+      <div>Is This position Coop? <input type="checkbox" th:field="*{isCoop}"></div>
+      <div>Is This position Currently Filled? <input type="checkbox" th:field="*{isFilled}"></div>
+      <input type="submit" value="Submit Data" />
+      <input class="reset" type="button" onclick="resetform()" value="Reset">
+    </form>
+  </div>
+  <script type="text/javascript">
+    function yesnoCheck() {
+      if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ed').style.display = "block";
+        document.getElementById("endDateLabel").hidden = false;
+        document.getElementById('ed').required = true;
+      }
+      else if (document.getElementById('noCheck').checked) {
+        document.getElementById('ed').style.display = "none";
+        document.getElementById("endDateLabel").hidden = true;
+        document.getElementById('ed').required = false;
+      }
+    }
+    function resetform()
+    {
+      document.getElementById('Name').value = "";
+      document.getElementById('Team').value = "";
+      document.getElementById('Role').value = "";
+      console.log(new Date());
       document.getElementById('sd').valueAsDate = new Date();
       document.getElementById('ed').valueAsDate = new Date();
-    </script>
-  </body>
+    }
+    resetform();
+    yesnoCheck();
+  </script>
+</body>
+
 </html>

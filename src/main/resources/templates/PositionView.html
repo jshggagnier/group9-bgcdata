@@ -14,20 +14,27 @@
       <h1>Database Output</h1>
       <table class="styled-table" >
         <tr class="heading">
-          <th>Name</th>
+          <th>Resource</th>
           <th>Team</th>
           <th>Position</th>
           <th>Start Date</th>
           <th>End Date</th>
-          <th>Permanent Position</th>
+          <th>Has End Date</th>
+          <th>Is Coop</th>
+          <th>Is Filled</th>
 
           <tr th:each="n:${Positions}">
           <td th:text="${n.name}"></td>
           <td th:text="${n.team}"></td>
           <td th:text="${n.role}"></td>
           <td th:text="${n.StartDate}"></td>
-          <td th:text="${n.EndDate}"></td>
-          <td th:text="${n.isPermanent}"></td>
+          <th:block th:switch="${n.hasEndDate}">
+            <td th:case="true" th:text="${n.EndDate}"></td>
+            <td th:case="false">No End Date</td>
+          </th:block>
+          <td th:text="${n.hasEndDate}"></td>
+          <td th:text="${n.isCoop}"></td>
+          <td th:text="${n.isFilled}"></td>
           <td>
             <form th:action="@{/editdata/{id}(id=${n.name})}">
               <input type="submit" value="Edit" />

@@ -83,7 +83,7 @@ select {
   box-sizing: border-box;
 } */
 
-input[type="reset"] {
+.reset {
   width: 100%;
   background-color: #603f83ff;
   color: lavenderblush;
