@@ -25,7 +25,7 @@
           <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
-        <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button> <button type="button" class="inside_btn" onclick="DeleteTeam()">Delete Team</button>
+        <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="New Work Item">
     </form>
