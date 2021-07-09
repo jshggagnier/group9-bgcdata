@@ -35,18 +35,29 @@ function UpdateTable(){
     var currentcellpntr;
     for(var RowCounter = 0;RowCounter < TableRows;RowCounter++)
     {
+        
         currentrowpntr = document.getElementById("Row"+RowCounter);
         cellcounter = currentrowpntr.cells.length;
+        if(RowCounter == 0){
+            var temp = cellcounter-1;
+            while(temp > 0){currentrowpntr.deleteCell(temp);temp--}
+            cellcounter = 1;
+        }
         while (cellcounter != (weeks+1))
         {
             console.log(cellcounter + "/" + weeks);
             if (cellcounter < (weeks+1)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
-                if(RowCounter == 0){currentcellpntr.innerHTML = "Week " + cellcounter;}
+                if(RowCounter == 0)
+                {
+                    var Cheese = new Date(StartDate.getTime() + ((cellcounter-1)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
+                    //maybe concatenate calculation here
+                    currentcellpntr.innerHTML = Cheese.toString().substring(0,15);
+                }
                 else
                 {
-                    if (cellcounter == 0) {currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"'>";}
-                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'>";}
+                    if (cellcounter == 0) {currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"'><br><button type='button' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";}
+                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0'>";}
                 }
             }
             else if (cellcounter > (weeks+1)) {
@@ -76,4 +87,22 @@ function createTeamString(){
     }
     console.log(TableString);
     document.getElementById("TBstring").value = TableString;
+}
+
+function deleterow(row)
+{
+    var table = document.getElementById("InputTable");
+    var TableRows = (table.rows.length-1);
+    var target;
+    if(TableRows == 1){alert("Must have at least one Team");}
+    else
+    {
+        table.deleteRow(row);
+        while (row < TableRows)
+        {
+            target = document.getElementById("Row"+(row+1));
+            target.id = "Row"+row;
+            row++;
+        }
+    }
 }
