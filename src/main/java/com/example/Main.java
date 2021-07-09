@@ -271,7 +271,7 @@ public class Main {
           if(email.equals("testuser@redfoxtech.ca")) {defaultrole = "admin";}
           System.out.println(defaultrole);
           stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('"+email+"','"+defaultrole+"');");
-          model.put("userRole","user");
+          model.put("userRole",defaultrole);
           return defaultrole;
         }
       } 

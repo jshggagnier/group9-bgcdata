@@ -35,11 +35,13 @@
           <td th:text="${n.hasEndDate}"></td>
           <td th:text="${n.isCoop}"></td>
           <td th:text="${n.isFilled}"></td>
-          <td>
-            <form th:action="@{/editdata/{id}(id=${n.name})}">
-              <input type="submit" value="Edit" />
-            </form>
-          </td>
+            <th:block th:switch="${userRole}">
+              <td th:case="admin">
+              <form th:action="@{/editdata/{id}(id=${n.name})}">
+                <input type="submit" value="Edit" />
+              </form>
+              </td>
+            </th:block>
           </tr>
       </table>
       <button class="goback" onclick="window.history.back();">Go Back</button>

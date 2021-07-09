@@ -3,21 +3,31 @@
 
   <div class="TopBar">
     BGC Data Analysis Tool
-    <div class="dropdown">
-      <button class="dropbtn">Submit</button>
-      <div class="dropdown-content">
-        <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
-        <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
+    <th:block th:switch="${userRole}">
+      <div th:case="admin" class="dropdown">
+        <button class="dropbtn">Submit</button>
+        <div class="dropdown-content">
+          <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
+          <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
+        </div>
       </div>
-    </div>
-    <div class="dropdown">
+    </th:block>
+    <th:block th:switch="${userRole}">
+    <div th:case="admin" class="dropdown">
           <button class="dropbtn">View/Edit</button>
         <div class="dropdown-content">
           <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
           <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
         </div>
     </div>
-    <div class="dropdown">
+    <div th:case="user" class="dropdown">
+      <button style="width:102px" class="dropbtn">View</button>
+    <div class="dropdown-content">
+      <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
+      <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
+    </div>
+</div>
+    <div th:unless="${userRole == 'Not Logged In'}" class="dropdown">
       <button class="dropbtn">View Graphs</button>
       <div class="dropdown-content">
         <a style="width: 95.312px;">W.I.P</a>
