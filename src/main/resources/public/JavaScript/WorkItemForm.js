@@ -27,6 +27,10 @@ function UpdateTable(){
     var table = document.getElementById("InputTable");
     var StartDate = document.getElementById("startDate").valueAsDate;
     var EndDate = document.getElementById("endDate").valueAsDate;
+    if(EndDate < StartDate) 
+    {
+        document.getElementById("endDate").valueAsDate = StartDate;
+    }
     var weeks = weeksBetween(StartDate,EndDate);
     if(weeks < 1) {weeks = 1;}
     var TableRows = (table.rows.length);
