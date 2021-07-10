@@ -23,9 +23,9 @@
       <div>Role<sup>*</sup></div>
       <input type="text" id="Role" th:field="*{Role}" placeholder="Role of the position" required />
       <div>Starting Date<sup>*</sup></div>
-      <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" required />
+      <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" onchange="InvalidDateCheck()" required />
       <div id="endDateLabel">Ending Date (If Applicable)</div>
-      <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable) " required />
+      <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable)" onchange="InvalidDateCheck()" required />
       </input>
       <br />
       <label for="checkbox">Does this Position have an End Date?<sup>*</sup></label>
@@ -62,6 +62,15 @@
       console.log(new Date());
       document.getElementById('sd').valueAsDate = new Date();
       document.getElementById('ed').valueAsDate = new Date();
+    }
+    function InvalidDateCheck()
+    {
+      var StartDate = document.getElementById("sd").valueAsDate;
+      var EndDate = document.getElementById("ed").valueAsDate;
+    if(EndDate < StartDate) 
+    {
+        document.getElementById("ed").valueAsDate = StartDate;
+    }
     }
     resetform();
     yesnoCheck();
