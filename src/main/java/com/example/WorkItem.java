@@ -2,7 +2,6 @@ package com.example;
 
 import java.lang.String;
 import java.lang.Integer;
-import java.util.ArrayList;
 
 public class WorkItem {
     private Integer Id;
@@ -68,26 +67,4 @@ public class WorkItem {
     public void setFundingInformation(String FundingInformation) {
         this.FundingInformation = FundingInformation;
     }
-
-    private class Team {
-        private String teamname;
-        private ArrayList<Integer> Weights;
-
-        public String getteamname() {
-            return this.teamname;
-        }
-
-        public void setteamname(String teamname) {
-            this.teamname = teamname;
-        }
-
-        public ArrayList<Integer> getWeights() {
-            return this.Weights;
-        }
-
-        public void setWeights(ArrayList<Integer> Weights) {
-            this.Weights = Weights;
-        }
-    }
-
 }

@@ -26,7 +26,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jdk.jfr.Registered;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
@@ -38,7 +37,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.function.Function;
 
 //auth0 login imports
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +44,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -67,7 +65,7 @@ public class Main {
   String index(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
+      // Statement stmt = connection.createStatement();
       // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS squares (id serial, boxname
       // varchar(20), height int, width int, boxcolor char(7), outlined boolean)");
       return "index";
@@ -105,7 +103,7 @@ public class Main {
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    String Role = GetuserAuthenticationData(model,principal);
+    GetuserAuthenticationData(model,principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
