@@ -110,7 +110,7 @@ public class Main {
         workitem.setId(rs.getString("id"));
       }
     model.put("WorkItem", workitem);
-    return "WorkItemSubmit";
+    return "WorkItemEdit";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";

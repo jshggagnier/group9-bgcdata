@@ -10,8 +10,8 @@
 </head>
 <body>
   <div class="form-data">
-    <h1>New Work Item</h1>
-    <h5>Enter the details for the new Work Item</h5>
+    <h1>Edit Work Item</h1>
+    <h5>Make the changes to the Work Item</h5>
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
@@ -25,9 +25,10 @@
           <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
+        <input type="hidden" th:field="*{Id}"></input>
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
-        <input type="submit" value="New Work Item">
+        <input type="submit" value="Update Work Item">
     </form>
   </div>
 <script>
