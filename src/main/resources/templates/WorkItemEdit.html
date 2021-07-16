@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
+  <script src="JavaScript/WorkItemForm.js"></script>
+  <title>Square Database</title>
+</head>
+<body>
+  <div class="form-data">
+    <h1>New Work Item</h1>
+    <h5>Enter the details for the new Work Item</h5>
+    <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
+        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
+        <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
+        <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <div>
+        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked>
+        <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType">
+        </div>
+        <table id="InputTable" onchange="createTeamString()">
+          <tr id="Row0"><th>Resource Name</th></tr>
+          <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
+        </table>
+        <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
+        <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
+        <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
+        <input type="submit" value="New Work Item">
+    </form>
+  </div>
+<script>
+  document.getElementById('startDate').valueAsDate = new Date();
+  document.getElementById('endDate').valueAsDate = new Date();
+  UpdateTable();
+</script>
+</body>
+</html>

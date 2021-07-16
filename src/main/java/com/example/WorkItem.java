@@ -4,7 +4,7 @@ import java.lang.String;
 import java.lang.Integer;
 
 public class WorkItem {
-    private Integer Id;
+    private String Id;
     private String ItemName;
     private String StartDate;
     private String EndDate;
@@ -12,11 +12,11 @@ public class WorkItem {
     private String ItemType;
     private String FundingInformation;
 
-    public Integer getId() {
+    public String getId() {
         return this.Id;
     }
 
-    public void setId(Integer Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 

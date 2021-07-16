@@ -88,6 +88,35 @@ public class Main {
     return "WorkItemSubmit";
   }
 
+  @GetMapping("/WorkItemEdit/{nid}")
+  String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal, @PathVariable String nid) {
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("user")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = "+nid));
+       WorkItem workitem = new WorkItem();
+      while (rs.next()) {
+        workitem.setItemName(rs.getString("itemname"));
+        workitem.setStartDate(rs.getString("startdate"));
+        workitem.setEndDate(rs.getString("enddate"));
+        workitem.setItemType(rs.getString("itemtype"));
+        workitem.setTeamsAssigned(rs.getString("teams"));
+        workitem.setFundingInformation(rs.getString("fundinginformation"));
+        workitem.setId(rs.getString("id"));
+      }
+    model.put("WorkItem", workitem);
+    return "WorkItemSubmit";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
@@ -148,6 +177,7 @@ public class Main {
         obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getString("id"));
 
         dataList.add(obj);
       }
@@ -181,7 +211,39 @@ public class Main {
         obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
-        obj.setId(rs.getInt("id"));
+        obj.setId(rs.getString("id"));
+
+        dataList.add(obj);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Update
+  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleBrowsernewWorkItemEdit(Map<String, Object> model, WorkItem workitem) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "UPDATE workitems set itemname = '"
+          + workitem.getItemName() + "', startdate = '"+ workitem.getStartDate() + "', enddate = '"+ workitem.getEndDate() 
+          + "', teams = '" + workitem.getTeamsAssigned()+ "', itemtype= '"+ workitem.getItemType() 
+          + "', fundinginformation ='"+workitem.getFundingInformation()+" WHERE id = '"+workitem.getId()+";";
+      stmt.executeUpdate(sql);
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setTeamsAssigned(rs.getString("teams"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getString("id"));
 
         dataList.add(obj);
       }
