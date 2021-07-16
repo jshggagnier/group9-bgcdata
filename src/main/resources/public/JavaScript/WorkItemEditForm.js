@@ -21,6 +21,53 @@ function weeksBetween(StartDate, EndDate) {
     return Math.ceil((EndDate - StartDate) / (7 * 24 * 60 * 60 * 1000));//rounds up the amount of weeks between the two dates (the number is the amount of milliseconds in a week)
 }
 
+function FillTable(){
+var Teams = parseTeamString(document.getElementById("TBstring"));
+var i = 0;
+var TableCells = document.getElementById("Row0").cells.length;
+Teams.forEach(Row => {
+if(i == 0){
+    for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
+    {
+        if(CellCounter == 0){
+            Row[CellCounter] = Row[CellCounter].slice(3);
+        }
+        document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
+    }
+}else{
+    AddTeam();
+        for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
+        {
+            if(CellCounter == 0){
+                Row[CellCounter] = Row[CellCounter].slice(3);
+            }
+            document.getElementById("cell"+(i+1)+":"+CellCounter).value  = Row[CellCounter];
+        }
+}
+i++;
+});
+}
+
+function parseTeamString(team){
+    var i = 0;
+    team = team.split("|");
+    while(i < team.length){
+    team[i] = team[i].split(",");
+    var Team = "";
+    var c = 0;
+    team[i].forEach(t => {
+        if(c == 0){
+            Team += t.slice(3)+" ";
+            c++;
+        }else{
+        Team += t+" ";
+        }
+    });
+    i++;
+}
+return team;
+}
+
 function UpdateTable(){
     console.log("Updating Table");
     var table = document.getElementById("InputTable");
