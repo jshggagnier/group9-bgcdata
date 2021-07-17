@@ -1,7 +1,6 @@
 package com.example;
 
 import java.lang.String;
-import java.lang.Integer;
 
 public class WorkItem {
     private String Id;

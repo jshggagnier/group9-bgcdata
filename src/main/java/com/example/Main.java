@@ -78,7 +78,7 @@ public class Main {
   @GetMapping("/WorkItemSubmit")
   String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("user")) 
+    if ((Role.equals("Unverified") || Role.equals("ViewOnly")))
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -91,7 +91,7 @@ public class Main {
   @GetMapping("/WorkItemEdit/{nid}")
   String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal, @PathVariable String nid) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("user")) 
+    if (Role.equals("Unverified") || Role.equals("ViewOnly")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -120,7 +120,7 @@ public class Main {
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("user")) 
+    if (Role.equals("Unverified") || Role.equals("ViewOnly")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -132,7 +132,12 @@ public class Main {
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model,principal);
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("Unverified")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to View the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
@@ -163,7 +168,12 @@ public class Main {
 
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model,principal);
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("Unverified")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to View the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
@@ -310,7 +320,7 @@ public class Main {
 
   public String GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
   {
-    String defaultrole = "user";
+    String defaultrole = "Unverified";
     if (principal != null) 
     {
       model.put("profile", principal.getClaims());
@@ -328,8 +338,6 @@ public class Main {
         }
         else
         {
-          if(email.equals("testuser@redfoxtech.ca")) {defaultrole = "admin";}
-          System.out.println(defaultrole);
           stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('"+email+"','"+defaultrole+"');");
           model.put("userRole",defaultrole);
           return defaultrole;
