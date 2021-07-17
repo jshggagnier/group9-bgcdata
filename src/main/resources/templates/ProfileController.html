@@ -11,9 +11,9 @@
 <body>
     <table>
     <tr th:each="n:${Users}">
-        <td th:text="${n.email}"></td>
-        <td th:text="${n.role}"></td>
-        <td><button type="button" th:onclick="setup(${n.email},${n.role})">Select User</button></td>
+        <td th:text="${n.Email}"></td>
+        <td th:text="${n.Role}"></td>
+        <td><button type="button" th:onclick="setup(${n.Email},${n.Role})">Select User</button></td>
     </tr>
     </table>
     <Div>Select A User above to Modify Permissions</Div>
@@ -23,8 +23,8 @@
         <div><input type="radio" value="View Only" onchange="modifyfields()" id="ViewOnly"></div>
         <div><input type="radio" value="View/Edit" onchange="modifyfields()" id="ViewEdit"></div>
         <div><input type="radio" value="Administrator" onchange="modifyfields()" id="Administrator"></div>
-        <input type="text" th:field="*{email}">
-        <input type="text" th:field="*{role}">
+        <input type="text" th:field="*{Email}">
+        <input type="text" th:field="*{Role}">
         <input type="submit" value="Update User"/>
     </form>
 </body>

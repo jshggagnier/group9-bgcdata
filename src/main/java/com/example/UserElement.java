@@ -3,21 +3,21 @@ package com.example;
 import java.lang.String;
 
 public class UserElement {
-    public String email;
-    public String role;
-    public String getemail() {
-        return this.email;
+    public String Email;
+    public String Role;
+    public String getEmail() {
+        return this.Email;
     }
 
-    public void setemail(String email) {
-        this.email = email;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
-    public String getrole() {
-        return this.role;
+    public String getRole() {
+        return this.Role;
     }
 
-    public void setrole(String role) {
-        this.role = role;
+    public void setRole(String Role) {
+        this.Role = Role;
     }
 }

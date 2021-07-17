@@ -2,7 +2,7 @@ function setup(email,role)
 {
     document.getElementById("email").value = email;
     if(role.equals("administrator")) {}
-    else if(role.equals("user"))
+    else if(role.equals("user")) {}
 
 }
 

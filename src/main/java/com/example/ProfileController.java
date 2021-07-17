@@ -50,8 +50,8 @@ public class ProfileController {
             
             while (rs.next()) {
                 UserElement obj = new UserElement();
-                obj.setemail(rs.getString("email"));
-                obj.setrole(rs.getString("role"));        
+                obj.setEmail(rs.getString("email"));
+                obj.setRole(rs.getString("role"));        
                 dataList.add(obj);
             }
             model.put("Users", dataList);
@@ -65,7 +65,25 @@ public class ProfileController {
     @PostMapping(path = "/UpdateUser", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
     public String UpdateUser(Map<String, Object> model, UserElement user) throws Exception
     {
-        return "index";
+        try (Connection connection = dataSource.getConnection()) 
+        {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(("SELECT * FROM users"));
+            ArrayList<UserElement> dataList = new ArrayList<UserElement>();
+            
+            while (rs.next()) {
+                UserElement obj = new UserElement();
+                obj.setEmail(rs.getString("email"));
+                obj.setRole(rs.getString("role"));        
+                dataList.add(obj);
+            }
+            model.put("Users", dataList);
+            return "ProfileController";
+        }
+        catch (Exception e)
+        {
+            model.put("message", e.getMessage());
+            return "error";
+        }
     }
-
 }
