@@ -78,7 +78,7 @@ public class Main {
   @GetMapping("/WorkItemSubmit")
   String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if ((Role.equals("Unverified") || Role.equals("ViewOnly")))
+    if ((Role.equals("unverified") || Role.equals("viewonly")))
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -91,7 +91,7 @@ public class Main {
   @GetMapping("/WorkItemEdit/{nid}")
   String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal, @PathVariable String nid) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("Unverified") || Role.equals("ViewOnly")) 
+    if (Role.equals("unverified") || Role.equals("viewonly")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -120,7 +120,7 @@ public class Main {
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("Unverified") || Role.equals("ViewOnly")) 
+    if (Role.equals("unverified") || Role.equals("viewonly")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -133,7 +133,7 @@ public class Main {
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("Unverified")) 
+    if (Role.equals("unverified")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to View the database");
       return "error";
@@ -169,7 +169,7 @@ public class Main {
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("Unverified")) 
+    if (Role.equals("unverified")) 
     {
       model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to View the database");
       return "error";
@@ -316,11 +316,9 @@ public class Main {
       return new HikariDataSource(config);
     }
   }
-
-
   public String GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
   {
-    String defaultrole = "Unverified";
+    String defaultrole = "unverified";
     if (principal != null) 
     {
       model.put("profile", principal.getClaims());

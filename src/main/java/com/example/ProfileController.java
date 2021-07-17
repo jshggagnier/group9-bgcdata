@@ -39,17 +39,18 @@ public class ProfileController {
     @Autowired
     private DataSource dataSource;
     
-    @RequestMapping("/ManageUsers")
-    String ManageUsers(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal)
+    @GetMapping("/ManageUsers")
+    public String ManageUsers(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal)
     {
+        GetuserAuthenticationData(model,principal);
         try (Connection connection = dataSource.getConnection()) 
         {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(("SELECT * FROM users"));
-            ArrayList<UserElement> dataList = new ArrayList<UserElement>();
+            ArrayList<PermissionData> dataList = new ArrayList<PermissionData>();
             
             while (rs.next()) {
-                UserElement obj = new UserElement();
+                PermissionData obj = new PermissionData();
                 obj.setEmail(rs.getString("email"));
                 obj.setRole(rs.getString("role"));        
                 dataList.add(obj);
@@ -62,28 +63,70 @@ public class ProfileController {
             return "error";
         }
     }
-    @PostMapping(path = "/UpdateUser", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String UpdateUser(Map<String, Object> model, UserElement user) throws Exception
+    @PostMapping(path = "/ManageUsers")
+    public String handleUserElementSubmit(Map<String, Object> model,PermissionData permissiondata,@AuthenticationPrincipal OidcUser principal) throws Exception
     {
-        try (Connection connection = dataSource.getConnection()) 
-        {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(("SELECT * FROM users"));
-            ArrayList<UserElement> dataList = new ArrayList<UserElement>();
-            
-            while (rs.next()) {
-                UserElement obj = new UserElement();
-                obj.setEmail(rs.getString("email"));
-                obj.setRole(rs.getString("role"));        
-                dataList.add(obj);
-            }
-            model.put("Users", dataList);
-            return "ProfileController";
+        GetuserAuthenticationData(model,principal);
+        try (Connection connection = dataSource.getConnection()) {
+        Statement stmt = connection.createStatement();
+        String sql = "UPDATE users set role = '"+ permissiondata.getRole() +"' WHERE email = '"+permissiondata.getEmail()+"';";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        ResultSet rs = stmt.executeQuery(("SELECT * FROM users"));
+        ArrayList<PermissionData> dataList = new ArrayList<PermissionData>();
+          
+        while (rs.next()) {
+            PermissionData obj = new PermissionData();
+            obj.setEmail(rs.getString("email"));
+            obj.setRole(rs.getString("role"));        
+            dataList.add(obj);
         }
-        catch (Exception e)
-        {
+        model.put("Users", dataList);
+        return "ProfileController";
+        }
+        catch (Exception e) {
             model.put("message", e.getMessage());
             return "error";
         }
     }
+    
+    public String GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
+  {
+    String defaultrole = "unverified";
+    if (principal != null) 
+    {
+      model.put("profile", principal.getClaims());
+      String email = (String) principal.getClaims().get("email");
+      System.out.println(email);
+      try (Connection connection = dataSource.getConnection()) 
+      {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (email varchar(50),role varchar(10));");
+        ResultSet rs = stmt.executeQuery(("SELECT * FROM users WHERE email='"+email+"'"));
+        if(rs.next())
+        {
+          model.put("userRole",rs.getString("role"));
+          return rs.getString("role");
+        }
+        else
+        {
+          stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('"+email+"','"+defaultrole+"');");
+          model.put("userRole",defaultrole);
+          return defaultrole;
+        }
+      } 
+      catch (Exception e) 
+      {
+        model.put("message", e.getMessage());
+        System.out.println(e);
+        return "error";
+      }
+    }
+    else
+    {
+      model.put("userRole","Not Logged In");
+      return "Not Logged In";
+    }
+    //Database calls for the role in question
+  }
 }

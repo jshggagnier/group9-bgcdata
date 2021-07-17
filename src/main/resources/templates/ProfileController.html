@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/ProfileController.css">
-  <script src="JavaScript/ProfileController.js"></script>
+  <link rel="stylesheet" href="/stylesheets/ProfileController.css">
+  <script src="/JavaScript/ProfileController.js"></script>
   <title>User Management</title>
 </head>
 <body>
@@ -13,18 +13,18 @@
     <tr th:each="n:${Users}">
         <td th:text="${n.Email}"></td>
         <td th:text="${n.Role}"></td>
-        <td><button type="button" th:onclick="setup(${n.Email},${n.Role})">Select User</button></td>
+        <td><button type="button" th:attr="onclick=|setup('${n.Email}','${n.Role}')|" >Select User</button></td>
     </tr>
     </table>
     <Div>Select A User above to Modify Permissions</Div>
-    <form action="#" method="post" th:action="@{/UpdateUser}" th:object="${UserElement}">
+    <form action="#" method="post" th:action="@{/ManageUsers}" th:object="${PermissionData}">
+        <input type="text" name="role" value="" id="role"></input>
+        <input type="text" name="email" value="" id="email"></input>
         <div>Update User's Current Role</div>
-        <div><input type="radio" value="Unauthorized" onchange="modifyfields()" id="Unauthorized"></div>
-        <div><input type="radio" value="View Only" onchange="modifyfields()" id="ViewOnly"></div>
-        <div><input type="radio" value="View/Edit" onchange="modifyfields()" id="ViewEdit"></div>
-        <div><input type="radio" value="Administrator" onchange="modifyfields()" id="Administrator"></div>
-        <input type="text" th:field="*{Email}">
-        <input type="text" th:field="*{Role}">
+        <div>Unauthorized:<input type="radio" name="currole" value="Unauthorized" onchange="modifyfields()" id="Unauthorized"></div>
+        <div>View Only:<input type="radio" name="currole" value="View Only" onchange="modifyfields()" id="ViewOnly"></div>
+        <div>View/Edit:<input type="radio" name="currole" value="View/Edit" onchange="modifyfields()" id="ViewEdit"></div>
+        <div>Administrator:<input type="radio" name="currole" value="admin" onchange="modifyfields()" id="admin"></div>
         <input type="submit" value="Update User"/>
     </form>
 </body>
