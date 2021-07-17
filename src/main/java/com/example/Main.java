@@ -16,7 +16,6 @@
 
 package com.example;
 
-import com.nimbusds.oauth2.sdk.ParseException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -24,40 +23,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import ch.qos.logback.core.joran.conditional.ElseAction;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 //graph imports
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.stereotype.Controller;
 
 //auth0 login imports
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
@@ -126,6 +112,8 @@ public class Main implements WebMvcConfigurer {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
+      ArrayList<String> a = new ArrayList<String>();
+      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
 
       while (rs.next()) {
         Position obj = new Position();
@@ -140,32 +128,14 @@ public class Main implements WebMvcConfigurer {
 
         dataList.add(obj);
         System.out.println(obj.Name);
-      }
 
-      model.put("Positions", dataList);
-      return "PositionView";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
-  @GetMapping("/barChart")
-  public String barChart(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-
-    GetuserAuthenticationData(model, principal);
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM employees"));
-      ArrayList<String> a = new ArrayList<String>();
-      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
-
-      while (rs.next()) {
         String x = rs.getString("name");
         a.add(x);
         ArrayList<Integer> t = new ArrayList<Integer>();
         String d = rs.getString("startdate").substring(5, 7);
         String e = rs.getString("EndDate").substring(5, 7);
+
+        Boolean color = rs.getBoolean("isCoop");
 
         int d1 = Integer.parseInt(d);
         int d2 = Integer.parseInt(e);
@@ -174,19 +144,58 @@ public class Main implements WebMvcConfigurer {
         t.add(d2);
 
         m.add(t);
-
-        // obj.setisCoop(rs.getBoolean("isCoop"));
-        // obj.setisFilled(rs.getBoolean("isFilled"));
       }
 
+      model.put("Positions", dataList);
       model.put("Names", a);
       model.put("dates", m);
-      return "barChart";
+      return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
+
+  // @GetMapping("/barChart")
+  // public String barChart(Map<String, Object> model, @AuthenticationPrincipal
+  // OidcUser principal) {
+
+  // GetuserAuthenticationData(model, principal);
+  // try (Connection connection = dataSource.getConnection()) {
+  // Statement stmt = connection.createStatement();
+  // ResultSet rs = stmt.executeQuery(("SELECT * FROM employees"));
+  // ArrayList<String> a = new ArrayList<String>();
+  // ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
+
+  // while (rs.next()) {
+  // String x = rs.getString("name");
+  // a.add(x);
+  // ArrayList<Integer> t = new ArrayList<Integer>();
+  // String d = rs.getString("startdate").substring(5, 7);
+  // String e = rs.getString("EndDate").substring(5, 7);
+
+  // Boolean color = rs.getBoolean("isCoop");
+
+  // int d1 = Integer.parseInt(d);
+  // int d2 = Integer.parseInt(e);
+
+  // t.add(d1);
+  // t.add(d2);
+
+  // m.add(t);
+
+  // // obj.setisCoop(rs.getBoolean("isCoop"));
+  // // obj.setisFilled(rs.getBoolean("isFilled"));
+  // }
+
+  // model.put("Names", a);
+  // model.put("dates", m);
+  // return "barChart";
+  // } catch (Exception e) {
+  // model.put("message", e.getMessage());
+  // return "error";
+  // }
+  // }
 
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
