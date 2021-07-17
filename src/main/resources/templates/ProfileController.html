@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/ProfileController.css">
+  <script src="JavaScript/ProfileController.js"></script>
+  <title>User Management</title>
+</head>
+<body>
+    <table>
+    <tr th:each="n:${Users}">
+        <td th:text="${n.email}"></td>
+        <td th:text="${n.role}"></td>
+        <td><button type="button" th:onclick="setup(${n.email},${n.role})">Select User</button></td>
+    </tr>
+    </table>
+    <Div>Select A User above to Modify Permissions</Div>
+    <form action="#" method="post" th:action="@{/UpdateUser}" th:object="${UserElement}">
+        <div>Update User's Current Role</div>
+        <div><input type="radio" value="Unauthorized" onchange="modifyfields()" id="Unauthorized"></div>
+        <div><input type="radio" value="View Only" onchange="modifyfields()" id="ViewOnly"></div>
+        <div><input type="radio" value="View/Edit" onchange="modifyfields()" id="ViewEdit"></div>
+        <div><input type="radio" value="Administrator" onchange="modifyfields()" id="Administrator"></div>
+        <input type="text" th:field="*{email}">
+        <input type="text" th:field="*{role}">
+        <input type="submit" value="Update User"/>
+    </form>
+</body>
+</html>
