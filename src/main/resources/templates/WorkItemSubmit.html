@@ -6,28 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
   <script src="JavaScript/WorkItemForm.js"></script>
+
+  <!-- For live server - please remove in final iteration!-->
+  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css">
+
+  <!-- Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
   <title>Submit New Workitem</title>
 </head>
 <body>
   <div class="form-data">
-    <h1>New Work Item</h1>
+    <h1>New Work Item Form</h1>
     <h5>Enter the details for the new Work Item</h5>
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
-        <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
-        <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
-        <input type="date"   onchange="UpdateTable()" id="endDate" required>
+      <label style="font-weight: bolder;">Name: </label>
+      <input class="workitem-name" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
+
         <div>
-        <label>Dev</label><input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked>
-        <label>QA</label><input type="radio" value="QA" th:field="*{ItemType}" name="ItemType">
+          <label style="font-weight: bolder;">Start Date: </label><br>
+          <input class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required></br>
+
+          <label style="font-weight: bolder;">End Date: </label><br>
+          <input class="workitem-enddate" type="date" onchange="UpdateTable()" id="endDate" required>
+
+          <label style="font-weight: bolder;">Role: </label>
+          <label class="radio-container">Dev
+            <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked>
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="radio-container">QA
+            <input type="radio" value="QA" th:field="*{ItemType}" name="ItemType">
+            <span class="checkmark"></span>
+          </label>
         </div>
+
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Resource Name</th></tr>
           <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
         </table>
+
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
-        <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
-        <input type="submit" value="New Work Item">
+        <div><textarea cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
+
+        <br>
+        <input type="submit" value="Submit New Work Item">
     </form>
   </div>
 <script>

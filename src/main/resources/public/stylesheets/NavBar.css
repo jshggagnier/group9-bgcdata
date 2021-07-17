@@ -8,6 +8,7 @@
   overflow: visible;
   z-index: 1;
   background: #00196A;
+  height: 62px;
 }
 
 /* Dropdown Button */
@@ -18,6 +19,7 @@
   font-size: 16px;
   border: none;
   width:129px;
+  height: 58px;
 }
 
 
@@ -73,8 +75,6 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
-
 
 .linkbutton {
   background-color: #00196A;

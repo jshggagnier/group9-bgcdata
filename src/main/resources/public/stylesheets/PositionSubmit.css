@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
 
 body {
-  background-color: #603f83ff;
-  color: #603f83ff;
+  background-color: #5D696A;
+  margin:0;
+}
 
+html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 form {

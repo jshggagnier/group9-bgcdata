@@ -1,12 +1,18 @@
 body {
-  background-color: white;
+  background-color: #5D696A;
+  margin:0;
+}
+
+html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 table,td,th {
   border-collapse: collapse;
   padding: 10px;
   margin: 0 auto;
-
 }
 
 table {
