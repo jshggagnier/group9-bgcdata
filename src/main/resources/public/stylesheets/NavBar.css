@@ -17,7 +17,7 @@
   padding: 16px;
   font-size: 16px;
   border: none;
-  width:128px;
+  width:129px;
 }
 
 
@@ -43,7 +43,7 @@
   z-index: 2;
   /* font-size: 16px; */
   /* top: 48px; */
-  min-width: 128px;
+  min-width: 129px;
 }
 
 /* Links inside the dropdown */
@@ -84,7 +84,7 @@
   border: none;
   text-decoration: none;
   display: block;
-  width:128px;
+  width:129px;
 }
 
 .linkbutton:hover {
