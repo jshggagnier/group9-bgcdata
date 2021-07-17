@@ -188,6 +188,35 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
+@GetMapping("/WorkItemEdit/{nid}")
+  String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal, @PathVariable String nid) {
+    String Role = GetuserAuthenticationData(model,principal);
+    if (Role.equals("unverified") || Role.equals("viewonly")) 
+    {
+      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = "+nid));
+       WorkItem workitem = new WorkItem();
+      while (rs.next()) {
+        workitem.setItemName(rs.getString("itemname"));
+        workitem.setStartDate(rs.getString("startdate"));
+        workitem.setEndDate(rs.getString("enddate"));
+        workitem.setItemType(rs.getString("itemtype"));
+        workitem.setTeamsAssigned(rs.getString("teams"));
+        workitem.setFundingInformation(rs.getString("fundinginformation"));
+        workitem.setId(rs.getString("id"));
+      }
+    model.put("WorkItem", workitem);
+    return "WorkItemEdit";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     GetuserAuthenticationData(model, principal);
@@ -204,6 +233,7 @@ public class Main implements WebMvcConfigurer {
         obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getString("id"));
 
         dataList.add(obj);
       }
@@ -221,7 +251,7 @@ public class Main implements WebMvcConfigurer {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
       String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getTeamsAssigned() + "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation()
@@ -237,7 +267,7 @@ public class Main implements WebMvcConfigurer {
         obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
-        // obj.setId(rs.getInt("id"));
+        obj.setId(rs.getString("id"));
 
         dataList.add(obj);
       }
