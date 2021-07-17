@@ -203,7 +203,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(20), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
       String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getTeamsAssigned()+ "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation() + "');";
