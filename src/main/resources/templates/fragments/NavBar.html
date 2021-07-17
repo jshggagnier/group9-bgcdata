@@ -1,62 +1,76 @@
 <html th:fragment="NavBar">
   <link rel="stylesheet" href="/stylesheets/NavBar.css" />
-    <!-- For live server - please remove in final iteration!-->
-    <!-- <link rel="stylesheet" href="/src/main/resources/public/stylesheets/NavBar.css"> -->
+  <!-- For live server - please remove in final iteration!-->
+  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/NavBar.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
   <title>BGC Data Analysis Tool</title>
+  <body>
+
+ 
   <div class="TopBar">
-    <img style="width: 95px; height:85px;" src="/images/BGC-logo.png" alt="BGC-logo">
-    <th:block th:switch="${userRole}">
-      <div th:case="admin" class="dropdown">
-        <button class="dropbtn">Submit</button>
-        <div class="dropdown-content">
-          <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
-          <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
-        </div>
-      </div>
-    <div th:case="viewedit" class="dropdown">
-      <button class="dropbtn">Submit</button>
-      <div class="dropdown-content">
-        <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
-        <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
-      </div>
+    <img style="width: 89px; height:86px;" src="/images/BGC-logo.png" alt="BGC-logo">
+
+    <div class="dropdown">
+      <!-- <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a> -->
+      <a class="linkbutton" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
     </div>
-  </th:block>
-  <th:block th:switch="${userRole}">
-    <div th:case="admin" class="dropdown">
-      <button class="dropbtn">View/Edit</button>
-      <div class="dropdown-content">
-        <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
-        <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
-      </div>
-    </div>
-    <div th:case="viewedit" class="dropdown">
-      <button class="dropbtn">View/Edit</button>
-      <div class="dropdown-content">
-        <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
-        <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
-      </div>
-    </div>
-    <div th:case="viewonly" class="dropdown">
-      <button style="width:102px" class="dropbtn">View</button>
-      <div class="dropdown-content">
-        <a style="width:70.416px" th:href="@{/viewWorkItems}">Work Items</a>
-        <a style="width:70.416px" th:href="@{/viewPositions}">Positions</a>
-      </div>
-    </div>
-    <div th:unless="${userRole == 'Not Logged In'}" class="dropdown">
-      <button class="dropbtn">View Graphs</button>
-      <div class="dropdown-content">
-        <a style="width: 95.312px;">W.I.P</a>
-      </div>
-    </div>
+
     <th:block th:switch="${userRole}">
       <div th:case="admin" class="dropdown">
         <a class="linkbutton" th:href="@{/ManageUsers}">Modify Users</a>
       </div>
     </th:block>
-    <div class="dropdown">
-      <!-- <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a> -->
-      <a class="linkbutton" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
+
+    <div th:unless="${userRole == 'Not Logged In'}" class="dropdown">
+      <button class="dropbtn">View Graphs</button>
+      <div class="dropdown-content">
+        <a>W.I.P</a>
+      </div>
     </div>
-  </div>
+
+    <th:block th:switch="${userRole}">
+      <div th:case="admin" class="dropdown">
+        <button class="dropbtn">View/Edit</button>
+        <div class="dropdown-content">
+          <a th:href="@{/viewWorkItems}">Work Items</a>
+          <a th:href="@{/viewPositions}">Positions</a>
+        </div>
+      </div>
+      <div th:case="viewedit" class="dropdown">
+        <button class="dropbtn">View/Edit</button>
+        <div class="dropdown-content">
+          <a th:href="@{/viewWorkItems}">Work Items</a>
+          <a th:href="@{/viewPositions}">Positions</a>
+        </div>
+      </div>
+      <div th:case="viewonly" class="dropdown">
+        <button class="dropbtn">View</button>
+        <div class="dropdown-content">
+          <a th:href="@{/viewWorkItems}">Work Items</a>
+          <a th:href="@{/viewPositions}">Positions</a>
+        </div>
+      </div>
+
+    <th:block th:switch="${userRole}">
+      <div th:case="admin" class="dropdown">
+        <button class="dropbtn">Submit</button>
+        <div class="dropdown-content">
+          <a th:href="@{/WorkItemSubmit}">Work Items</a>
+          <a th:href="@{/PositionSubmit}">Position</a>
+        </div>
+      </div>
+
+    <div th:case="viewedit" class="dropdown">
+      <button class="dropbtn">Submit</button>
+      <div class="dropdown-content">
+        <a th:href="@{/WorkItemSubmit}">Work Items</a>
+        <a th:href="@{/PositionSubmit}">Position</a>
+      </div>
+    </div>
+    </th:block>
+  </div> <!-- TopBar end -->
+</body>
 </html>
