@@ -83,3 +83,9 @@ th {
   font-size: 1rem;
   font-weight: 900;
 }
+
+@import 'https://code.highcharts.com/css/highcharts.css';
+.highcharts-color-0 {
+	fill: #FA8072	;
+	stroke: #FA8072	;
+}
