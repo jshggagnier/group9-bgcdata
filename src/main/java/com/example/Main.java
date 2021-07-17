@@ -46,7 +46,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @SpringBootApplication
-public class Main {
+public class Main implements WebMvcConfigurer {
+
+  public void addViewController(ViewControllerRegistry registry) {
+    registry.addViewController("/index").setViewName("index");
+  }
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
@@ -196,6 +200,42 @@ public class Main {
     }
   }
 
+  @GetMapping("/barChart")
+  public String barChart(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
+
+    GetuserAuthenticationData(model, principal);
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM employees"));
+      ArrayList<String> a = new ArrayList<String>();
+      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
+
+      while (rs.next()) {
+        String x = rs.getString("name");
+        a.add(x);
+        ArrayList<Integer> t = new ArrayList<Integer>();
+        String d = rs.getString("startdate").substring(5, 7);
+        String e = rs.getString("EndDate").substring(5, 7);
+
+        int d1 = Integer.parseInt(d);
+        int d2 = Integer.parseInt(e);
+
+        t.add(d1);
+        t.add(d2);
+
+        m.add(t);
+
+        // obj.setisCoop(rs.getBoolean("isCoop"));
+        // obj.setisFilled(rs.getBoolean("isFilled"));
+      }
+      model.put("Names", a);
+      model.put("dates", m);
+      return "barChart";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   // Submit Catch
   @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
