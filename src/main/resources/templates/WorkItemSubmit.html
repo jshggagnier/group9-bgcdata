@@ -30,7 +30,7 @@
           <input class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required></br>
 
           <label style="font-weight: bolder;">End Date: </label><br>
-          <input class="workitem-enddate" type="date" onchange="UpdateTable()" id="endDate" required>
+          <input class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
 
           <label style="font-weight: bolder;">Role: </label>
           <label class="radio-container">Dev
@@ -52,9 +52,8 @@
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
-
         <br>
-        <input type="submit" value="Submit New Work Item">
+        <input type="submit" value="New Work Item">
     </form>
   </div>
 <script>
