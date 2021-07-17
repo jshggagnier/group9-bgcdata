@@ -5,18 +5,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/stylesheets/index.css">
+
+  <!-- Bootstrap imports -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- For live server - please remove in final iteration!-->
+  <!-- <link rel="stylesheet" href="/src/main/resources/public/stylesheets/index.css"> -->
   <title>Square Database</title>
 </head>
 <body>
-  Welcome to the future location of the Group 9 BGC Project
+  <p style="text-align: center; line-height: 35px;">BGC Data Dashboard</p>
   <br>
   <br>
   <br>
   <br>
   <br>
   <br>
-  <div sec:authorize="isAuthenticated()">
-    <div>Your User info:</div>
+  <div sec:authorize="isAuthenticated()" style="text-align: center;">
+    <div>Welcome back</div>
     <img th:src="${profile.get('picture')}"/>
     <div th:text="${profile.get('name')}"></div>
     <div th:text="${userRole}"></div>

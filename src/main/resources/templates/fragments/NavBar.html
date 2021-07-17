@@ -1,14 +1,16 @@
 <html th:fragment="NavBar">
-<link rel="stylesheet" href="/stylesheets/NavBar.css" />
-<title>BGC Data Analysis Tool</title>
-<div class="TopBar">
-  BGC Data Analysis Tool
-  <th:block th:switch="${userRole}">
-    <div th:case="admin" class="dropdown">
-      <button class="dropbtn">Submit</button>
-      <div class="dropdown-content">
-        <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
-        <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
+  <link rel="stylesheet" href="/stylesheets/NavBar.css" />
+  <title>BGC Data Analysis Tool</title>
+  <div class="TopBar">
+    <img src="BGC-logo.png" alt="BGC-logo">
+    BGC Data Analysis Tool
+    <th:block th:switch="${userRole}">
+      <div th:case="admin" class="dropdown">
+        <button class="dropbtn">Submit</button>
+        <div class="dropdown-content">
+          <a style="width:53.797px" th:href="@{/WorkItemSubmit}">Work Items</a>
+          <a style="width:53.797px" th:href="@{/PositionSubmit}">Position</a>
+        </div>
       </div>
     </div>
     <div th:case="viewedit" class="dropdown">
@@ -56,6 +58,9 @@
       <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a>
       <a class="linkbutton" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
     </div>
+  </div>
+</html>
+
 </div>
 
 </html>
