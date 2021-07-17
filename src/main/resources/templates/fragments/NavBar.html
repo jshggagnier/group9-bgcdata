@@ -1,9 +1,10 @@
 <html th:fragment="NavBar">
   <link rel="stylesheet" href="/stylesheets/NavBar.css" />
+    <!-- For live server - please remove in final iteration!-->
+    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/NavBar.css">
   <title>BGC Data Analysis Tool</title>
   <div class="TopBar">
-    <img src="/images/BGC-logo.png" alt="BGC-logo">
-    BGC Data Analysis Tool
+    <img style="width: 95px; height:85px;" src="/images/BGC-logo.png" alt="BGC-logo">
     <th:block th:switch="${userRole}">
       <div th:case="admin" class="dropdown">
         <button class="dropbtn">Submit</button>
@@ -54,7 +55,7 @@
       </div>
     </th:block>
     <div class="dropdown">
-      <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a>
+      <!-- <a class="linkbutton" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a> -->
       <a class="linkbutton" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
     </div>
   </div>

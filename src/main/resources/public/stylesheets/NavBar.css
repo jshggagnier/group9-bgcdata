@@ -1,14 +1,16 @@
 .TopBar{
-    font-size: xx-large;
-    color: black;
-    font-family: 'Times New Roman', Times, serif;
-    position: sticky;
-    top: 0;
-    display: block;
-    padding: 0px;
-    width: 100%;
-    height:auto;
-    overflow: auto;
+  font-size: xx-large;
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+  position: sticky;
+  top: 0;
+  display: block;
+  padding: 0px;
+  width: 100%;
+  height:auto;
+  overflow: auto;
+  z-index: 1;
+  background: #00196A;
 }
 /* Dropdown Button */
 .dropbtn {

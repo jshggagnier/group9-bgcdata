@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></html>
+<html xmlns:th="http://www.thymeleaf.org" sec:authorize="isAuthenticated()" th:replace="~{fragments/NavBar :: NavBar}" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" href="/stylesheets/index.css">
 
   <!-- Bootstrap imports -->
@@ -11,25 +11,36 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <!-- Google fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+
   <!-- For live server - please remove in final iteration!-->
-  <!-- <link rel="stylesheet" href="/src/main/resources/public/stylesheets/index.css"> -->
+  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/index.css">
   <title>Square Database</title>
 </head>
 <body>
-  <p style="text-align: center; line-height: 35px;">BGC Data Dashboard</p>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div sec:authorize="isAuthenticated()" style="text-align: center;">
-    <div>Welcome back</div>
-    <img th:src="${profile.get('picture')}"/>
-    <div th:text="${profile.get('name')}"></div>
-    <div th:text="${userRole}"></div>
-    <p th:text="${profile.get('email')}"></p>
+  <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="/images/bg.mp4" type="video/mp4" /></video>
+  <div class="landing-page">
+    <div class="landing-page-content text-white">
+      <h1>BGC Data Dashboard</h1>
+      <a class="login-btn" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/auth0}">Log In</a>
+      <br>
+      <div sec:authorize="isAuthenticated()">
+        <h3>Welcome back, <h3 th:remove="tag" th:text="${profile.get('name')}"></h3></h3>
+        <img th:src="${profile.get('picture')}"/>
+        <div th:text="${userRole}"></div>
+        <p th:text="${profile.get('email')}"></p>
+      </div>
+    </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <br>

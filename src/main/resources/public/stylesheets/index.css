@@ -1,4 +1,129 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #603f83ff;
-    color: lavenderblush;
+  margin: 0;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000000;
+  background-color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+
+html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  position: relative;
+}
+body:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00196A;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+video.bg-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1;
+}
+
+.landing-page {
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-page:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  opacity: 0.88;
+}
+.landing-page .landing-page-content {
+  position: relative;
+  max-width: 40rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 992px) {
+  .landing-page {
+    height: 100%;
+    width: 75vw;
+    min-height: 0;
+    padding-bottom: 0;
   }
+  .landing-page:before {
+    transform: skewX(-9deg);
+    transform-origin: top right;
+  }
+  .landing-page .landing-page-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 1rem;
+    padding-right: 9rem;
+  }
+  .landing-page .landing-page-content h1, .landing-page .landing-page-content .h1 {
+    font-size: 5.5rem;
+    white-space:nowrap;
+  }
+  .landing-page .landing-page-content p {
+    font-size: 1.3rem;
+  }
+}
+@media (min-width: 1200px) {
+  .landing-page {
+    width: 65vw;
+  }
+}
+
+
+.login-btn {
+  background-color: #00196A;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 0.5rem;
+  align-self: center;
+}
