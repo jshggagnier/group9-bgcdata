@@ -59,8 +59,8 @@ function UpdateTable(){
                 }
                 else
                 {
-                    if (cellcounter == 0) {currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"'><br><button type='button' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";}
-                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0'>";}
+                    if (cellcounter == 0) {currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"' required><br><button type='button' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";}
+                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' required>";}
                 }
             }
             else if (cellcounter > (weeks+1)) {

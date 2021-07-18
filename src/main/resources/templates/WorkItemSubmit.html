@@ -34,7 +34,7 @@
 
           <label style="font-weight: bolder;">Role: </label>
           <label class="radio-container">Dev
-            <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked>
+            <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked required>
             <span class="checkmark"></span>
           </label>
 
@@ -46,7 +46,7 @@
 
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Resource Name</th></tr>
-          <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
+          <tr id="Row1"><td><input type='text' id="cell1:0" required><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0" required></td></tr>
         </table>
 
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
