@@ -16,7 +16,6 @@
 
 package com.example;
 
-import com.nimbusds.oauth2.sdk.ParseException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -24,40 +23,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import ch.qos.logback.core.joran.conditional.ElseAction;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 //graph imports
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.stereotype.Controller;
 
 //auth0 login imports
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
@@ -124,8 +110,14 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
+      ArrayList<String> a = new ArrayList<String>();
+      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
+
+      ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<ArrayList<Integer>> permamentDates = new ArrayList<ArrayList<Integer>>();
 
       while (rs.next()) {
         Position obj = new Position();
@@ -140,32 +132,14 @@ public class Main implements WebMvcConfigurer {
 
         dataList.add(obj);
         System.out.println(obj.Name);
-      }
 
-      model.put("Positions", dataList);
-      return "PositionView";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
-  @GetMapping("/barChart")
-  public String barChart(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-
-    GetuserAuthenticationData(model, principal);
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM employees"));
-      ArrayList<String> a = new ArrayList<String>();
-      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
-
-      while (rs.next()) {
         String x = rs.getString("name");
         a.add(x);
         ArrayList<Integer> t = new ArrayList<Integer>();
         String d = rs.getString("startdate").substring(5, 7);
         String e = rs.getString("EndDate").substring(5, 7);
+
+        Boolean color = rs.getBoolean("isCoop");
 
         int d1 = Integer.parseInt(d);
         int d2 = Integer.parseInt(e);
@@ -173,15 +147,33 @@ public class Main implements WebMvcConfigurer {
         t.add(d1);
         t.add(d2);
 
-        m.add(t);
+        //m.add(t);
 
-        // obj.setisCoop(rs.getBoolean("isCoop"));
-        // obj.setisFilled(rs.getBoolean("isFilled"));
+        if(obj.getisCoop()){
+          coopDates.add(t);
+        }else{
+          permamentDates.add(t);
+        }
       }
 
+      model.put("Positions", dataList);
       model.put("Names", a);
       model.put("dates", m);
-      return "barChart";
+
+      ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+
+      for(int i = 0; i < permamentDates.size(); i++){
+        finalDates.add(emptyDates);
+      }
+      for(int i = 0; i < coopDates.size(); i++){
+        finalDates.add(coopDates.get(i));
+      }
+
+      model.put("finalDates", finalDates);
+      model.put("permamentDates", permamentDates);
+
+      return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -222,6 +214,7 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
 
@@ -251,11 +244,11 @@ public class Main implements WebMvcConfigurer {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100));");
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getTeamsAssigned() + "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation()
-          + "');";
+          + "')";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
@@ -339,7 +332,7 @@ public class Main implements WebMvcConfigurer {
       System.out.println(email);
       try (Connection connection = dataSource.getConnection()) {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (email varchar(50),role varchar(10));");
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (email varchar(50),role varchar(10))");
         ResultSet rs = stmt.executeQuery(("SELECT * FROM users WHERE email='" + email + "'"));
         if (rs.next()) {
           model.put("userRole", rs.getString("role"));
@@ -349,7 +342,7 @@ public class Main implements WebMvcConfigurer {
             defaultrole = "admin";
           }
           System.out.println(defaultrole);
-          stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('" + email + "','" + defaultrole + "');");
+          stmt.executeUpdate("INSERT INTO users (email,role) VALUES ('" + email + "','" + defaultrole + "')");
           model.put("userRole", defaultrole);
           return defaultrole;
         }

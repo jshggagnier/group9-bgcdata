@@ -9,6 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" th:action="@{/viewDetails}" href="/stylesheets/PositionSubmit.css">
   <title>Submit New Position</title>
+
+  <!-- For live server - please remove in final iteration!-->
+  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/PositionSubmit.css">
+
+  <!-- Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -16,27 +25,23 @@
   <h4>Enter the details for the new position</h4>
   <div class="form-data">
     <form action="#" method="post" th:action="@{/PositionSubmit}" th:object="${Position}">
-      <div>Name<sup>*</sup></div>
+      <div class="form-name">Name<sup>*</sup></div>
       <input type="text" id="Name" th:field="*{Name}" placeholder="Name of the Resource" required />
-      <div>Team<sup>*</sup></div>
+      <div class="form-name">Team<sup>*</sup></div>
       <input type="text" id="Team" th:field="*{Team}" placeholder="Name of the Team" required />
-      <div>Role<sup>*</sup></div>
+      <div class="form-name">Role<sup>*</sup></div>
       <input type="text" id="Role" th:field="*{Role}" placeholder="Role of the position" required />
-      <div>Starting Date<sup>*</sup></div>
+      <div class="form-name">Starting Date<sup>*</sup></div>
       <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" onchange="InvalidDateCheck()" required />
-      <div id="endDateLabel">Ending Date (If Applicable)</div>
+      <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
       <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable)" onchange="InvalidDateCheck()" required />
       </input>
-      <br />
-      <label for="checkbox">Does this Position have an End Date?<sup>*</sup></label>
-      <input type="radio" name="negative" th:field="*{hasEndDate}" id="noCheck" onclick="javascript:yesnoCheck();"
-        value="no">No
-      </input>
-      <input type="radio" name="affirmative" id="yesCheck" onclick="javascript:yesnoCheck();" th:field="*{hasEndDate}"
-        value="yes" checked="false">Yes
-      </input>
-      <div>Is This position Coop? <input type="checkbox" th:field="*{isCoop}"></div>
-      <div>Is This position Currently Filled? <input type="checkbox" th:field="*{isFilled}"></div>
+      <br/>
+      <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
+      <input type="radio" name="negative" th:field="*{hasEndDate}" id="noCheck" onclick="javascript:yesnoCheck();"value="no"><label class="form-name">No</label></input>
+      <input type="radio" name="affirmative" id="yesCheck" onclick="javascript:yesnoCheck();" th:field="*{hasEndDate}"value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
+      <div class="form-name">Co-op position? <input type="checkbox" th:field="*{isCoop}"></div><br>
+      <div class="form-name">Position currently filled? <input type="checkbox" th:field="*{isFilled}"></div><br>
       <input type="submit" value="Submit Data" />
       <input class="reset" type="button" onclick="resetform()" value="Reset">
     </form>
