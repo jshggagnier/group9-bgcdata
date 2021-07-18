@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}">
+
+</html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,75 +11,64 @@
   <link rel="stylesheet" href="styles.css" />
   <title>View Position Database</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-     <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-    <!-- Optional theme -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    />
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 </head>
+
 <body>
   <div class="container">
-      <h1>Database Output</h1>
-      <table class="styled-table" >
-        <tr class="heading">
-          <th>Resource</th>
-          <th>Team</th>
-          <th>Position</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Has End Date</th>
-          <th>Is Coop</th>
-          <th>Is Filled</th>
+    <h1>Database Output</h1>
+    <table class="styled-table">
+      <tr class="heading">
+        <th>Resource</th>
+        <th>Team</th>
+        <th>Position</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Has End Date</th>
+        <th>Is Coop</th>
+        <th>Is Filled</th>
 
-          <tr th:each="n:${Positions}">
-          <td th:text="${n.name}"></td>
-          <td th:text="${n.team}"></td>
-          <td th:text="${n.role}"></td>
-          <td th:text="${n.StartDate}"></td>
-          <th:block th:switch="${n.hasEndDate}">
-            <td th:case="true" th:text="${n.EndDate}"></td>
-            <td th:case="false">No End Date</td>
-          </th:block>
-          <td th:text="${n.hasEndDate}"></td>
-          <td th:text="${n.isCoop}"></td>
-          <td th:text="${n.isFilled}"></td>
-            <th:block th:switch="${userRole}">
-              <td th:case="admin">
-              <form th:action="@{/editdata/{id}(id=${n.name})}">
-                <input type="submit" value="Edit" />
-              </form>
-              </td>
-            </th:block>
-          </tr>
-      </table>
-      <button class="goback" onclick="window.history.back();">Go Back</button>
-    </div>
+      <tr th:each="n:${Positions}">
+        <td th:text="${n.name}"></td>
+        <td th:text="${n.team}"></td>
+        <td th:text="${n.role}"></td>
+        <td th:text="${n.StartDate}"></td>
+        <th:block th:switch="${n.hasEndDate}">
+          <td th:case="true" th:text="${n.EndDate}"></td>
+          <td th:case="false">No End Date</td>
+        </th:block>
+        <td th:text="${n.hasEndDate}"></td>
+        <td th:text="${n.isCoop}"></td>
+        <td th:text="${n.isFilled}"></td>
+        <th:block th:switch="${userRole}">
+          <td th:case="admin">
+            <form th:action="@{/editdata/{id}(id=${n.name})}">
+              <input type="submit" value="Edit" />
+            </form>
+          </td>
+        </th:block>
+      </tr>
+    </table>
+    <button class="goback" onclick="window.history.back();">Go Back</button>
+  </div>
 
-     <div class="container">
-      <h2 align="center">Employment Visualization Graph</h2>
+  <div class="container">
+    <h2 align="center">Employment Visualization Graph</h2>
 
-      <div
-        id="container"
-        style="width: 550px; height: 400px; margin: 0 auto"
-      ></div>
-    </div>
-<div class="container">
-      <h2 align="center">Employment Visualization Graph</h2>
+    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+  </div>
+  <div class="container">
+    <h2 align="center">Employment Visualization Graph</h2>
 
-      <div
-        id="container"
-        style="width: 550px; height: 400px; margin: 0 auto"
-      ></div>
+    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 
     <script th:inline="javascript">
 
@@ -89,8 +81,23 @@
 
           accessibility: {
             description:
-              "Image description: A column range chart compares the monthly temperature variations throughout 2017 in Vik I Sogn, Norway. The chart is interactive and displays the temperature range for each month when hovering over the data. The temperature is measured in degrees Celsius on the X-axis and the months are plotted on the Y-axis. The lowest temperature is recorded in March at minus 10.2 Celsius. The lowest range of temperatures is found in December ranging from a low of minus 9 to a high of 8.6 Celsius. The highest temperature is found in July at 26.2 Celsius. July also has the highest range of temperatures from 6 to 26.2 Celsius. The broadest range of temperatures is found in May ranging from a low of minus 0.6 to a high of 23.1 Celsius."
+              "Visualization of employment"
           },
+
+          // zones: [{
+          //   value: 200,
+          //   color: '#bdbdbd'
+          // }, {
+          //   value: 300,
+          //   color: '#ff0000'
+          // },
+          // {
+          //   value: 500,
+          //   color: 'blue'
+          // }, {
+          //   value: 800,
+          //   color: 'black'
+          // }],
 
           title: {
             text: "Start and End of Commitments"
@@ -129,12 +136,19 @@
 
           series: [
             {
-              name: "Months",
-              data: [[${dates}]],
+              name: "Permament positions",
+              color: "#FA8072",
+              data: [[${permamentDates}]]
+            },
+            {
+              name: "Coop positions",
+              color: "#9dd1f3",
+              data: [[${finalDates}]]
             }
           ]
         });
       });
     </script>
 </body>
+
 </html>

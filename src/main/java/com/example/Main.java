@@ -115,6 +115,9 @@ public class Main implements WebMvcConfigurer {
       ArrayList<String> a = new ArrayList<String>();
       ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
 
+      ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<ArrayList<Integer>> permamentDates = new ArrayList<ArrayList<Integer>>();
+
       while (rs.next()) {
         Position obj = new Position();
         obj.setName(rs.getString("name"));
@@ -143,12 +146,32 @@ public class Main implements WebMvcConfigurer {
         t.add(d1);
         t.add(d2);
 
-        m.add(t);
+        //m.add(t);
+
+        if(obj.getisCoop()){
+          coopDates.add(t);
+        }else{
+          permamentDates.add(t);
+        }
       }
 
       model.put("Positions", dataList);
       model.put("Names", a);
       model.put("dates", m);
+
+      ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+
+      for(int i = 0; i < permamentDates.size(); i++){
+        finalDates.add(emptyDates);
+      }
+      for(int i = 0; i < coopDates.size(); i++){
+        finalDates.add(coopDates.get(i));
+      }
+
+      model.put("finalDates", finalDates);
+      model.put("permamentDates", permamentDates);
+
       return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
