@@ -41,6 +41,9 @@ body {
     background-color:#3242A3;
 }
 
+.btn:hover {
+    opacity: 0.7;
+}
 
 hr {
     padding: 0;
@@ -53,8 +56,6 @@ hr {
     height:10px;
     z-index: -10;
 }
-
-
 
 .cloud {
     width: 350px; height: 120px;

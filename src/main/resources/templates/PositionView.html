@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/PositionView.css">
-  <link rel="stylesheet" href="styles.css" />
-  <title>View Position Database</title>
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -23,55 +22,69 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
     />
+
+    <!--Font & Icon import-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="stylesheets/PositionView.css">
+  <!-- For VSCode live server -->
+  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/PositionView.css">
+  <title>View Position Database</title>
 </head>
 <body>
-  <div class="container">
-      <h1>Database Output</h1>
+  <div class="db-container">
+      <h1 style="font-weight: bolder;">BGC Positions</h1><br>
       <table class="styled-table" >
-        <tr class="heading">
-          <th>Resource</th>
-          <th>Team</th>
-          <th>Position</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Has End Date</th>
-          <th>Is Coop</th>
-          <th>Is Filled</th>
+        <tr class="table-header" style="color: lavenderblush;">
+          <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Resource</th>
+          <th class="header-name" style="padding-right: 100px">Team</th>
+          <th class="header-name" style="padding-right: 100px">Position</th>
+          <th class="header-name" style="padding-right: 80px">Start Date</th>
+          <th class="header-name" style="padding-right: 80px">End Date</th>
+          <th class="header-name" style="padding-right: 80px">Has End Date</th>
+          <th class="header-name" style="padding-right: 80px">Is Coop</th>
+          <th class="header-name" style="padding-right: 80px">Is Filled</th>
+          <th class="header-name" style="padding-right: 100px; border-top-right-radius: 7px;"></th>
 
           <tr th:each="n:${Positions}">
-          <td th:text="${n.name}"></td>
-          <td th:text="${n.team}"></td>
-          <td th:text="${n.role}"></td>
-          <td th:text="${n.StartDate}"></td>
+          <td style="padding-right: 150px" th:text="${n.name}"></td>
+          <td style="padding-right: 100px" th:text="${n.team}"></td>
+          <td style="padding-right: 100px" th:text="${n.role}"></td>
+          <td style="padding-right: 80px" th:text="${n.StartDate}"></td>
           <th:block th:switch="${n.hasEndDate}">
-            <td th:case="true" th:text="${n.EndDate}"></td>
-            <td th:case="false">No End Date</td>
+            <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
+            <td style="padding-right: 80px" th:case="false">No End Date</td>
           </th:block>
-          <td th:text="${n.hasEndDate}"></td>
-          <td th:text="${n.isCoop}"></td>
-          <td th:text="${n.isFilled}"></td>
-            <th:block th:switch="${userRole}">
-              <td th:case="admin">
-              <form th:action="@{/editdata/{id}(id=${n.name})}">
-                <input type="submit" value="Edit" />
-              </form>
-              </td>
-            </th:block>
+          <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
+          <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
+          <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
+          <th:block th:switch="${userRole}">
+          <td th:case="admin">
+            <form th:action="@{/editdata/{id}(id=${n.name})}">
+              <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
+            </form>
+          </td>
+          </th:block>
           </tr>
       </table>
-      <button class="goback" onclick="window.history.back();">Go Back</button>
-    </div>
+      <br>
+      <button class="back-btn" onclick="window.history.back();">Go Back</button>
+  </div>
 
-     <div class="container">
-      <h2 align="center">Employment Visualization Graph</h2>
+
+
+    <div class="container">
+      <h2 style="text-align: center">Employment Visualization Graph</h2>
 
       <div
         id="container"
         style="width: 550px; height: 400px; margin: 0 auto"
       ></div>
     </div>
-<div class="container">
-      <h2 align="center">Employment Visualization Graph</h2>
+  <div class="container">
+      <h2 style="text-align: center">Employment Visualization Graph</h2>
 
       <div
         id="container"
@@ -136,5 +149,6 @@
         });
       });
     </script>
+  </div>
 </body>
 </html>
