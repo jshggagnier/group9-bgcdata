@@ -56,11 +56,16 @@ function UpdateTable(){
                     var Cheese = new Date(StartDate.getTime() + ((cellcounter-1)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
                     //maybe concatenate calculation here
                     currentcellpntr.innerHTML = Cheese.toString().substring(0,15);
+                    currentcellpntr.className = "itemheader";
                 }
                 else
                 {
-                    if (cellcounter == 0) {currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"'><br><button type='button' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";}
-                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0'>";}
+                    if (cellcounter == 0)
+                    {
+                        currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"' required><br><button type='button' class='delbtn' id='btn"+RowCounter+"' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";
+                        currentcellpntr.className = "rowname";
+                    }
+                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' required>";}
                 }
             }
             else if (cellcounter > (weeks+1)) {
@@ -69,6 +74,7 @@ function UpdateTable(){
             cellcounter = currentrowpntr.cells.length;
         }
     }
+    createTeamString();
 }
 
 function createTeamString(){
@@ -76,6 +82,7 @@ function createTeamString(){
     var TableRows = (table.rows.length);
     var TableCells = document.getElementById("Row0").cells.length;
     var TableString = "";
+    console.log(TableRows+"|I|"+TableCells);
     for(var RowCounter = 1;RowCounter < TableRows;RowCounter++)
     {
         TableString += "T"+RowCounter+":"
@@ -94,9 +101,19 @@ function createTeamString(){
 
 function deleterow(row)
 {
+    console.log("deleterow"+row);
     var table = document.getElementById("InputTable");
+    var StartDate = document.getElementById("startDate").valueAsDate;
+    var EndDate = document.getElementById("endDate").valueAsDate;
+    if(EndDate < StartDate) 
+    {
+        document.getElementById("endDate").valueAsDate = StartDate;
+    }
+    var weeks = weeksBetween(StartDate,EndDate);
     var TableRows = (table.rows.length-1);
     var target;
+    var cellupdate = 0;
+    var cellupdatepnt;
     if(TableRows == 1){alert("Must have at least one Team");}
     else
     {
@@ -104,8 +121,19 @@ function deleterow(row)
         while (row < TableRows)
         {
             target = document.getElementById("Row"+(row+1));
+            cellupdatepnt = document.getElementById("btn"+(row+1));
+            cellupdatepnt.onclick = "deleterow("+row+")";
+            cellupdatepnt.id = "btn"+row;
+            while(cellupdate < target.cells.length)
+            {
+                cellupdatepnt = document.getElementById("cell"+(row+1)+":"+cellupdate);
+                cellupdatepnt.id = "cell"+row+":"+cellupdate;
+                cellupdate++;
+            }
             target.id = "Row"+row;
             row++;
+            cellupdate = 0;
         }
     }
+    createTeamString();
 }

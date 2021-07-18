@@ -1,6 +1,7 @@
 body {
   background-color: #5D696A;
   margin:0;
+  color:#11196B;
 }
 
 html {
@@ -48,4 +49,18 @@ tr:hover {
 
 .table-header {
   border: none;
+}
+
+.back-btn{
+  margin: auto;
+  height: 60px;
+  width: 220px;
+  border-radius: 8px;
+  background-color:#2f3c9e;
+  color: lavenderblush;
+  font-size: 16pt;
+}
+
+.back-btn:hover {
+  background-color: #00196A;
 }

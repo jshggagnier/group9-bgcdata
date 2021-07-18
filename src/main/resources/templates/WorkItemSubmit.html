@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}"></html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}">
+
+</html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/WorkItemSubmit.css">
+  <link rel="stylesheet" href="/stylesheets/WorkItemSubmit.css">
   <script src="JavaScript/WorkItemForm.js"></script>
 
   <!-- For live server - please remove in final iteration!-->
@@ -17,6 +20,7 @@
 
   <title>Submit New Workitem</title>
 </head>
+
 <body>
   <div class="form-data">
     <h1>New Work Item Form</h1>
@@ -25,41 +29,51 @@
       <label style="font-weight: bolder;">Name: </label>
       <input class="workitem-name" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
 
-        <div>
-          <label style="font-weight: bolder;">Start Date: </label><br>
-          <input class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required></br>
+      <div>
+        <label style="font-weight: bolder;">Start Date: </label><br>
+        <input class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate"
+          required></br>
 
-          <label style="font-weight: bolder;">End Date: </label><br>
-          <input class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <label style="font-weight: bolder;">End Date: </label><br>
+        <input class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate"
+          required>
 
-          <label style="font-weight: bolder;">Role: </label>
-          <label class="radio-container">Dev
-            <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked>
-            <span class="checkmark"></span>
-          </label>
+        <label style="font-weight: bolder;padding-right: 20px;">Role: </label>
+        <label class="radio-container">Dev
+          <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked required>
+          <span class="checkmark"></span>
+        </label>
 
-          <label class="radio-container">QA
-            <input type="radio" value="QA" th:field="*{ItemType}" name="ItemType">
-            <span class="checkmark"></span>
-          </label>
-        </div>
-
+        <label class="radio-container">QA
+          <input type="radio" value="QA" th:field="*{ItemType}" name="ItemType">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="tablebox1">
+        <div style="font-weight: bolder;">Assigned Teams</div>
         <table id="InputTable" onchange="createTeamString()">
-          <tr id="Row0"><th>Resource Name</th></tr>
-          <tr id="Row1"><td><input type='text' id="cell1:0"><br><button type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
+          <tr id="Row0">
+            <td class="headerrow">Resource Name</td>
+          </tr>
+          <tr id="Row1">
+            <td class="rowname"><input type='text' id="cell1:0" required><br><button class="delbtn" type='button' id="btn1"
+                onclick='deleterow(1)'>Delete This Row</button></td>
+            <td><input type='number' id="cell1:1" min="0" required></td>
+          </tr>
         </table>
-
-        <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
-        <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
-        <div><textarea cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
-        <br>
-        <input type="submit" value="New Work Item">
+        <button class="addteambtn" type="button" onclick="AddTeam()">Add Team</button>
+      </div>
+      <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
+      <div><textarea cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation"
+          placeholder="Funding Information" required></textarea></div>
+      <input type="submit" value="New Work Item">
     </form>
   </div>
-<script>
-  document.getElementById('startDate').valueAsDate = new Date();
-  document.getElementById('endDate').valueAsDate = new Date();
-  UpdateTable();
-</script>
+  <script>
+    document.getElementById('startDate').valueAsDate = new Date();
+    document.getElementById('endDate').valueAsDate = new Date();
+    UpdateTable();
+  </script>
 </body>
+
 </html>
