@@ -110,6 +110,7 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
       ArrayList<String> a = new ArrayList<String>();
@@ -202,6 +203,7 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
 
@@ -220,7 +222,6 @@ public class Main implements WebMvcConfigurer {
       return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
-      System.out.println("get mapping /viewworkitems error");
       return "error";
     }
   }
@@ -255,7 +256,6 @@ public class Main implements WebMvcConfigurer {
       return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
-      System.out.println("post mapping /wokritemsubmit error");
       return "error";
     }
   }
