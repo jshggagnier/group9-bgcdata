@@ -220,6 +220,7 @@ public class Main implements WebMvcConfigurer {
       return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
+      System.out.println("get mapping /viewworkitems error");
       return "error";
     }
   }
@@ -234,7 +235,7 @@ public class Main implements WebMvcConfigurer {
       String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
           + workitem.getTeamsAssigned() + "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation()
-          + "');";
+          + "')";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
@@ -254,6 +255,7 @@ public class Main implements WebMvcConfigurer {
       return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
+      System.out.println("post mapping /wokritemsubmit error");
       return "error";
     }
   }
