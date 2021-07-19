@@ -27,8 +27,9 @@
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
         <div>
-        <label>Dev</label><input type="radio" value="Dev" th:feild="*{ItemType}" name="ItemType" checked>
-        <label>QA</label><input type="radio" value="QA" th:feild="*{ItemType}" name="ItemType">
+        <label>Dev</label><input type="radio" id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
+        <label>QA</label><input type="radio" id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
+        <input type="hidden" id="itemtype" th:field="*{ItemType}">
         </div>
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Resource Name</th></tr>
@@ -189,7 +190,11 @@ function FillTable(){
     var i = 0;
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
-    if(i == 0){
+        if(i != 0 && (Teams.length-1) != i){
+          console.log(i);
+          console.log(Teams);
+          AddTeam();
+        }
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
         {
             if(CellCounter == 0){
@@ -197,21 +202,7 @@ function FillTable(){
             }
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
         }
-    }else{
-      if(Teams.length-1 == i){
-        AddTeam();
-      
-            for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
-            {
-                if(CellCounter == 0){
-                    Row[CellCounter] = Row[CellCounter].slice(3);
-                }
-                document.getElementById("cell"+(i+1)+":"+CellCounter).value  = Row[CellCounter];
-            }
-      }
-    }
-    i++;
-    
+        i++;
   });
     }
     
@@ -234,7 +225,16 @@ function FillTable(){
     }
     return team;
     }
+  function SelectType(){
+    var value = document.getElementById("itemtype").value;
+    if(value="Dev"){
+      document.getElementById("dev").checked = true;
+    }else{
+      document.getElementById("qa").checked = true;
+    }
+  }
   FillTable();
+  SelectType();
 </script>
 </body>
 </html>
