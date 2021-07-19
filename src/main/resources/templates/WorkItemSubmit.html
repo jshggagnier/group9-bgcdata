@@ -25,6 +25,7 @@
   <div class="form-data">
     <h1>New Work Item Form</h1>
     <h5>Enter the details for the new Work Item</h5>
+    <div class="databox">
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
       <label style="font-weight: bolder;">Name: </label>
       <input class="workitem-name" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
@@ -50,7 +51,7 @@
         </label>
       </div>
       <div class="tablebox1">
-        <div style="font-weight: bolder;">Assigned Teams</div>
+        <div class="ateamtitle">Assigned Resources</div>
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0">
             <td class="headerrow">Resource Name</td>
@@ -68,6 +69,7 @@
           placeholder="Funding Information" required></textarea></div>
       <input type="submit" value="New Work Item">
     </form>
+  </div>
   </div>
   <script>
     document.getElementById('startDate').valueAsDate = new Date();

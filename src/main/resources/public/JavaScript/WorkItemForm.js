@@ -22,7 +22,7 @@ function weeksBetween(StartDate, EndDate) {
 }
 
 function UpdateTable(){
-    console.log("Updating Table");
+    //console.log("Updating Table");
     var table = document.getElementById("InputTable");
     var StartDate = document.getElementById("startDate").valueAsDate;
     var EndDate = document.getElementById("endDate").valueAsDate;
@@ -48,7 +48,7 @@ function UpdateTable(){
         }
         while (cellcounter != (weeks+1))
         {
-            console.log(cellcounter + "/" + weeks);
+            //console.log(cellcounter + "/" + weeks);
             if (cellcounter < (weeks+1)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
                 if(RowCounter == 0)
@@ -82,7 +82,7 @@ function createTeamString(){
     var TableRows = (table.rows.length);
     var TableCells = document.getElementById("Row0").cells.length;
     var TableString = "";
-    console.log(TableRows+"|I|"+TableCells);
+    //console.log(TableRows+"|I|"+TableCells);
     for(var RowCounter = 1;RowCounter < TableRows;RowCounter++)
     {
         TableString += "T"+RowCounter+":"
@@ -95,7 +95,7 @@ function createTeamString(){
         }
         TableString += "|";
     }
-    console.log(TableString);
+    //console.log(TableString);
     document.getElementById("TBstring").value = TableString;
 }
 
@@ -120,9 +120,11 @@ function deleterow(row)
         table.deleteRow(row);
         while (row < TableRows)
         {
+            console.log(row+",");
             target = document.getElementById("Row"+(row+1));
             cellupdatepnt = document.getElementById("btn"+(row+1));
-            cellupdatepnt.onclick = "deleterow("+row+")";
+            cellupdatepnt.setAttribute("onclick", "deleterow("+row+");");
+            console.log(cellupdatepnt.onclick);
             cellupdatepnt.id = "btn"+row;
             while(cellupdate < target.cells.length)
             {

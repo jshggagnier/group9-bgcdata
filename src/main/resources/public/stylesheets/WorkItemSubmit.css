@@ -11,7 +11,6 @@ tr, th, td {
 table {
   border-collapse: collapse;
   padding: 0px;
-  margin-top: 20px;
   overflow: auto;
   display: inline-block;
   max-height: 300px;
@@ -95,7 +94,6 @@ h5 {
 input[type="text"],
 select {
   padding: 12px 20px;
-  margin-bottom: 6px;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -162,10 +160,31 @@ input[type="reset"] {
   margin-top: 3%;
 }
 
+.databox
+{
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+  margin-top: 3%;
+  background-color: #2f3c9e;
+  border:none;
+  border-radius: 20px;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  margin-top: 3vh;
+  color: white;
+}
+
 form > *:not(:last-child) {
   display: block;
   margin-bottom: 10px; 
 } 
+
+.ateamtitle
+{
+  text-align: center;
+}
 
 .inside_btn {
 background-color: #11196B;
