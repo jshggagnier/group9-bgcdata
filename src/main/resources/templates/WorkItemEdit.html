@@ -203,10 +203,9 @@ function FillTable(){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
         }
         i++;
+        UpdateTable();
   });
-  UpdateTable();
-  SelectType();
-    }
+  }
     
     function parseTeamString(team){
         var i = 0;
@@ -236,6 +235,7 @@ function FillTable(){
     }
   }
   FillTable();
+  SelectType();
 </script>
 </body>
 </html>
