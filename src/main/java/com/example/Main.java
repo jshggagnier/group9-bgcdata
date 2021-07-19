@@ -239,7 +239,7 @@ public class Main implements WebMvcConfigurer {
         dataList.add(obj);
       }
       model.put("WorkItems", dataList);
-      return "/viewWorkItem";
+      return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
