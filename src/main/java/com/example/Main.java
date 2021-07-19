@@ -219,7 +219,6 @@ public class Main implements WebMvcConfigurer {
       +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
       +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
-      System.out.println(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
       while (rs.next()) {
