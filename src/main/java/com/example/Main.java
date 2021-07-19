@@ -104,6 +104,40 @@ public class Main implements WebMvcConfigurer {
     model.put("Position", position);
     return "PositionSubmit";
   }
+  
+  // Editing positions
+  @GetMapping(path = "/editdata/{name}")
+  public String deleteUserData(Map<String, Object> model, @PathVariable String name) {
+
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT * FROM Employees WHERE name = '" + name + "' ";
+
+      ResultSet rs = stmt.executeQuery(sql);
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+        obj.setisCoop(rs.getBoolean("isCoop"));
+        obj.setisFilled(rs.getBoolean("isFilled"));
+
+        dataList.add(obj);
+        // System.out.println(obj.Name);
+      }
+
+      model.put("F", dataList);
+      return "EditPositions";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
