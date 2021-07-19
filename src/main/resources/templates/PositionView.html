@@ -64,13 +64,15 @@
           <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
           <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
           <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
-          <th:block th:switch="${userRole}">
-          <td th:case="admin">
+          <td>
             <form th:action="@{/editdata/{id}(id=${n.name})}">
-              <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
+              <input type="submit" value="Edit" />
             </form>
           </td>
-          <td th:case="viewedit">
+          <th:block th:switch="${userRole}">
+          <td th:case="admin">
+
+
             <form th:action="@{/editdata/{id}(id=${n.name})}">
               <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
             </form>
