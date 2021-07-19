@@ -405,7 +405,7 @@ public class Main implements WebMvcConfigurer {
   }
 
   public String GetuserAuthenticationData(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    String defaultrole = "user";
+    String defaultrole = "unverified";
     if (principal != null) {
       model.put("profile", principal.getClaims());
       String email = (String) principal.getClaims().get("email");
