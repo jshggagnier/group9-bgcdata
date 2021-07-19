@@ -211,8 +211,8 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-  @PostMapping(path = "/WorkItemEdit/{nid}", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @PathVariable String nid) throws Exception {
+  @PostMapping(path = "/WorkItemEdit/", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
