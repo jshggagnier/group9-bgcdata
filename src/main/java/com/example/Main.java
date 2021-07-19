@@ -110,7 +110,8 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
+      stmt.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
       ArrayList<String> a = new ArrayList<String>();
@@ -147,11 +148,11 @@ public class Main implements WebMvcConfigurer {
         t.add(d1);
         t.add(d2);
 
-        //m.add(t);
+        // m.add(t);
 
-        if(obj.getisCoop()){
+        if (obj.getisCoop()) {
           coopDates.add(t);
-        }else{
+        } else {
           permamentDates.add(t);
         }
       }
@@ -163,10 +164,10 @@ public class Main implements WebMvcConfigurer {
       ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
       ArrayList<Integer> emptyDates = new ArrayList<Integer>();
 
-      for(int i = 0; i < permamentDates.size(); i++){
+      for (int i = 0; i < permamentDates.size(); i++) {
         finalDates.add(emptyDates);
       }
-      for(int i = 0; i < coopDates.size(); i++){
+      for (int i = 0; i < coopDates.size(); i++) {
         finalDates.add(coopDates.get(i));
       }
 
@@ -180,18 +181,19 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-@GetMapping("/WorkItemEdit/{nid}")
-  String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal, @PathVariable String nid) {
-    String Role = GetuserAuthenticationData(model,principal);
-    if (Role.equals("unverified") || Role.equals("viewonly")) 
-    {
-      model.put("message", "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+  @GetMapping("/WorkItemEdit/{nid}")
+  String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal,
+      @PathVariable String nid) {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
     }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = "+nid));
-       WorkItem workitem = new WorkItem();
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = " + nid));
+      WorkItem workitem = new WorkItem();
       while (rs.next()) {
         workitem.setItemName(rs.getString("itemname"));
         workitem.setStartDate(rs.getString("startdate"));
@@ -201,8 +203,8 @@ public class Main implements WebMvcConfigurer {
         workitem.setFundingInformation(rs.getString("fundinginformation"));
         workitem.setId(rs.getString("id"));
       }
-    model.put("WorkItem", workitem);
-    return "WorkItemEdit";
+      model.put("WorkItem", workitem);
+      return "WorkItemEdit";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -214,7 +216,8 @@ public class Main implements WebMvcConfigurer {
     GetuserAuthenticationData(model, principal);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
+      stmt.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
 
@@ -290,6 +293,12 @@ public class Main implements WebMvcConfigurer {
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
 
+      ArrayList<String> a = new ArrayList<String>();
+      ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
+
+      ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<ArrayList<Integer>> permamentDates = new ArrayList<ArrayList<Integer>>();
+
       while (rs.next()) {
         Position obj = new Position();
         obj.setName(rs.getString("name"));
@@ -302,10 +311,51 @@ public class Main implements WebMvcConfigurer {
         obj.setisFilled(rs.getBoolean("isFilled"));
 
         dataList.add(obj);
+
+        // System.out.println(obj.Name);
+
+        String x = rs.getString("name");
+        a.add(x);
+        ArrayList<Integer> t = new ArrayList<Integer>();
+        String d = rs.getString("startdate").substring(5, 7);
+        String e = rs.getString("EndDate").substring(5, 7);
+
+        Boolean color = rs.getBoolean("isCoop");
+
+        int d1 = Integer.parseInt(d);
+        int d2 = Integer.parseInt(e);
+
+        t.add(d1);
+        t.add(d2);
+
+        // m.add(t);
+
+        if (obj.getisCoop()) {
+          coopDates.add(t);
+        } else {
+          permamentDates.add(t);
+        }
         System.out.println(obj.Name);
       }
 
       model.put("Positions", dataList);
+      model.put("Positions", dataList);
+      model.put("Names", a);
+      model.put("dates", m);
+
+      ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
+      ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+
+      for (int i = 0; i < permamentDates.size(); i++) {
+        finalDates.add(emptyDates);
+      }
+      for (int i = 0; i < coopDates.size(); i++) {
+        finalDates.add(coopDates.get(i));
+      }
+
+      model.put("finalDates", finalDates);
+      model.put("permamentDates", permamentDates);
+
       return "PositionView";
     } catch (Exception e) {
       model.put("message", e.getMessage());

@@ -10,17 +10,6 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<<<<<<< HEAD
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/highcharts-more.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-=======
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -46,58 +35,9 @@
   <!-- For VSCode live server -->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/PositionView.css">
   <title>View Position Database</title>
->>>>>>> c6d95e47a703d9f731bb02f1c4f102c202894a4e
 </head>
 
 <body>
-<<<<<<< HEAD
-  <div class="container">
-    <h1>Database Output</h1>
-    <table class="styled-table">
-      <tr class="heading">
-        <th>Resource</th>
-        <th>Team</th>
-        <th>Position</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Has End Date</th>
-        <th>Is Coop</th>
-        <th>Is Filled</th>
-
-      <tr th:each="n:${Positions}">
-        <td th:text="${n.name}"></td>
-        <td th:text="${n.team}"></td>
-        <td th:text="${n.role}"></td>
-        <td th:text="${n.StartDate}"></td>
-        <th:block th:switch="${n.hasEndDate}">
-          <td th:case="true" th:text="${n.EndDate}"></td>
-          <td th:case="false">No End Date</td>
-        </th:block>
-        <td th:text="${n.hasEndDate}"></td>
-        <td th:text="${n.isCoop}"></td>
-        <td th:text="${n.isFilled}"></td>
-        <th:block th:switch="${userRole}">
-          <td th:case="admin">
-            <form th:action="@{/editdata/{id}(id=${n.name})}">
-              <input type="submit" value="Edit" />
-            </form>
-          </td>
-        </th:block>
-      </tr>
-    </table>
-    <button class="goback" onclick="window.history.back();">Go Back</button>
-  </div>
-
-  <div class="container">
-    <h2 align="center">Employment Visualization Graph</h2>
-
-    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-  </div>
-  <div class="container">
-    <h2 align="center">Employment Visualization Graph</h2>
-
-    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-=======
   <div class="db-container">
       <h1 style="font-weight: bolder;">BGC Positions</h1><br>
       <table class="styled-table" >
@@ -154,7 +94,6 @@
         id="container"
         style="width: 550px; height: 400px; margin: 0 auto"
       ></div>
->>>>>>> c6d95e47a703d9f731bb02f1c4f102c202894a4e
 
     <script th:inline="javascript">
 
