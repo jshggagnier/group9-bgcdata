@@ -36,7 +36,7 @@
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
-        <input type="hidden" id="itemtype" th:value="*{ItemType}">
+        <input type="hidden" id="itemtype" th:value="*{ItemType}" onload="SelectType()">
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="Update Work Item">
@@ -235,7 +235,7 @@ function FillTable(){
     }
   }
   FillTable();
-  onload(SelectType());
+  SelectType();
 </script>
 </body>
 </html>

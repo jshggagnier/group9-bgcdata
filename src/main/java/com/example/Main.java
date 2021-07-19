@@ -217,14 +217,20 @@ public class Main implements WebMvcConfigurer {
   }
 
   @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
+  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @AuthenticationPrincipal OidcUser principal) throws Exception {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
       +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
       +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ResultSet rs = stmt.executeQuery("SELECT * FROM workitems");
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
       while (rs.next()) {
         WorkItem obj = new WorkItem();
@@ -260,7 +266,6 @@ public class Main implements WebMvcConfigurer {
           "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-
       while (rs.next()) {
         WorkItem obj = new WorkItem();
         obj.setItemName(rs.getString("itemname"));
