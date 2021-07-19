@@ -214,11 +214,11 @@ public class Main implements WebMvcConfigurer {
   }
  
   @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
+  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "UPDATE workitems SET itemname= '"+workitem.getItemName()+"', startdate= '"+workitem.getStartDate()
-      +"', enddate= '"+workitem.getEndDate()+"', itemtype= '"+workitem.getItemType()+"', teams= '"+workitem.getTeam()
+      +"', enddate= '"+workitem.getEndDate()+"', itemtype= '"+workitem.getItemType()+"', teams= '"+workitem.getTeamsAssigned()
       +"', fundinginformation= '"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
