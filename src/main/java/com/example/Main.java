@@ -402,6 +402,23 @@ public class Main implements WebMvcConfigurer {
       return "error";
     }
   }
+  
+  // updating positions data
+  @PostMapping(path = "/UpdateData", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleUpdate(Map<String, Object> model, @ModelAttribute("Position") Position pos) throws Exception {
+    // Establishing connection with database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("UPDATE Employees SET team='" + pos.getTeam() + "', role='" + pos.getRole() + "',StartDate='"
+          + pos.getStartDate() + "', EndDate='" + pos.getEndDate() + "',isCoop='" + pos.getisCoop() + "',isFilled='"
+          + pos.getisFilled() + "' WHERE name ='" + pos.getName() + "' ");
+
+      return "success";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @Bean
   public DataSource dataSource() throws SQLException {
