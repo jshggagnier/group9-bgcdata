@@ -213,14 +213,15 @@ public class Main implements WebMvcConfigurer {
     }
   }
  
-  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
+  @PostMapping(path = "/WorkItemEdit/{nid}", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @PathVariable String nid) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      String sql = "UPDATE workitems SET itemname= '"+workitem.getItemName()+"', startdate= '"+workitem.getStartDate()
-      +"', enddate= '"+workitem.getEndDate()+"', itemtype= '"+workitem.getItemType()+"', teams= '"+workitem.getTeamsAssigned()
-      +"', fundinginformation= '"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
+      String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
+      +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
+      +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
+      System.out.println(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
       while (rs.next()) {
