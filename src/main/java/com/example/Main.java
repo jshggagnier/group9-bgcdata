@@ -193,6 +193,8 @@ public class Main implements WebMvcConfigurer {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = " + nid));
+      String sql = "UPDATE workitems SET ";
+      stmt.executeUpdate(sql);
       WorkItem workitem = new WorkItem();
       while (rs.next()) {
         workitem.setItemName(rs.getString("itemname"));
@@ -205,6 +207,36 @@ public class Main implements WebMvcConfigurer {
       }
       model.put("WorkItem", workitem);
       return "WorkItemEdit";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+ 
+  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "UPDATE workitems SET itemname= '"+workitem.getItemName()+"', startdate= '"+workitem.getStartDate()
+      +"', enddate= '"+workitem.getEndDate()+"', itemtype= '"+workitem.getItemType()+"', teams= '"+workitem.getTeam()
+      +"', fundinginformation= '"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId();+"';";
+      stmt.executeUpdate(sql);
+      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setTeamsAssigned(rs.getString("teams"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getString("id"));
+
+        dataList.add(obj);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
