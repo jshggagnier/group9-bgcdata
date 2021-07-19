@@ -107,7 +107,12 @@ public class Main implements WebMvcConfigurer {
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model, principal);
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")){
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
@@ -243,7 +248,12 @@ public class Main implements WebMvcConfigurer {
 
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model, principal);
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
