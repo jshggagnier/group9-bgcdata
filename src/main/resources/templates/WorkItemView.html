@@ -42,6 +42,11 @@
             <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
           </form>
         </td>
+        <td th:case="viewedit">
+          <form th:action="@{/WorkItemEdit/{id}(id=${n.Id})}">
+            <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
+          </form>
+        </td>
         </th:block>
         </tr>
     </table>
