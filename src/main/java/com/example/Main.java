@@ -104,6 +104,40 @@ public class Main implements WebMvcConfigurer {
     model.put("Position", position);
     return "PositionSubmit";
   }
+  
+  // Editing positions
+  @GetMapping(path = "/editdata/{name}")
+  public String deleteUserData(Map<String, Object> model, @PathVariable String name) {
+
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT * FROM Employees WHERE name = '" + name + "' ";
+
+      ResultSet rs = stmt.executeQuery(sql);
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+        obj.setisCoop(rs.getBoolean("isCoop"));
+        obj.setisFilled(rs.getBoolean("isFilled"));
+
+        dataList.add(obj);
+        // System.out.println(obj.Name);
+      }
+
+      model.put("F", dataList);
+      return "EditPositions";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
@@ -402,6 +436,23 @@ public class Main implements WebMvcConfigurer {
       model.put("permamentDates", permamentDates);
 
       return "PositionView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  
+  // updating positions data
+  @PostMapping(path = "/UpdateData", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleUpdate(Map<String, Object> model, @ModelAttribute("Position") Position pos) throws Exception {
+    // Establishing connection with database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("UPDATE Employees SET team='" + pos.getTeam() + "', role='" + pos.getRole() + "',StartDate='"
+          + pos.getStartDate() + "', EndDate='" + pos.getEndDate() + "',isCoop='" + pos.getisCoop() + "',isFilled='"
+          + pos.getisFilled() + "' WHERE name ='" + pos.getName() + "' ");
+
+      return "success";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";

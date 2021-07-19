@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap");
+
+body {
+ background-color: #5D696A;
+  color:#11196B;
+
+}
+
+h1 {
+  font-family: "Otomanopee One", sans-serif;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 600px;
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+
+table {
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+  background-color: rgba(255, 240, 245, 0.8);
+}
+
+/* button {
+  margin: auto;
+  display: block;
+  margin-top: 3vh;
+  height: 8vh;
+  width: 18vh;
+  font-weight: 700;
+  border-radius: 20px;
+  background-color: lavenderblush;
+  color: #603f83ff;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+  cursor: pointer;
+} */
+table,
+td,
+th {
+  border: 2px solid #3c1053ff;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  width: 10vw;
+  height: 5vh;
+  color: #603f83ff;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+form {
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+h1 {
+  font-family: "Otomanopee One", sans-serif;
+}
+
+h4 {
+  margin-top: 1vh;
+}
+
+h1,
+h4 {
+  text-align: center;
+  color: lavenderblush;
+  margin-bottom: 1vh;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+input[type="submit"],
+input[type="button"] {
+  width: 100%;
+  background-color: #603f83ff;
+  color: lavenderblush;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.6s all;
+  font-weight: 700;
+  border-radius: 20px;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+}
+
+input[type="date"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.form-name {
+  color: #603f83ff;
+}
+
+/* input[type="radio"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
+
+input[type="reset"] {
+  width: 100%;
+  background-color: #603f83ff;
+  color: lavenderblush;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.6s all;
+  font-weight: 700;
+  border-radius: 20px;
+}
+
+span {
+  color: red;
+}
+
+input[type="reset"]:hover {
+  background-color: #3c1053ff;
+  border: 2px solid lavenderblush;
+  color: lavenderblush;
+  transition: 0.6s all;
+}
+
+.form-data {
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 600px;
+  margin-top: 3%;
+  background-color: rgba(255, 240, 245, 0.8);
+  border: 2px solid lavenderblush;
+  border-radius: 20px;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+form {
+  font-weight: 800;
+}
