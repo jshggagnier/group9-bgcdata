@@ -219,7 +219,7 @@ public class Main implements WebMvcConfigurer {
       Statement stmt = connection.createStatement();
       String sql = "UPDATE workitems SET itemname= '"+workitem.getItemName()+"', startdate= '"+workitem.getStartDate()
       +"', enddate= '"+workitem.getEndDate()+"', itemtype= '"+workitem.getItemType()+"', teams= '"+workitem.getTeam()
-      +"', fundinginformation= '"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId();+"';";
+      +"', fundinginformation= '"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
