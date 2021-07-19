@@ -47,6 +47,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
+//for date formatting
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 @Controller
 @SpringBootApplication
 public class Main implements WebMvcConfigurer {
@@ -120,6 +125,12 @@ public class Main implements WebMvcConfigurer {
       ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
       ArrayList<ArrayList<Integer>> permamentDates = new ArrayList<ArrayList<Integer>>();
 
+      ArrayList<ArrayList<Long>> coopDatesMilli = new ArrayList<ArrayList<Long>>();
+      ArrayList<ArrayList<Long>> permamentDatesMilli = new ArrayList<ArrayList<Long>>();
+
+      // String myDateForTest = "";
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
       while (rs.next()) {
         Position obj = new Position();
         obj.setName(rs.getString("name"));
@@ -149,11 +160,27 @@ public class Main implements WebMvcConfigurer {
         t.add(d2);
 
         // m.add(t);
+        ArrayList<Long> millisecDates = new ArrayList<Long>();
+
+        Date dateStart = sdf.parse(rs.getString("StartDate"));
+        long millisStart = dateStart.getTime();
+
+        Date dateEnd = sdf.parse(rs.getString("EndDate"));
+        long millisEnd = dateEnd.getTime();
+
+        millisecDates.add(millisStart);
+        millisecDates.add(millisEnd);
+
+        // if (obj.getisCoop()) {
+        //   coopDates.add(t);
+        // } else {
+        //   permamentDates.add(t);
+        // }
 
         if (obj.getisCoop()) {
-          coopDates.add(t);
+          coopDatesMilli.add(millisecDates);
         } else {
-          permamentDates.add(t);
+          permamentDatesMilli.add(millisecDates);
         }
       }
 
@@ -161,18 +188,39 @@ public class Main implements WebMvcConfigurer {
       model.put("Names", a);
       model.put("dates", m);
 
-      ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
-      ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+      
+      // Date date = sdf.parse(myDateForTest);
+      // long millis = date.getTime();
+      // model.put("myTest", millis);
 
-      for (int i = 0; i < permamentDates.size(); i++) {
+
+
+      
+      // ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
+      // ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+
+      // for (int i = 0; i < permamentDates.size(); i++) {
+      //   finalDates.add(emptyDates);
+      // }
+      // for (int i = 0; i < coopDates.size(); i++) {
+      //   finalDates.add(coopDates.get(i));
+      // }
+
+      // model.put("finalDates", finalDates);
+      // model.put("permamentDates", permamentDates);
+
+      ArrayList<ArrayList<Long>> finalDates = new ArrayList<ArrayList<Long>>();
+      ArrayList<Long> emptyDates = new ArrayList<Long>();
+
+      for (int i = 0; i < permamentDatesMilli.size(); i++) {
         finalDates.add(emptyDates);
       }
-      for (int i = 0; i < coopDates.size(); i++) {
-        finalDates.add(coopDates.get(i));
+      for (int i = 0; i < coopDatesMilli.size(); i++) {
+        finalDates.add(coopDatesMilli.get(i));
       }
 
       model.put("finalDates", finalDates);
-      model.put("permamentDates", permamentDates);
+      model.put("permamentDates", permamentDatesMilli);
 
       return "PositionView";
     } catch (Exception e) {
