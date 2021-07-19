@@ -29,7 +29,6 @@
         <div>
         <label>Dev</label><input type="radio" id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio" id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
-        <input type="hidden" id="itemtype" th:field="*{ItemType}">
         </div>
         <table id="InputTable" onchange="createTeamString()">
           <tr id="Row0"><th>Resource Name</th></tr>
@@ -37,6 +36,7 @@
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
+        <input type="hidden" id="itemtype" th:value="*{ItemType}">
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="Update Work Item">
@@ -227,7 +227,7 @@ function FillTable(){
     }
   function SelectType(){
     var value = document.getElementById("itemtype").value;
-    if(value="Dev"){
+    if(value=="Dev"){
       document.getElementById("dev").checked = true;
     }else{
       document.getElementById("qa").checked = true;
