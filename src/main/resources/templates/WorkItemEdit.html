@@ -22,7 +22,7 @@
   <div class="form-data">
     <h1>Edit Work Item</h1>
     <h5>Make the changes to the Work Item</h5>
-    <form action="#" method="post" th:action="@{/WorkItemEdit/}" th:object="${WorkItem}">
+    <form action="#" method="post" th:action="@{/WorkItemEdit}" th:object="${WorkItem}">
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>

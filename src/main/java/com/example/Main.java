@@ -211,7 +211,7 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-  @PostMapping(path = "/WorkItemEdit/", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -234,7 +234,7 @@ public class Main implements WebMvcConfigurer {
         dataList.add(obj);
       }
       model.put("WorkItems", dataList);
-      return "WorkItemView";
+      return "/viewWorkItem";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
