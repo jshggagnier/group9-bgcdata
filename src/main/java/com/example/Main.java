@@ -193,8 +193,6 @@ public class Main implements WebMvcConfigurer {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = " + nid));
-      String sql = "UPDATE workitems SET ";
-      stmt.executeUpdate(sql);
       WorkItem workitem = new WorkItem();
       while (rs.next()) {
         workitem.setItemName(rs.getString("itemname"));
@@ -212,8 +210,8 @@ public class Main implements WebMvcConfigurer {
       return "error";
     }
   }
- 
-  @PostMapping(path = "/WorkItemEdit/{nid}", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+
+  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @PathVariable String nid) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
