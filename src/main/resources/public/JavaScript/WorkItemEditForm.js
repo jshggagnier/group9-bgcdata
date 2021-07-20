@@ -140,11 +140,16 @@ function deleterow(row)
 }
 
 function FillTable(){
-    var Teams = parseTeamString(document.getElementById("TBstring"));
+    var Teams = parseTeamString(document.getElementById("TBstring").value);
+    UpdateTable();
     var i = 0;
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
-    if(i == 0){
+        if(i != 0 && (Teams.length-1) != i){
+          console.log(i);
+          console.log(Teams);
+          AddTeam();
+        }
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
         {
             if(CellCounter == 0){
@@ -152,18 +157,10 @@ function FillTable(){
             }
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
         }
-    }else{
-        AddTeam();
-            for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
-            {
-                if(CellCounter == 0){
-                    Row[CellCounter] = Row[CellCounter].slice(3);
-                }
-                document.getElementById("cell"+(i+1)+":"+CellCounter).value  = Row[CellCounter];
-            }
-    }
-    i++;
-    });
+        i++;
+  });
+  UpdateTable();
+  SelectType();
     }
     
     function parseTeamString(team){
@@ -185,3 +182,12 @@ function FillTable(){
     }
     return team;
     }
+  function SelectType(){
+    var value = document.getElementById("itemtype").value;
+    if(value=="Dev"){
+      document.getElementById("dev").checked = true;
+    }else{
+      document.getElementById("qa").checked = true;
+    }
+  }
+  FillTable();

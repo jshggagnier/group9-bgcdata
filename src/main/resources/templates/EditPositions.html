@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" sec:authorize="isAuthenticated()" th:replace="~{fragments/NavBar :: NavBar}" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" href="/stylesheets/EditPositions.css">
+
+
+
+  <!-- Google fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+      <h1>Current Details of The Position</h1>
+      <table class="styled-table" >
+        <tr class="heading">
+          <th>Name</th>
+          <th>Team</th>
+          <th>Position</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Has End Date ?</th>
+          <th>Coop Position</th>
+          <th>Filled Position</th>
+
+          <tr th:each="n:${F}">
+          <td th:text="${n.name}"></td>
+          <td th:text="${n.team}"></td>
+          <td th:text="${n.role}"></td>
+          <td th:text="${n.StartDate}"></td>
+          <td th:text="${n.EndDate}"></td>
+          <td th:text="${n.hasEndDate}"></td>
+          <td th:text="${n.isCoop}"></td>
+          <td th:text="${n.isFilled}"></td>
+
+
+          </td>
+          </tr>
+      </table>
+      </div>
+          </td>
+          </tr>
+      </table>
+
+
+      <div class="form-data">
+        <h2>Enter the details you want to edit</h2>
+    <form action="#"
+        method="post"
+        th:action="@{/UpdateData}"
+        th:object="${Position}">
+      <div class="form-name">Name<sup>*</sup></div>
+      <input type="text" field="*{Name}" name="Name" placeholder="Name of the Resource" required />
+      <div class="form-name">Team<sup>*</sup></div>
+      <input type="text" field="*{Team}" name="Team" placeholder="Name of the Team" required />
+      <div class="form-name">Role<sup>*</sup></div>
+      <input type="text" field="*{Role}" name="Role" placeholder="Role of the position" required />
+      <div class="form-name">Starting Date<sup>*</sup></div>
+      <input type="date" id="sd" field="*{StartDate}" name = "StartDate" placeholder="Starting Date" onchange="InvalidDateCheck()" required />
+      <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
+      <input type="date" id="ed" field="*{EndDate}" name="EndDate" placeholder="Ending Date (If Applicable)" onchange="InvalidDateCheck()" required />
+      </input>
+      <br/>
+      <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
+      <input type="radio"  field="*{hasEndDate}" name ="hasEndDate" id="noCheck" onclick="javascript:yesnoCheck();"value="no"><label class="form-name">No</label></input>
+      <input type="radio" id="yesCheck" onclick="javascript:yesnoCheck();" field="*{hasEndDate}" name="hasEndDate" value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
+      <div class="form-name">Co-op position? <input type="checkbox" field="*{isCoop}" name="isCoop"></div><br>
+      <div class="form-name">Position currently filled? <input type="checkbox" field="*{isFilled}" name="isFilled"></div><br>
+      <input type="submit" value="Submit Data" />
+    </form>
+<script type="text/javascript">
+    function yesnoCheck() {
+      if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ed').style.display = "block";
+        document.getElementById("endDateLabel").hidden = false;
+        document.getElementById('ed').required = true;
+      }
+      else if (document.getElementById('noCheck').checked) {
+        document.getElementById('ed').style.display = "none";
+        document.getElementById("endDateLabel").hidden = true;
+        document.getElementById('ed').required = false;
+      }
+    }
+    function resetform()
+    {
+      document.getElementById('Name').value = "";
+      document.getElementById('Team').value = "";
+      document.getElementById('Role').value = "";
+      console.log(new Date());
+      document.getElementById('sd').valueAsDate = new Date();
+      document.getElementById('ed').valueAsDate = new Date();
+    }
+    function InvalidDateCheck()
+    {
+      var StartDate = document.getElementById("sd").valueAsDate;
+      var EndDate = document.getElementById("ed").valueAsDate;
+    if(EndDate < StartDate)
+    {
+        document.getElementById("ed").valueAsDate = StartDate;
+    }
+    }
+    resetform();
+    yesnoCheck();
+  </script>
+  </body>
+</html>

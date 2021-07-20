@@ -109,10 +109,49 @@ public class Main implements WebMvcConfigurer {
     model.put("Position", position);
     return "PositionSubmit";
   }
+  
+  // Editing positions
+  @GetMapping(path = "/editdata/{name}")
+  public String deleteUserData(Map<String, Object> model, @PathVariable String name) {
+
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT * FROM Employees WHERE name = '" + name + "' ";
+
+      ResultSet rs = stmt.executeQuery(sql);
+      ArrayList<Position> dataList = new ArrayList<Position>();
+
+      while (rs.next()) {
+        Position obj = new Position();
+        obj.setName(rs.getString("name"));
+        obj.setTeam(rs.getString("team"));
+        obj.setRole(rs.getString("role"));
+        obj.setStartDate(rs.getString("StartDate"));
+        obj.setEndDate(rs.getString("EndDate"));
+        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+        obj.setisCoop(rs.getBoolean("isCoop"));
+        obj.setisFilled(rs.getBoolean("isFilled"));
+
+        dataList.add(obj);
+        // System.out.println(obj.Name);
+      }
+
+      model.put("F", dataList);
+      return "EditPositions";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model, principal);
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")){
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
@@ -259,16 +298,56 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
+  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @AuthenticationPrincipal OidcUser principal) throws Exception {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
+      +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
+      +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
+      stmt.executeUpdate(sql);
+      ResultSet rs = stmt.executeQuery("SELECT * FROM workitems");
+      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
+      while (rs.next()) {
+        WorkItem obj = new WorkItem();
+        obj.setItemName(rs.getString("itemname"));
+        obj.setStartDate(rs.getString("startdate"));
+        obj.setEndDate(rs.getString("enddate"));
+        obj.setItemType(rs.getString("itemtype"));
+        obj.setTeamsAssigned(rs.getString("teams"));
+        obj.setFundingInformation(rs.getString("fundinginformation"));
+        obj.setId(rs.getString("id"));
+
+        dataList.add(obj);
+      }
+      model.put("WorkItems", dataList);
+      return "WorkItemView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    GetuserAuthenticationData(model, principal);
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
           "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-
       while (rs.next()) {
         WorkItem obj = new WorkItem();
         obj.setItemName(rs.getString("itemname"));
@@ -410,6 +489,23 @@ public class Main implements WebMvcConfigurer {
       return "error";
     }
   }
+  
+  // updating positions data
+  @PostMapping(path = "/UpdateData", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String handleUpdate(Map<String, Object> model, @ModelAttribute("Position") Position pos) throws Exception {
+    // Establishing connection with database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("UPDATE Employees SET team='" + pos.getTeam() + "', role='" + pos.getRole() + "',StartDate='"
+          + pos.getStartDate() + "', EndDate='" + pos.getEndDate() + "',isCoop='" + pos.getisCoop() + "',isFilled='"
+          + pos.getisFilled() + "' WHERE name ='" + pos.getName() + "' ");
+
+      return "success";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @Bean
   public DataSource dataSource() throws SQLException {
@@ -423,7 +519,7 @@ public class Main implements WebMvcConfigurer {
   }
 
   public String GetuserAuthenticationData(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    String defaultrole = "user";
+    String defaultrole = "unverified";
     if (principal != null) {
       model.put("profile", principal.getClaims());
       String email = (String) principal.getClaims().get("email");
