@@ -32,8 +32,11 @@
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
         </div>
         <table id="InputTable" onchange="createTeamString()">
-          <tr class="rowname" id="Row0"><th>Resource Name</th></tr>
-          <tr class="rowname" id="Row1"><td><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td><td><input type='number' id="cell1:1" min="0"></td></tr>
+            <tr id="Row0">
+              <td class="headerrow">Resource Name</td>
+            </tr>
+          <tr class="rowname" id="Row1">
+              <td><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td>
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
@@ -237,7 +240,8 @@ function FillTable(){
     }
   }
   FillTable();
-  window.SelectType();
+  SelectType();
+  onloadeddata(SelectType());
 </script>
 </body>
 </html>
