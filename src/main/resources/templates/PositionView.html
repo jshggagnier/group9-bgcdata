@@ -34,34 +34,6 @@
 
 <body>
   <div class="db-container">
-<<<<<<< HEAD
-    <h1 style="font-weight: bolder;">BGC Positions</h1><br>
-    <table class="styled-table">
-      <tr class="table-header" style="color: lavenderblush;">
-        <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Resource</th>
-        <th class="header-name" style="padding-right: 100px">Team</th>
-        <th class="header-name" style="padding-right: 100px">Position</th>
-        <th class="header-name" style="padding-right: 80px">Start Date</th>
-        <th class="header-name" style="padding-right: 80px">End Date</th>
-        <th class="header-name" style="padding-right: 80px">Has End Date</th>
-        <th class="header-name" style="padding-right: 80px">Is Coop</th>
-        <th class="header-name" style="padding-right: 80px">Is Filled</th>
-        <th class="header-name" style="padding-right: 100px; border-top-right-radius: 7px;"></th>
-
-      <tr th:each="n:${Positions}">
-        <td style="padding-right: 150px" th:text="${n.name}"></td>
-        <td style="padding-right: 100px" th:text="${n.team}"></td>
-        <td style="padding-right: 100px" th:text="${n.role}"></td>
-        <td style="padding-right: 80px" th:text="${n.StartDate}"></td>
-        <th:block th:switch="${n.hasEndDate}">
-          <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
-          <td style="padding-right: 80px" th:case="false">No End Date</td>
-        </th:block>
-        <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
-        <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
-        <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
-        <th:block th:switch="${userRole}">
-=======
       <h1 style="font-weight: bolder;">BGC Positions</h1><br>
       <table class="styled-table" >
         <tr class="table-header" style="color: lavenderblush;">
@@ -93,7 +65,6 @@
             </form>
           </td>
           <th:block th:switch="${userRole}">
->>>>>>> fbbb1b50a89e58454efe78884fe9f467f5f26297
           <td th:case="admin">
 
 
