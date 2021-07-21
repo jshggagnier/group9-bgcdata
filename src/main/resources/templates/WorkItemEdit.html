@@ -26,7 +26,7 @@
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
-        <input type="hidden" id="itemtype" th:feild="*{ItemType}">
+        <input type="hidden" id="itemtype" th:value="*{ItemType}">
         <div>
         <label>Dev</label><input type="radio"  id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
@@ -233,9 +233,10 @@ function FillTable(){
     return team;
     }
   function SelectType(value){
-      values = document.getElementById("itemtype").feild;
-      console.log(values);
-    if(values == "Dev"){
+      values = document.getElementById("itemtype");
+      console.log(values)
+      console.log(values.value);
+    if(values.value == "Dev"){
       document.getElementById("dev").checked = true;
     }else{
       document.getElementById("qa").checked = true;
