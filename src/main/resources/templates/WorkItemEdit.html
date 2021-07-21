@@ -27,7 +27,7 @@
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
         <input type="hidden" id="itemtype" th:feild="*{ItemType}">
-        <div th:onload="SelectType(*{ItemType})">
+        <div>
         <label>Dev</label><input type="radio"  id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
         </div>
@@ -195,6 +195,7 @@ function FillTable(){
     var i = 0;
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
+        if(Row !=  null){
         if(i != 0 && (Teams.length-1) != i){
           AddTeam();
         }
@@ -207,6 +208,7 @@ function FillTable(){
         }
         i++;
         UpdateTable();
+    }
   });
   }
     
@@ -231,12 +233,15 @@ function FillTable(){
     }
   function SelectType(value){
       console.log(value);
-    if(value == "Dev"){
+      values = document.getElementById("itemtype");
+      console.log(values);
+    if(value == "Dev" || values == "Dev"){
       document.getElementById("dev").checked = true;
     }else{
       document.getElementById("qa").checked = true;
     }
   }
+  SelectType("Dev");
   FillTable();
 </script>
 </body>
