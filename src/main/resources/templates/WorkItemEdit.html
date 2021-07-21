@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/stylesheets/WorkItemSubmit.css">
-  <script src="JavaScript/WorkItemEditForm.js"></script>
 
   <!-- For live server - please remove in final iteration!-->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css">
@@ -27,6 +26,7 @@
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <input type="hidden" id="itemtype" th:value="*{ItemType}">
         <div>
         <label>Dev</label><input type="radio"  id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
@@ -40,7 +40,6 @@
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
-        <input type="hidden" id="itemtype" th:value="*{ItemType}">
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="Update Work Item">
@@ -53,6 +52,7 @@
     var TableRows = (table.rows.length-1);
     var newrow = table.insertRow(-1);
     newrow.id = "Row"+(TableRows+1);
+    newrow.className = "rowname";
     UpdateTable();
 }
 
@@ -196,8 +196,6 @@ function FillTable(){
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
         if(i != 0 && (Teams.length-1) != i){
-          console.log(i);
-          console.log(Teams);
           AddTeam();
         }
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
@@ -205,10 +203,13 @@ function FillTable(){
             if(CellCounter == 0){
                 Row[CellCounter] = Row[CellCounter].slice(3);
             }
+            if(document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
+            }
         }
         i++;
         UpdateTable();
+    
   });
   }
     
@@ -231,17 +232,18 @@ function FillTable(){
     }
     return team;
     }
-  function SelectType(){
-    var value = document.getElementById("itemtype").value;
-    if(value=="Dev"){
+  function SelectType(value){
+      values = document.getElementById("itemtype");
+      console.log(values)
+      console.log(values.value);
+    if(values.value == "Dev"){
       document.getElementById("dev").checked = true;
     }else{
       document.getElementById("qa").checked = true;
     }
   }
+  SelectType("Dev");
   FillTable();
-  SelectType();
-  onloadeddata(SelectType());
 </script>
 </body>
 </html>

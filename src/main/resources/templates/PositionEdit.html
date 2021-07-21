@@ -1,97 +1,100 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" sec:authorize="isAuthenticated()" th:replace="~{fragments/NavBar :: NavBar}" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></html>
+<html xmlns:th="http://www.thymeleaf.org" sec:authorize="isAuthenticated()" th:replace="~{fragments/NavBar :: NavBar}"
+  lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+</html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <link rel="stylesheet" href="/stylesheets/EditPositions.css">
-
-
-
+  <link rel="stylesheet" href="/stylesheets/PositionSubmit.css">
   <!-- Google fonts-->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap"
+    rel="stylesheet" />
 </head>
-<body>
-  <div class="container">
-     <div class="form-data">
-        <h2>Enter the details you want to edit</h2>
-    <form action="#"
-        method="post"
-        th:action="@{/PositionUpdate}"
-        th:object="${Position}">
-      <div class="form-name">Name<sup>*</sup></div>
-      <input type="text" field="*{Name}" name="Name" id="Name" placeholder="Name of the Resource" required />
-      <div class="form-name">Team<sup>*</sup></div>
-      <input type="text" field="*{Team}" name="Team" id="Team" placeholder="Name of the Team" required />
-      <div class="form-name">Role<sup>*</sup></div>
-      <input type="text" field="*{Role}" name="Role" id="Role" placeholder="Role of the position" required />
-      <div class="form-name">Starting Date<sup>*</sup></div>
-      <input type="date" id="sd" field="*{StartDate}" name = "StartDate" placeholder="Starting Date" onchange="InvalidDateCheck()" required />
-      <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
-      <input type="date" id="ed" field="*{EndDate}" name="EndDate" placeholder="Ending Date (If Applicable)" onchange="InvalidDateCheck()" required />
-      </input>
-      <br/>
-      <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
-      <input type="radio"  field="*{hasEndDate}" name ="hasEndDate" id="noCheck" onclick="javascript:yesnoCheck();"value="no"><label class="form-name">No</label></input>
-      <input type="radio" id="yesCheck" onclick="javascript:yesnoCheck();" field="*{hasEndDate}" name="hasEndDate" value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
-      <div class="form-name">Co-op position? <input type="checkbox" field="*{isCoop}" id="iscoop" name="isCoop"></div><br>
-      <div class="form-name">Position currently filled? <input type="checkbox" field="*{isFilled}" id="isfilled" name="isFilled"></div><br>
-      <input type="text" field="*{serialID}" name="serialID" id="serialID" required hidden>
-      <input type="submit" value="Submit Data" />
-    </form>
-  </body>
 
-  <script th:inline="javascript" type="text/javascript">
-    function yesnoCheck() {
-      if (document.getElementById('yesCheck').checked) {
-        document.getElementById('ed').style.display = "block";
-        document.getElementById("endDateLabel").hidden = false;
-        document.getElementById('ed').required = true;
-      }
-      else if (document.getElementById('noCheck').checked) {
-        document.getElementById('ed').style.display = "none";
-        document.getElementById("endDateLabel").hidden = true;
-        document.getElementById('ed').required = false;
-      }
+<body>
+  <h1>Modify Position Data</h1>
+  <h4>Enter the details for the chosen position</h4>
+    <div class="form-data">
+      <form action="#" method="post" th:action="@{/PositionUpdate}" th:object="${Position}">
+        <div class="form-name">Name<sup>*</sup></div>
+        <input type="text" field="*{Name}" name="Name" id="Name" placeholder="Name of the Resource" required />
+        <div class="form-name">Team<sup>*</sup></div>
+        <input type="text" field="*{Team}" name="Team" id="Team" placeholder="Name of the Team" required />
+        <div class="form-name">Role<sup>*</sup></div>
+        <input type="text" field="*{Role}" name="Role" id="Role" placeholder="Role of the position" required />
+        <div class="form-name">Starting Date<sup>*</sup></div>
+        <input type="date" id="sd" field="*{StartDate}" name="StartDate" placeholder="Starting Date"
+          onchange="InvalidDateCheck()" required />
+        <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
+        <input type="date" id="ed" field="*{EndDate}" name="EndDate" placeholder="Ending Date (If Applicable)"
+          onchange="InvalidDateCheck()" required />
+        </input>
+        <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
+        <input type="radio" field="*{hasEndDate}" name="hasEndDate" id="noCheck" onclick="javascript:yesnoCheck();"
+          value="no"><label class="form-name">No</label></input>
+        <input type="radio" id="yesCheck" onclick="javascript:yesnoCheck();" field="*{hasEndDate}" name="hasEndDate"
+          value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
+        <div class="form-name">Co-op position? <input type="checkbox" field="*{isCoop}" id="iscoop" name="isCoop"></div>
+        <div class="form-name">Position currently filled? <input type="checkbox" field="*{isFilled}" id="isfilled" name="isFilled"></div><br>
+        <input type="text" field="*{serialID}" name="serialID" id="serialID" required style="display: none;">
+        <input type="submit" value="Submit Data" />
+      </form>
+    </div>
+</body>
+
+<script th:inline="javascript" type="text/javascript">
+  function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+      document.getElementById('ed').style.display = "block";
+      document.getElementById("endDateLabel").hidden = false;
+      document.getElementById('ed').required = true;
     }
-    function resetform()
-    {
-      document.getElementById('Name').value = "";
-      document.getElementById('Team').value = "";
-      document.getElementById('Role').value = "";
-      console.log(new Date());
-      document.getElementById('sd').valueAsDate = new Date();
-      document.getElementById('ed').valueAsDate = new Date();
+    else if (document.getElementById('noCheck').checked) {
+      document.getElementById('ed').style.display = "none";
+      document.getElementById("endDateLabel").hidden = true;
+      document.getElementById('ed').required = false;
     }
-    function InvalidDateCheck()
-    {
-      var StartDate = document.getElementById("sd").valueAsDate;
-      var EndDate = document.getElementById("ed").valueAsDate;
-    if(EndDate < StartDate)
-    {
-        document.getElementById("ed").valueAsDate = StartDate;
+  }
+  function resetform() {
+    document.getElementById('Name').value = "";
+    document.getElementById('Team').value = "";
+    document.getElementById('Role').value = "";
+    console.log(new Date());
+    document.getElementById('sd').valueAsDate = new Date();
+    document.getElementById('ed').valueAsDate = new Date();
+  }
+  function InvalidDateCheck() {
+    var StartDate = document.getElementById("sd").valueAsDate;
+    var EndDate = document.getElementById("ed").valueAsDate;
+    if (EndDate < StartDate) {
+      document.getElementById("ed").valueAsDate = StartDate;
     }
-    }
-    /*<![CDATA[*/
-    function stageedit()
-    {
-      var date = new Date();
-      document.getElementById('Name').value = /*[[${target.Name}]]*/ "wingor";
-      document.getElementById('Team').value = /*[[${target.Team}]]*/ "was a great man";
-      document.getElementById('Role').value = /*[[${target.Role}]]*/ "and could fly";
-      document.getElementById('sd').value = /*[[${target.StartDate}]]*/ date;
-      document.getElementById('ed').value = /*[[${target.EndDate}]]*/ date;
-      document.getElementById('iscoop').checked = /*[[${target.isCoop}]]*/ true;
-      document.getElementById('isfilled').checked = /*[[${target.isFilled}]]*/ true;
-      document.getElementById('serialID').value = /*[[${target.serialID}]]*/ "for ages";
-      if(/*[[${target.hasEndDate}]]*/ true){document.getElementById('yesCheck').checked = true;}
-      else{document.getElementById('noCheck').checked = true;}
-      yesnoCheck();
-    }
-    /*]]>*/
-    stageedit();
-    stageedit();
-  </script>
+  }
+  /*<![CDATA[*/
+  function stageedit() {
+    var date = new Date();
+    document.getElementById('Name').value = /*[[${target.Name}]]*/ "wingor";
+    document.getElementById('Team').value = /*[[${target.Team}]]*/ "was a great man";
+    document.getElementById('Role').value = /*[[${target.Role}]]*/ "and could fly";
+    document.getElementById('sd').value = /*[[${target.StartDate}]]*/ date;
+    document.getElementById('ed').value = /*[[${target.EndDate}]]*/ date;
+    document.getElementById('iscoop').checked = /*[[${target.isCoop}]]*/ true;
+    document.getElementById('isfilled').checked = /*[[${target.isFilled}]]*/ true;
+    document.getElementById('serialID').value = /*[[${target.serialID}]]*/ "for ages";
+    if (/*[[${target.hasEndDate}]]*/ true) { document.getElementById('yesCheck').checked = true; }
+    else { document.getElementById('noCheck').checked = true; }
+    yesnoCheck();
+  }
+  /*]]>*/
+  stageedit();
+  stageedit();
+</script>
+
 </html>

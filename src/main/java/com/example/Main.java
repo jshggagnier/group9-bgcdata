@@ -87,7 +87,7 @@ public class Main implements WebMvcConfigurer {
   @GetMapping("/WorkItemSubmit")
   String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("user")) {
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
       model.put("message",
           "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -100,7 +100,7 @@ public class Main implements WebMvcConfigurer {
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("user")) {
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
       model.put("message",
           "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
       return "error";
@@ -112,8 +112,13 @@ public class Main implements WebMvcConfigurer {
   
   // Editing positions
   @GetMapping(path = "/positionedit/{serialID}")
-  public String deleteUserData(Map<String, Object> model, @PathVariable int serialID) {
-
+  public String deleteUserData(Map<String, Object> model, @PathVariable int serialID, @AuthenticationPrincipal OidcUser principal) {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "SELECT * FROM Employees WHERE id = '" + serialID + "' ";

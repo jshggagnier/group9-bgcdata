@@ -32,14 +32,18 @@
       <div class="form-name">Role<sup>*</sup></div>
       <input type="text" id="Role" th:field="*{Role}" placeholder="Role of the position" required />
       <div class="form-name">Starting Date<sup>*</sup></div>
-      <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" onchange="InvalidDateCheck()" required />
+      <input type="date" id="sd" th:field="*{StartDate}" placeholder="Starting Date" onchange="InvalidDateCheck()"
+        required />
       <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
-      <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable)" onchange="InvalidDateCheck()" required />
+      <input type="date" id="ed" th:field="*{EndDate}" placeholder="Ending Date (If Applicable)"
+        onchange="InvalidDateCheck()" required />
       </input>
-      <br/>
+      <br />
       <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
-      <input type="radio" name="negative" th:field="*{hasEndDate}" id="noCheck" onclick="javascript:yesnoCheck();"value="no"><label class="form-name">No</label></input>
-      <input type="radio" name="affirmative" id="yesCheck" onclick="javascript:yesnoCheck();" th:field="*{hasEndDate}"value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
+      <input type="radio" name="negative" th:field="*{hasEndDate}" id="noCheck" onclick="javascript:yesnoCheck();"
+        value="no"><label class="form-name">No</label></input>
+      <input type="radio" name="affirmative" id="yesCheck" onclick="javascript:yesnoCheck();" th:field="*{hasEndDate}"
+        value="yes" checked="false"><label class="form-name">Yes</label></input><br><br>
       <div class="form-name">Co-op position? <input type="checkbox" th:field="*{isCoop}"></div><br>
       <div class="form-name">Position currently filled? <input type="checkbox" th:field="*{isFilled}"></div><br>
       <input type="submit" value="Submit Data" />
@@ -59,8 +63,7 @@
         document.getElementById('ed').required = false;
       }
     }
-    function resetform()
-    {
+    function resetform() {
       document.getElementById('Name').value = "";
       document.getElementById('Team').value = "";
       document.getElementById('Role').value = "";
@@ -68,14 +71,12 @@
       document.getElementById('sd').valueAsDate = new Date();
       document.getElementById('ed').valueAsDate = new Date();
     }
-    function InvalidDateCheck()
-    {
+    function InvalidDateCheck() {
       var StartDate = document.getElementById("sd").valueAsDate;
       var EndDate = document.getElementById("ed").valueAsDate;
-    if(EndDate < StartDate) 
-    {
+      if (EndDate < StartDate) {
         document.getElementById("ed").valueAsDate = StartDate;
-    }
+      }
     }
     resetform();
     yesnoCheck();
