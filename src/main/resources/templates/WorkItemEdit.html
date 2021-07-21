@@ -195,7 +195,6 @@ function FillTable(){
     var i = 0;
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
-        if(Row !=  null){
         if(i != 0 && (Teams.length-1) != i){
           AddTeam();
         }
@@ -204,11 +203,13 @@ function FillTable(){
             if(CellCounter == 0){
                 Row[CellCounter] = Row[CellCounter].slice(3);
             }
+            if(document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
+            }
         }
         i++;
         UpdateTable();
-    }
+    
   });
   }
     
@@ -232,10 +233,9 @@ function FillTable(){
     return team;
     }
   function SelectType(value){
-      console.log(value);
-      values = document.getElementById("itemtype");
+      values = document.getElementById("itemtype").feild;
       console.log(values);
-    if(value == "Dev" || values == "Dev"){
+    if(values == "Dev"){
       document.getElementById("dev").checked = true;
     }else{
       document.getElementById("qa").checked = true;
