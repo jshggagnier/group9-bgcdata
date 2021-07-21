@@ -64,16 +64,14 @@
           <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
           <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
           <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
-          <td>
-            <form th:action="@{/editdata/{id}(id=${n.name})}">
-              <input type="submit" value="Edit" />
-            </form>
-          </td>
           <th:block th:switch="${userRole}">
           <td th:case="admin">
-
-
-            <form th:action="@{/editdata/{id}(id=${n.name})}">
+            <form th:action="@{/positionedit/{id}(id=${n.serialID})}">
+              <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
+            </form>
+          </td>
+          <td th:case="viewedit">
+            <form th:action="@{/positionedit/{id}(id=${n.serialID})}">
               <button style="border: none; background:transparent;" type="submit" value="Edit"><i style="color:#00196A" class="fa fa-cog fa-lg"></i></button>
             </form>
           </td>
@@ -83,9 +81,6 @@
       <br>
       <button class="back-btn" onclick="window.history.back();">Go Back</button>
   </div>
-
-
-
     <div class="container">
       <h2 style="text-align: center">Employment Visualization Graph</h2>
 

@@ -9,6 +9,15 @@ public class Position
     public boolean hasEndDate;
     public boolean isFilled;
     public String EndDate;
+    public int serialID;
+
+    public int getSerialID() {
+        return this.serialID;
+    }
+
+    public void setSerialID(int serialID) {
+        this.serialID = serialID;
+    }
 
     public String getName() {
         return this.Name;

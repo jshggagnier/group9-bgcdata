@@ -106,33 +106,33 @@ public class Main implements WebMvcConfigurer {
   }
   
   // Editing positions
-  @GetMapping(path = "/editdata/{name}")
-  public String deleteUserData(Map<String, Object> model, @PathVariable String name) {
+  @GetMapping(path = "/positionedit/{serialID}")
+  public String deleteUserData(Map<String, Object> model, @PathVariable int serialID) {
 
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      String sql = "SELECT * FROM Employees WHERE name = '" + name + "' ";
-
+      String sql = "SELECT * FROM Employees WHERE id = '" + serialID + "' ";
       ResultSet rs = stmt.executeQuery(sql);
-      ArrayList<Position> dataList = new ArrayList<Position>();
 
-      while (rs.next()) {
-        Position obj = new Position();
-        obj.setName(rs.getString("name"));
-        obj.setTeam(rs.getString("team"));
-        obj.setRole(rs.getString("role"));
-        obj.setStartDate(rs.getString("StartDate"));
-        obj.setEndDate(rs.getString("EndDate"));
-        obj.sethasEndDate(rs.getBoolean("hasEndDate"));
-        obj.setisCoop(rs.getBoolean("isCoop"));
-        obj.setisFilled(rs.getBoolean("isFilled"));
+      rs.next();
+      Position obj = new Position();
+      obj.setName(rs.getString("name"));
+      obj.setTeam(rs.getString("team"));
+      obj.setRole(rs.getString("role"));
+      obj.setStartDate(rs.getString("StartDate"));
+      obj.setEndDate(rs.getString("EndDate"));
+      obj.sethasEndDate(rs.getBoolean("hasEndDate"));
+      obj.setisCoop(rs.getBoolean("isCoop"));
+      obj.setisFilled(rs.getBoolean("isFilled"));
+      obj.setSerialID(serialID);
+      model.put("target",obj);
 
-        dataList.add(obj);
-        // System.out.println(obj.Name);
+      if(rs.next() != false) 
+      {
+        model.put("message","Error: Two identical Serial ID's, Database is invalid/has been modified! Contact Administrator with this error!");
+        return "error";
       }
-
-      model.put("F", dataList);
-      return "EditPositions";
+      return "PositionEdit";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -169,6 +169,7 @@ public class Main implements WebMvcConfigurer {
         obj.sethasEndDate(rs.getBoolean("hasEndDate"));
         obj.setisCoop(rs.getBoolean("isCoop"));
         obj.setisFilled(rs.getBoolean("isFilled"));
+        obj.setSerialID(rs.getInt("id"));
 
         dataList.add(obj);
         System.out.println(obj.Name);
@@ -273,7 +274,7 @@ public class Main implements WebMvcConfigurer {
         dataList.add(obj);
       }
       model.put("WorkItems", dataList);
-      return "WorkItemView";
+      return "redirect:/viewWorkItems";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -342,7 +343,7 @@ public class Main implements WebMvcConfigurer {
         dataList.add(obj);
       }
       model.put("WorkItems", dataList);
-      return "WorkItemView";
+      return "redirect:/viewWorkItems";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -430,7 +431,7 @@ public class Main implements WebMvcConfigurer {
       model.put("finalDates", finalDates);
       model.put("permamentDates", permamentDates);
 
-      return "PositionView";
+      return "redirect:/viewPositions";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -438,16 +439,17 @@ public class Main implements WebMvcConfigurer {
   }
   
   // updating positions data
-  @PostMapping(path = "/UpdateData", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  @PostMapping(path = "/PositionUpdate", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String handleUpdate(Map<String, Object> model, @ModelAttribute("Position") Position pos) throws Exception {
     // Establishing connection with database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("UPDATE Employees SET team='" + pos.getTeam() + "', role='" + pos.getRole() + "',StartDate='"
-          + pos.getStartDate() + "', EndDate='" + pos.getEndDate() + "',isCoop='" + pos.getisCoop() + "',isFilled='"
-          + pos.getisFilled() + "' WHERE name ='" + pos.getName() + "' ");
-
-      return "success";
+      String sql = "UPDATE Employees SET team='" + pos.getTeam() + "', name='" + pos.getName() + "', role='" + pos.getRole() + "', hasEndDate='"
+      + pos.gethasEndDate()+ "',StartDate='" + pos.getStartDate() + "', EndDate='" + pos.getEndDate() + "',isCoop='" + pos.getisCoop() + "',isFilled='"
+      + pos.getisFilled() + "' WHERE id ='" + pos.getSerialID() + "';";
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      return "redirect:/viewPositions";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
