@@ -84,19 +84,6 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-  @GetMapping("/WorkItemSubmit")
-  String LoadFormWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("unverified") || Role.equals("viewonly")) {
-      model.put("message",
-          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
-      return "error";
-    }
-    WorkItem workitem = new WorkItem();
-    model.put("WorkItem", workitem);
-    return "WorkItemSubmit";
-  }
-
   @GetMapping("/PositionSubmit")
   String LoadFormPosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model, principal);
@@ -274,71 +261,7 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-  @GetMapping("/WorkItemEdit/{nid}")
-  String LoadFormWorkItemEdit(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal,
-      @PathVariable String nid) {
-    String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("unverified") || Role.equals("viewonly")) {
-      model.put("message",
-          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
-      return "error";
-    }
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems WHERE id = " + nid));
-      WorkItem workitem = new WorkItem();
-      while (rs.next()) {
-        workitem.setItemName(rs.getString("itemname"));
-        workitem.setStartDate(rs.getString("startdate"));
-        workitem.setEndDate(rs.getString("enddate"));
-        workitem.setItemType(rs.getString("itemtype"));
-        workitem.setTeamsAssigned(rs.getString("teams"));
-        workitem.setFundingInformation(rs.getString("fundinginformation"));
-        workitem.setId(rs.getString("id"));
-      }
-      model.put("WorkItem", workitem);
-      return "WorkItemEdit";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
 
-  @PostMapping(path = "/WorkItemEdit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemEditSubmit(Map<String, Object> model, WorkItem workitem, @AuthenticationPrincipal OidcUser principal) throws Exception {
-    String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("unverified")) {
-      model.put("message",
-          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
-      return "error";
-    }
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
-      +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
-      +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
-      stmt.executeUpdate(sql);
-      ResultSet rs = stmt.executeQuery("SELECT * FROM workitems");
-      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-      while (rs.next()) {
-        WorkItem obj = new WorkItem();
-        obj.setItemName(rs.getString("itemname"));
-        obj.setStartDate(rs.getString("startdate"));
-        obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
-        obj.setTeamsAssigned(rs.getString("teams"));
-        obj.setFundingInformation(rs.getString("fundinginformation"));
-        obj.setId(rs.getString("id"));
-
-        dataList.add(obj);
-      }
-      model.put("WorkItems", dataList);
-      return "redirect:/viewWorkItems";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
 
   @GetMapping("/viewWorkItems")
   String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
@@ -368,40 +291,6 @@ public class Main implements WebMvcConfigurer {
       }
       model.put("WorkItems", dataList);
       return "WorkItemView";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
-  // Submit Catch
-  @PostMapping(path = "/WorkItemSubmit", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String handleBrowsernewWorkItemSubmit(Map<String, Object> model, WorkItem workitem) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
-      String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
-          + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
-          + workitem.getTeamsAssigned() + "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation()
-          + "')";
-      stmt.executeUpdate(sql);
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
-      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-      while (rs.next()) {
-        WorkItem obj = new WorkItem();
-        obj.setItemName(rs.getString("itemname"));
-        obj.setStartDate(rs.getString("startdate"));
-        obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
-        obj.setTeamsAssigned(rs.getString("teams"));
-        obj.setFundingInformation(rs.getString("fundinginformation"));
-        obj.setId(rs.getString("id"));
-
-        dataList.add(obj);
-      }
-      model.put("WorkItems", dataList);
-      return "redirect:/viewWorkItems";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
