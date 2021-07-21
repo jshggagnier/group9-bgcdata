@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/WorkItemView.css">
-
+  <script src="JavaScript/WorkItemFormView.js"></script>
   
   <!--Font & Icon import-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -19,7 +19,7 @@
 <body>
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Work Items</h1><br>
-    <table class="styled-table">
+    <table id="WorkItemViewtable"class="styled-table">
       <tr class="table-header" style="color: lavenderblush;">
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
         <th class="header-name" style="padding-right: 100px">Item Type</th>
@@ -54,4 +54,5 @@
     <button class="back-btn" onclick="window.history.back();">Go Back</button>
   </div>
 </body>
+<script>parseTeamString();</script>
 </html>
