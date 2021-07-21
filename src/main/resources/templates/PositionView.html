@@ -34,37 +34,37 @@
 
 <body>
   <div class="db-container">
-      <h1 style="font-weight: bolder;">BGC Positions</h1><br>
-      <table class="styled-table" >
-        <tr class="table-header" style="color: lavenderblush;">
-          <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Resource</th>
-          <th class="header-name" style="padding-right: 100px">Team</th>
-          <th class="header-name" style="padding-right: 100px">Position</th>
-          <th class="header-name" style="padding-right: 80px">Start Date</th>
-          <th class="header-name" style="padding-right: 80px">End Date</th>
-          <th class="header-name" style="padding-right: 80px">Has End Date</th>
-          <th class="header-name" style="padding-right: 80px">Is Coop</th>
-          <th class="header-name" style="padding-right: 80px">Is Filled</th>
-          <th class="header-name" style="padding-right: 100px; border-top-right-radius: 7px;"></th>
+    <h1 style="font-weight: bolder;">BGC Positions</h1><br>
+    <table class="styled-table">
+      <tr class="table-header" style="color: lavenderblush;">
+        <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Resource</th>
+        <th class="header-name" style="padding-right: 100px">Team</th>
+        <th class="header-name" style="padding-right: 100px">Position</th>
+        <th class="header-name" style="padding-right: 80px">Start Date</th>
+        <th class="header-name" style="padding-right: 80px">End Date</th>
+        <th class="header-name" style="padding-right: 80px">Has End Date</th>
+        <th class="header-name" style="padding-right: 80px">Is Coop</th>
+        <th class="header-name" style="padding-right: 80px">Is Filled</th>
+        <th class="header-name" style="padding-right: 100px; border-top-right-radius: 7px;"></th>
 
-          <tr th:each="n:${Positions}">
-          <td style="padding-right: 150px" th:text="${n.name}"></td>
-          <td style="padding-right: 100px" th:text="${n.team}"></td>
-          <td style="padding-right: 100px" th:text="${n.role}"></td>
-          <td style="padding-right: 80px" th:text="${n.StartDate}"></td>
-          <th:block th:switch="${n.hasEndDate}">
-            <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
-            <td style="padding-right: 80px" th:case="false">No End Date</td>
-          </th:block>
-          <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
-          <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
-          <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
-          <td>
-            <form th:action="@{/editdata/{id}(id=${n.name})}">
-              <input type="submit" value="Edit" />
-            </form>
-          </td>
-          <th:block th:switch="${userRole}">
+      <tr th:each="n:${Positions}">
+        <td style="padding-right: 150px" th:text="${n.name}"></td>
+        <td style="padding-right: 100px" th:text="${n.team}"></td>
+        <td style="padding-right: 100px" th:text="${n.role}"></td>
+        <td style="padding-right: 80px" th:text="${n.StartDate}"></td>
+        <th:block th:switch="${n.hasEndDate}">
+          <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
+          <td style="padding-right: 80px" th:case="false">No End Date</td>
+        </th:block>
+        <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
+        <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
+        <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
+        <td>
+          <form th:action="@{/editdata/{id}(id=${n.name})}">
+            <input type="submit" value="Edit" />
+          </form>
+        </td>
+        <th:block th:switch="${userRole}">
           <td th:case="admin">
 
 
@@ -169,8 +169,13 @@
             tickInterval: 7 * 24 * 3600 * 1000
           },
 
+          // tooltip: {
+          //   valuePrefix: "Month "
+          // },
+          //changed tooltip
+
           tooltip: {
-            valuePrefix: "Month "
+            headerFormat: '{point.x:%e. %b  %Y}',
           },
 
           plotOptions: {
