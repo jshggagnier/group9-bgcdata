@@ -27,7 +27,7 @@
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
         <input type="hidden" id="itemtype" th:value="*{ItemType}">
-        <div onload="SelectType()">
+        <div th:onload="SelectType(*{ItemType})">
         <label>Dev</label><input type="radio"  id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
         </div>
@@ -52,6 +52,7 @@
     var TableRows = (table.rows.length-1);
     var newrow = table.insertRow(-1);
     newrow.id = "Row"+(TableRows+1);
+    nwerow.className = "rowname";
     UpdateTable();
 }
 
@@ -228,8 +229,7 @@ function FillTable(){
     }
     return team;
     }
-  function SelectType(){
-    var value = document.getElementById("itemtype").value;
+  function SelectType(value){
     if(value=="Dev"){
       document.getElementById("dev").checked = true;
     }else{
@@ -237,7 +237,6 @@ function FillTable(){
     }
   }
   FillTable();
-  SelectType();
 </script>
 </body>
 </html>
