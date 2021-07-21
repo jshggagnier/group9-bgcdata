@@ -64,6 +64,12 @@ tr:hover {
   background-color: #00196A;
 }
 
+#container{
+  width: 900px;
+  /* overflow: scroll; !important */
+  overflow: scroll;
+}
+
 @import 'https://code.highcharts.com/css/highcharts.css';
 .highcharts-color-0 {
 	fill: #FA8072	;

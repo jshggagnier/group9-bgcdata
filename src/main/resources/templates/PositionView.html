@@ -59,11 +59,6 @@
         <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
         <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
         <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
-        <td>
-          <form th:action="@{/editdata/{id}(id=${n.name})}">
-            <input type="submit" value="Edit" />
-          </form>
-        </td>
         <th:block th:switch="${userRole}">
           <td th:case="admin">
 
@@ -94,15 +89,15 @@
   </div> -->
 
 
-  <div class="container">
+  <!-- <div class="container">
     <h2 style="text-align: center">Employment Visualization Graph</h2>
 
     <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-  </div>
+  </div> -->
   <div class="container">
     <h2 style="text-align: center">Employment Visualization Graph</h2>
 
-    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+    <div id="container" style="width: 900px; height: 500px; margin: 0 auto"></div>
 
     <script th:inline="javascript">
 
@@ -111,7 +106,7 @@
           chart: {
             type: "columnrange",
             inverted: true,
-            width: 800
+            width: 900
           },
 
           accessibility: {
@@ -174,15 +169,38 @@
           // },
           //changed tooltip
 
+          // tooltip: {
+          //   headerFormat: '{point.x:%e. %b  %Y}',
+          // },
+
           tooltip: {
-            headerFormat: '{point.x:%e. %b  %Y}',
-          },
+        formatter: function () {
+              //   return Highcharts.dateFormat('%Y %e. %b', this.y);
+               // }
+               //formatter: function() {
+        //return Highcharts.dateFormat('%Y %e. %b', this.y);
+        return 'From: '+ Highcharts.dateFormat('%Y %e. %b', this.point.low) +' To: '+ 
+        Highcharts.dateFormat('%Y %e. %b', this.point.high);
+    }
+               
+    },
+
+          // plotOptions: {
+          //   columnrange: {
+          //     dataLabels: {
+          //       enabled: true,
+          //       format: "{y}"
+          //     }
+          //   }
+          // },
 
           plotOptions: {
             columnrange: {
               dataLabels: {
                 enabled: true,
-                format: "{y}"
+                formatter: function () {
+                  return Highcharts.dateFormat('%Y %e %b', this.y);
+                }
               }
             }
           },
