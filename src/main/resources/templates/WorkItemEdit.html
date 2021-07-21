@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/stylesheets/WorkItemSubmit.css">
-  <script src="JavaScript/WorkItemEditForm.js"></script>
 
   <!-- For live server - please remove in final iteration!-->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css">
@@ -27,7 +26,8 @@
         <input type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
         <input type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
         <input type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
-        <div>
+        <input type="hidden" id="itemtype" th:value="*{ItemType}">
+        <div onload="SelectType()">
         <label>Dev</label><input type="radio"  id="dev" value="Dev" th:feild="*{ItemType}" name="ItemType">
         <label>QA</label><input type="radio"  id="qa" value="QA" th:feild="*{ItemType}" name="ItemType">
         </div>
@@ -40,7 +40,6 @@
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
-        <input type="hidden" id="itemtype" th:value="*{ItemType}">
         <button class="inside_btn" type="button" onclick="AddTeam()">Add Team</button>
         <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
         <input type="submit" value="Update Work Item">
@@ -196,8 +195,6 @@ function FillTable(){
     var TableCells = document.getElementById("Row0").cells.length;
     Teams.forEach(Row => {
         if(i != 0 && (Teams.length-1) != i){
-          console.log(i);
-          console.log(Teams);
           AddTeam();
         }
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
@@ -241,7 +238,6 @@ function FillTable(){
   }
   FillTable();
   SelectType();
-  onloadeddata(SelectType());
 </script>
 </body>
 </html>
