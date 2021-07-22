@@ -81,14 +81,27 @@
 
     <!-- <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
   </div> --> 
+  <div style="margin: 0 auto">
+    <input type="date" id="fromDate" placeholder="From:"/>
+    <input type="date" id="toDate" placeholder="To:"/>
+    <button onclick="drawChart()">Draw Chart</button>
+  </div>
+
+
   <div class="container">
     <h2 style="text-align: center">Employment Visualization Graph</h2>
 
     <div id="container" style="width: 900px; height: 400px; margin: 0 auto"></div>
 
     <script th:inline="javascript">
-      
-      $(function () {
+
+      document.getElementById('fromDate').value = new Date().toDateInputValue();
+      document.getElementById('toDate').value = new Date().toDateInputValue();
+
+      drawChart; //maybe???
+
+      function drawChart() {
+      // $(function () {
         Highcharts.chart("container", {
           chart: {
             type: "columnrange",
@@ -135,8 +148,14 @@
             type: 'datetime',
             startOnTick: true,
             endOnTick: true,
-            min: new Date('2021/01/01').getTime(),
-            max: new Date('2022/01/01').getTime(),
+            // min: new Date('2021/01/01').getTime(),
+            // 
+            // max: [[${maxDate}]],
+            // max: new Date('2022/01/01').getTime(),
+            //IT SHOWS WEEKLY!!!!!!!!!! EACH WEEK. IF YOU SAY MAX IS 13 JULY, IT WILL SHOW
+            //WHOLE WEEK WHERE JULY 13 IS
+            min: document.getElementById('fromDate').valueAsDate.getTime(),
+            max: document.getElementById('toDate').valueAsDate.getTime(),
             dateTimeLabelFormats: {
               week: '%e of %b'
             },
@@ -181,16 +200,17 @@
           //   }
           // },
 
-          plotOptions: {
-            columnrange: {
-              dataLabels: {
-                enabled: true,
-                formatter: function () {
-                  return Highcharts.dateFormat('%Y %e %b', this.y);
-                }
-              }
-            }
-          },
+          //removed plot options
+          // plotOptions: {
+          //   columnrange: {
+          //     dataLabels: {
+          //       enabled: true,
+          //       formatter: function () {
+          //         return Highcharts.dateFormat('%Y %e %b', this.y);
+          //       }
+          //     }
+          //   }
+          // },
 
           legend: {
             enabled: true
@@ -209,7 +229,8 @@
             }
           ]
         });
-      });
+      // });
+      };
     </script>
   </div>
 </body>

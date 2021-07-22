@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
@@ -171,8 +173,7 @@ public class Main implements WebMvcConfigurer {
 
       ArrayList<ArrayList<Long>> coopDatesMilli = new ArrayList<ArrayList<Long>>();
       ArrayList<ArrayList<Long>> permamentDatesMilli = new ArrayList<ArrayList<Long>>();
-
-      // String myDateForTest = "";
+      
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
       while (rs.next()) {
@@ -229,9 +230,13 @@ public class Main implements WebMvcConfigurer {
         }
       }
 
+      // Date maxDate = sdf.parse("2022-01-01");
+      // long maxDateLong = maxDate.getTime();
+
       model.put("Positions", dataList);
       model.put("Names", a);
       model.put("dates", m);
+      // model.put("maxDate", maxDateLong);
 
       
       // Date date = sdf.parse(myDateForTest);

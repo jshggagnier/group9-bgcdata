@@ -67,7 +67,7 @@ tr:hover {
 #container{
   width: 900px;
   /* overflow: scroll; !important */
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 @import 'https://code.highcharts.com/css/highcharts.css';
