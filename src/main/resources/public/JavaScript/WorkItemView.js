@@ -1,4 +1,4 @@
-function parseTeamString(Te){
+function parseTeamString(){
 var table = document.getElementById("WorkItemViewtable");
 var rows = table.rows;
 var frow = false;
