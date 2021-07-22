@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/stylesheets/WorkItemSubmit.css">
 
   <!-- For live server - please remove in final iteration!-->
-  <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css">
+  <!-- <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css"> -->
 
   <!-- Google font-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -234,8 +234,8 @@ function FillTable(){
     }
   function SelectType(value){
       values = document.getElementById("itemtype");
-      console.log(values)
-      console.log(values.value);
+      //console.log(values)
+      //console.log(values.value);
     if(values.value == "Dev"){
       document.getElementById("dev").checked = true;
     }else{
