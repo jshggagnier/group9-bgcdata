@@ -16,6 +16,8 @@ import java.util.Map;
 //graph imports
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
+
 //auth0 login imports
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -152,7 +154,9 @@ public class PositionController {
         long millisEnd = dateEnd.getTime();
 
         millisecDates.add(millisStart);
+        if(rs.getBoolean("hasEndDate")){
         millisecDates.add(millisEnd);
+        }
 
         // if (obj.getisCoop()) {
         // coopDates.add(t);
