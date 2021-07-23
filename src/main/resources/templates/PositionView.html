@@ -76,22 +76,23 @@
       </tr>
     </table>
     <br>
-    <button class="back-btn" onclick="window.history.back();">Go Back</button>
+    
   </div>
   <!-- <div class="container">
       <h2 style="text-align: center">Employment Visualization Graph</h2> -->
 
   <!-- <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
   </div> -->
-  <div style="margin: 0 auto">
+  <div class="db-container">
+    <h2 style="text-align: center">Employment Visualization Graph</h2>
     <input type="date" id="fromDate" placeholder="From:" />
     <input type="date" id="toDate" placeholder="To:" />
-    <button onclick="drawChart()">Draw Chart</button>
+    <button class="chartBtn" onclick="drawChart()">Draw Graph</button>
   </div>
 
 
   <div class="container">
-    <h2 style="text-align: center">Employment Visualization Graph</h2>
+    
 
     <div id="container" style="width: 900px; height: 400px; margin: 0 auto"></div>
 
@@ -209,5 +210,10 @@
     </script>
   </div>
 </body>
+
+
+<div class="db-container">
+  <button class="back-btn" onclick="window.history.back();">Go Back</button>
+</div>
 
 </html>

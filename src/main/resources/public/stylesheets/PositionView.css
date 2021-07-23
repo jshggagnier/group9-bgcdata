@@ -50,6 +50,25 @@ tr:hover {
   border: none;
 }
 
+.chartBtn{
+  background-color: #11196B;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  transition: 0.6s all;
+  font-weight: 700;
+  border-radius: 20px;
+}
+
+.chartBtn:hover {
+  opacity: 0.7;
+  border: none;
+  color: white;
+  transition: 0.6s all;
+}
+
 .back-btn{
   margin: auto;
   height: 60px;
