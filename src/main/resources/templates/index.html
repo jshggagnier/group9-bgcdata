@@ -31,6 +31,7 @@
         <h3>Welcome back, <h3 th:remove="tag" th:text="${profile.get('name')}"></h3></h3>
         <img th:src="${profile.get('picture')}"/>
         <div th:text="${userRole}"></div>
+        <div th:if="${userRole == 'unverified'}">Account Successfully Created: Contact an administrator to have them grant you the proper permissions!</div>
         <p th:text="${profile.get('email')}"></p>
       </div>
     </div>
