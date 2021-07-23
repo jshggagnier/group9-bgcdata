@@ -85,40 +85,6 @@ public class Main implements WebMvcConfigurer {
     }
   }
 
-  @GetMapping("/viewWorkItems")
-  String viewWorkItems(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
-    String Role = GetuserAuthenticationData(model, principal);
-    if (Role.equals("unverified")) {
-      model.put("message",
-          "Unauthorized user: Contact your Administrator to grant you permissions to view the database");
-      return "error";
-    }
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
-      ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
-      ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
-      while (rs.next()) {
-        WorkItem obj = new WorkItem();
-        obj.setItemName(rs.getString("itemname"));
-        obj.setStartDate(rs.getString("startdate"));
-        obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
-        obj.setTeamsAssigned(rs.getString("teams"));
-        obj.setFundingInformation(rs.getString("fundinginformation"));
-        obj.setId(rs.getString("id"));
-
-        dataList.add(obj);
-      }
-      model.put("WorkItems", dataList);
-      return "WorkItemView";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
   @Bean
   public DataSource dataSource() throws SQLException {
     if (dbUrl == null || dbUrl.isEmpty()) {
