@@ -59,7 +59,8 @@
           <tr id="Row1">
             <td class="rowname"><input type='text' id="cell1:0" required><br><button class="delbtn" type='button' id="btn1"
                 onclick='deleterow(1)'>Delete This Row</button></td>
-            <td><input type='number' id="cell1:1" min="0" required></td>
+                <td><select id="cell1:1"><option value="Dev">Dev</option><option value="dev">QA</option></select></td>
+            <td><input type='number' id="cell1:2" min="0" required></td>
           </tr>
         </table>
         <button class="addteambtn" type="button" onclick="AddTeam()">Add Team</button>

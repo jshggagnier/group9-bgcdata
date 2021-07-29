@@ -8,7 +8,6 @@ public class WorkItem {
     private String StartDate;
     private String EndDate;
     private String TeamsAssigned;
-    private String ItemType;
     private String FundingInformation;
 
     public String getId() {
@@ -49,14 +48,6 @@ public class WorkItem {
 
     public void setTeamsAssigned(String TeamsAssigned) {
         this.TeamsAssigned = TeamsAssigned;
-    }
-
-    public String getItemType() {
-        return this.ItemType;
-    }
-
-    public void setItemType(String ItemType) {
-        this.ItemType = ItemType;
     }
 
     public String getFundingInformation() {

@@ -65,7 +65,11 @@ function UpdateTable(){
                         currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"' required><br><button type='button' class='delbtn' id='btn"+RowCounter+"' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";
                         currentcellpntr.className = "rowname";
                     }
-                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' required>";}
+                    else if (cellcounter == 1){
+                        currentcellpntr.innerHTML = '"<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="dev">QA</option></select></td>';
+                        currentcellpntr.className = "rowname";
+                    }
+                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' >";}
                 }
             }
             else if (cellcounter > (weeks+1)) {
@@ -88,7 +92,11 @@ function createTeamString(){
         TableString += "T"+RowCounter+":"
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
         {
+            if(document.getElementById("cell"+RowCounter+":"+CellCounter).value != null){
             TableString += document.getElementById("cell"+RowCounter+":"+CellCounter).value;
+            }else{
+            TableString += "0";
+            }
             if(CellCounter != TableCells-1){
               TableString += ","
             }

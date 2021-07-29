@@ -56,7 +56,7 @@ public class WorkItemController {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), fundinginformation varchar(100))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
       ArrayList<WorkItem> dataList = new ArrayList<WorkItem>();
       while (rs.next()) {
@@ -64,7 +64,6 @@ public class WorkItemController {
         obj.setItemName(rs.getString("itemname"));
         obj.setStartDate(rs.getString("startdate"));
         obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
         obj.setId(rs.getString("id"));
@@ -97,10 +96,10 @@ public class WorkItemController {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), itemtype varchar(3), fundinginformation varchar(100))");
-      String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, itemtype, fundinginformation) VALUES ('"
+          "CREATE TABLE IF NOT EXISTS workitems (id serial, itemname varchar(50), startdate DATE, enddate DATE, teams varchar(500), fundinginformation varchar(100))");
+      String sql = "INSERT INTO workitems (itemname, startdate, enddate, teams, fundinginformation) VALUES ('"
           + workitem.getItemName() + "', '" + workitem.getStartDate() + "', '" + workitem.getEndDate() + "', '"
-          + workitem.getTeamsAssigned() + "', '" + workitem.getItemType() + "', '" + workitem.getFundingInformation()
+          + workitem.getTeamsAssigned() + "', '" + workitem.getFundingInformation()
           + "')";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery(("SELECT * FROM workitems"));
@@ -110,7 +109,6 @@ public class WorkItemController {
         obj.setItemName(rs.getString("itemname"));
         obj.setStartDate(rs.getString("startdate"));
         obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
         obj.setId(rs.getString("id"));
@@ -142,7 +140,6 @@ public class WorkItemController {
         workitem.setItemName(rs.getString("itemname"));
         workitem.setStartDate(rs.getString("startdate"));
         workitem.setEndDate(rs.getString("enddate"));
-        workitem.setItemType(rs.getString("itemtype"));
         workitem.setTeamsAssigned(rs.getString("teams"));
         workitem.setFundingInformation(rs.getString("fundinginformation"));
         workitem.setId(rs.getString("id"));
@@ -166,7 +163,7 @@ public class WorkItemController {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "UPDATE workitems SET itemname='"+workitem.getItemName()+"', startdate='"+workitem.getStartDate()
-      +"', enddate='"+workitem.getEndDate()+"', itemtype='"+workitem.getItemType()+"', teams='"+workitem.getTeamsAssigned()
+      +"', enddate='"+workitem.getEndDate()+"', teams='"+workitem.getTeamsAssigned()
       +"', fundinginformation='"+workitem.getFundingInformation()+"' WHERE id='"+workitem.getId()+"';";
       stmt.executeUpdate(sql);
       ResultSet rs = stmt.executeQuery("SELECT * FROM workitems");
@@ -176,7 +173,6 @@ public class WorkItemController {
         obj.setItemName(rs.getString("itemname"));
         obj.setStartDate(rs.getString("startdate"));
         obj.setEndDate(rs.getString("enddate"));
-        obj.setItemType(rs.getString("itemtype"));
         obj.setTeamsAssigned(rs.getString("teams"));
         obj.setFundingInformation(rs.getString("fundinginformation"));
         obj.setId(rs.getString("id"));
