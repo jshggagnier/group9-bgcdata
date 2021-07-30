@@ -38,12 +38,6 @@
         <label style="font-weight: bolder;">End Date: </label><br>
         <input class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate"
           required>
-
-        <label style="font-weight: bolder;padding-right: 20px;">Role: </label>
-        <label class="radio-container">Dev
-          <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked required>
-          <span class="checkmark"></span>
-        </label>
       </div>
       <div class="tablebox1">
         <div class="ateamtitle">Assigned Resources</div>
@@ -56,7 +50,7 @@
                 onclick='deleterow(1)'>Delete This Row</button></td>
                 <td class="rowname">
                   <select id="cell1:1">
-                  <option value="Dev">Dev</option><option value="dev">QA</option>
+                  <option value="Dev">Dev</option><option value="QA">QA</option>
                   </select>
                 </td>
             <td><input type='number' id="cell1:2" min="0" required></td>

@@ -31,7 +31,8 @@
               <th class="headerrow">Resource Name</th><th>Item Type</th>
             </tr>
           <tr id="Row1">
-              <td class="rowname"><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td><td class="rowname" ><select id="cell1:1"><option value="Dev">Dev</option><option value="dev">QA</option></select></td>
+              <td class="rowname"><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td>
+              <td class="rowname" ><select id="cell1:1"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>
             </tr>
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
@@ -110,7 +111,7 @@ function UpdateTable(){
                         currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"' required><br><button type='button' class='delbtn' id='btn"+RowCounter+"' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";
                         currentcellpntr.className = "rowname";
                     } else if (cellcounter == 1){
-                        currentcellpntr.innerHTML = '"<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="dev">QA</option></select></td>';
+                        currentcellpntr.innerHTML = '"<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>';
                         currentcellpntr.className = "rowname";
                     }
                     else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0'>";}

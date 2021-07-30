@@ -24,7 +24,7 @@
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
         <th class="header-name" style="padding-right: 50px">Start Date</th>
         <th class="header-name" style="padding-right: 50px">End Date</th>
-        <th class="header-name" style="padding-right: 100px">Teams</th>
+        <th class="header-name" style="padding-right: 300px">Teams</th>
         <th class="header-name" style="padding-right: 20px">Funding Information</th>
         <th class="header-name" style="border-top-right-radius: 7px;"></th>
         
@@ -32,7 +32,7 @@
         <td style="padding-right: 150px" th:text="${n.ItemName}"></td>
         <td style="padding-right: 50px" th:text="${n.StartDate}"></td>
         <td style="padding-right: 50px" th:text="${n.EndDate}"></td>
-        <td style="padding-right: 100px" th:text="${n.TeamsAssigned}"></td>
+        <td style="padding-right: 300px" th:text="${n.TeamsAssigned}"></td>
         <td style="padding-right: 20px" th:text="${n.FundingInformation}"></td>
         <th:block th:switch="${userRole}">
         <td th:case="admin">
