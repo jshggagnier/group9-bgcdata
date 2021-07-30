@@ -16,8 +16,6 @@ import java.util.Map;
 //graph imports
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-
 //auth0 login imports
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -154,9 +152,7 @@ public class PositionController {
         long millisEnd = dateEnd.getTime();
 
         millisecDates.add(millisStart);
-        if(rs.getBoolean("hasEndDate")){
         millisecDates.add(millisEnd);
-        }
 
         // if (obj.getisCoop()) {
         // coopDates.add(t);
@@ -225,8 +221,26 @@ public class PositionController {
       String sql = "INSERT INTO Employees (name,team,role,StartDate,EndDate,hasEndDate,isCoop,isFilled) VALUES ('"
           + pos.getName() + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','"
           + pos.getEndDate() + "','" + pos.gethasEndDate() + "','" + pos.getisCoop() + "','" + pos.getisFilled() + "')";
-
       stmt.executeUpdate(sql);
+      Statement stmt3 = connection.createStatement();
+      stmt3.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS HIRING (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
+
+      String sql3 = "INSERT INTO HIRING (name,team,role,StartDate,EndDate,hasEndDate,isCoop,isFilled) VALUES ('"
+          + pos.getName() + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','"
+          + pos.getEndDate() + "','" + pos.gethasEndDate() + "','" + pos.getisCoop() + "','" + pos.getisFilled() + "')";
+
+      stmt.executeUpdate(sql3);
+
+      Statement stmt2 = connection.createStatement();
+      stmt2.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS Hiring (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
+
+      String sql2 = "INSERT INTO Hiring (name,team,role,StartDate,EndDate,hasEndDate,isCoop,isFilled) VALUES ('"
+          + pos.getName() + "','" + pos.getTeam() + "','" + pos.getRole() + "','" + pos.getStartDate() + "','"
+          + pos.getEndDate() + "','" + pos.gethasEndDate() + "','" + pos.getisCoop() + "','" + pos.getisFilled() + "')";
+
+      stmt2.executeUpdate(sql2);
 
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
