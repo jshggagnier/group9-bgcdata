@@ -44,11 +44,6 @@
           <input type="radio" value="Dev" th:field="*{ItemType}" name="ItemType" checked required>
           <span class="checkmark"></span>
         </label>
-
-        <label class="radio-container">QA
-          <input type="radio" value="QA" th:field="*{ItemType}" name="ItemType">
-          <span class="checkmark"></span>
-        </label>
       </div>
       <div class="tablebox1">
         <div class="ateamtitle">Assigned Resources</div>
@@ -59,7 +54,11 @@
           <tr id="Row1">
             <td class="rowname"><input type='text' id="cell1:0" required><br><button class="delbtn" type='button' id="btn1"
                 onclick='deleterow(1)'>Delete This Row</button></td>
-                <td><select id="cell1:1"><option value="Dev">Dev</option><option value="dev">QA</option></select></td>
+                <td class="rowname">
+                  <select id="cell1:1">
+                  <option value="Dev">Dev</option><option value="dev">QA</option>
+                  </select>
+                </td>
             <td><input type='number' id="cell1:2" min="0" required></td>
           </tr>
         </table>
