@@ -22,7 +22,6 @@
     <table id="WorkItemViewtable"class="styled-table">
       <tr class="table-header" style="color: lavenderblush;">
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
-        <th class="header-name" style="padding-right: 100px">Item Type</th>
         <th class="header-name" style="padding-right: 50px">Start Date</th>
         <th class="header-name" style="padding-right: 50px">End Date</th>
         <th class="header-name" style="padding-right: 100px">Teams</th>
@@ -31,7 +30,6 @@
         
         <tr th:each="n:${WorkItems}">
         <td style="padding-right: 150px" th:text="${n.ItemName}"></td>
-        <td style="padding-right: 100px" th:text="${n.ItemType}"></td>
         <td style="padding-right: 50px" th:text="${n.StartDate}"></td>
         <td style="padding-right: 50px" th:text="${n.EndDate}"></td>
         <td style="padding-right: 100px" th:text="${n.TeamsAssigned}"></td>
