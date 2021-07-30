@@ -101,7 +101,10 @@ public class PositionController {
           "CREATE TABLE IF NOT EXISTS Employees (id serial,name varchar(20),team varchar(20), role varchar(20),StartDate DATE,EndDate DATE, hasEndDate varchar(10), isCoop varchar(10), isFilled varchar(10))");
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
-      ArrayList<String> a = new ArrayList<String>();
+      // ArrayList<String> a = new ArrayList<String>();
+      ArrayList<String> notCoopNames = new ArrayList<String>();
+      ArrayList<String> coopNames = new ArrayList<String>();
+      
       ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
 
       ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
@@ -129,7 +132,7 @@ public class PositionController {
         System.out.println(obj.Name);
 
         String x = rs.getString("name");
-        a.add(x);
+        // a.add(x);
         ArrayList<Integer> t = new ArrayList<Integer>();
         String d = rs.getString("startdate").substring(5, 7);
         String e = rs.getString("EndDate").substring(5, 7);
@@ -152,7 +155,9 @@ public class PositionController {
         long millisEnd = dateEnd.getTime();
 
         millisecDates.add(millisStart);
-        millisecDates.add(millisEnd);
+        if(rs.getBoolean("hasEndDate")){
+          millisecDates.add(millisEnd);
+          }
 
         // if (obj.getisCoop()) {
         // coopDates.add(t);
@@ -162,13 +167,15 @@ public class PositionController {
 
         if (obj.getisCoop()) {
           coopDatesMilli.add(millisecDates);
+          coopNames.add(x);
         } else {
           permamentDatesMilli.add(millisecDates);
+          notCoopNames.add(x);
         }
       }
 
       model.put("Positions", dataList);
-      model.put("Names", a);
+      // model.put("Names", a);
       model.put("dates", m);
 
       // Date date = sdf.parse(myDateForTest);
@@ -199,8 +206,17 @@ public class PositionController {
         finalDates.add(coopDatesMilli.get(i));
       }
 
+      ArrayList<String> allOrderedNames = new ArrayList<String>();
+      for(int i=0; i<notCoopNames.size(); i++){
+        allOrderedNames.add(notCoopNames.get(i));
+      }
+      for(int i=0; i<coopNames.size(); i++){
+        allOrderedNames.add(coopNames.get(i));
+      }
+
       model.put("finalDates", finalDates);
       model.put("permamentDates", permamentDatesMilli);
+      model.put("Names", allOrderedNames);
 
       return "PositionView";
     } catch (Exception e) {
@@ -245,7 +261,10 @@ public class PositionController {
       ResultSet rs = stmt.executeQuery(("SELECT * FROM Employees"));
       ArrayList<Position> dataList = new ArrayList<Position>();
 
-      ArrayList<String> a = new ArrayList<String>();
+      // ArrayList<String> a = new ArrayList<String>();
+      ArrayList<String> notCoopNames = new ArrayList<String>();
+      ArrayList<String> coopNames = new ArrayList<String>();
+
       ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
 
       ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
@@ -267,7 +286,7 @@ public class PositionController {
         // System.out.println(obj.Name);
 
         String x = rs.getString("name");
-        a.add(x);
+        // a.add(x);
         ArrayList<Integer> t = new ArrayList<Integer>();
         String d = rs.getString("startdate").substring(5, 7);
         String e = rs.getString("EndDate").substring(5, 7);
@@ -284,19 +303,23 @@ public class PositionController {
 
         if (obj.getisCoop()) {
           coopDates.add(t);
+          coopNames.add(x);
         } else {
           permamentDates.add(t);
+          notCoopNames.add(x);
         }
         System.out.println(obj.Name);
       }
 
       model.put("Positions", dataList);
       model.put("Positions", dataList);
-      model.put("Names", a);
+      // model.put("Names", a);
       model.put("dates", m);
 
       ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
       ArrayList<Integer> emptyDates = new ArrayList<Integer>();
+
+      ArrayList<String> allOrderedNames = new ArrayList<String>();
 
       for (int i = 0; i < permamentDates.size(); i++) {
         finalDates.add(emptyDates);
@@ -305,8 +328,16 @@ public class PositionController {
         finalDates.add(coopDates.get(i));
       }
 
+      for(int i=0; i<notCoopNames.size(); i++){
+        allOrderedNames.add(notCoopNames.get(i));
+      }
+      for(int i=0; i<coopNames.size(); i++){
+        allOrderedNames.add(coopNames.get(i));
+      }
+
       model.put("finalDates", finalDates);
       model.put("permamentDates", permamentDates);
+      model.put("Names", allOrderedNames);
 
       return "redirect:/viewPositions";
     } catch (Exception e) {
