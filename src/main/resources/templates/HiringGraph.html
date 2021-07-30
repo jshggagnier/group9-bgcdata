@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="ISO-8859-1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2 align="center">Data Graph</h2>
+
+      <div
+        id="container"
+        style="width: 550px; height: 400px; margin: 0 auto"
+      ></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script th:inline="javascript">
+        $(function () {
+          Highcharts.chart("container", {
+            title: {
+              text: "Solar Employment Growth by Sector, 2010-2016"
+            },
+
+            subtitle: {
+              text: "Source: thesolarfoundation.com"
+            },
+
+            yAxis: {
+              title: {
+                text: "Number of Positions"
+              }
+            },
+
+            xAxis: {
+             tickmarkPlacement: 'between',
+      //tickmarkPlacement: 'on',
+      categories: [[${Dates}]]
+            },
+
+
+
+            series: [
+              {
+                name: "unfilled",
+                data: [[${Values}]],
+                color:"orange"
+              },
+              {
+                name: "filled",
+                data: [[${Values2}]],
+                color:"blue"
+              },
+              // {
+              //   name: "filled",
+              //   data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+              // }
+            ],
+
+            responsive: {
+              rules: [
+                {
+                  condition: {
+                    maxWidth: 500
+                  },
+                  chartOptions: {
+                    legend: {
+                      layout: "horizontal",
+                      align: "center",
+                      verticalAlign: "bottom"
+                    }
+                  }
+                }
+              ]
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
