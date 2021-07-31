@@ -46,10 +46,10 @@ function UpdateTable(){
             while(temp > 0){currentrowpntr.deleteCell(temp);temp--}
             cellcounter = 1;
         }
-        while (cellcounter != (weeks+1))
+        while (cellcounter != (weeks+2))
         {
             //console.log(cellcounter + "/" + weeks);
-            if (cellcounter < (weeks+1)) {
+            if (cellcounter < (weeks+2)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
                 if(RowCounter == 0)
                 {
@@ -72,7 +72,7 @@ function UpdateTable(){
                     else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' >";}
                 }
             }
-            else if (cellcounter > (weeks+1)) {
+            else if (cellcounter > (weeks+2)) {
                 currentrowpntr.deleteCell(-1);
             }
             cellcounter = currentrowpntr.cells.length;
@@ -117,7 +117,6 @@ function deleterow(row)
     {
         document.getElementById("endDate").valueAsDate = StartDate;
     }
-    var weeks = weeksBetween(StartDate,EndDate);
     var TableRows = (table.rows.length-1);
     var target;
     var cellupdate = 0;
