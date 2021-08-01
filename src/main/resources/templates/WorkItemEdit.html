@@ -231,9 +231,9 @@ function FillTable(){
             if(CellCounter == 1){
                 console.log(document.getElementById("cell"+(i+1)+":"+CellCounter));
                 if(Row[CellCounter] == "QA"){
-                    document.getElementById("cell"+(1)+":"+1).options.selectedIndex = 1;
+                    document.getElementById("cell"+(i+1)+":"+1).options.selectedIndex = 1;
                 }else{
-                    document.getElementById("cell"+(1)+":"+1).options.selectedIndex = 0;
+                    document.getElementById("cell"+(i+1)+":"+1).options.selectedIndex = 0;
                 }
             }else if (document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
