@@ -229,10 +229,11 @@ function FillTable(){
                 Row[CellCounter] = Row[CellCounter].slice(3);
             }
             if(CellCounter == 1){
+                console.log(document.getElementById("cell"+(i+1)+":"+CellCounter));
                 if(Row[CellCounter] == "QA"){
-                    document.getElementById("cell"+(i+1)+":"+CellCounter).options[1].selected;
+                    document.getElementById("cell"+(1)+":"+1).options.selectedIndex = 1;
                 }else{
-                    document.getElementById("cell"+(i+1)+":"+CellCounter).options[0].selected;
+                    document.getElementById("cell"+(1)+":"+1).options.selectedIndex = 0;
                 }
             }else if (document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
@@ -273,7 +274,6 @@ function FillTable(){
       document.getElementById("qa").checked = true;
     }
   }
-  SelectType("Dev");
   FillTable();
 </script>
 </body>
