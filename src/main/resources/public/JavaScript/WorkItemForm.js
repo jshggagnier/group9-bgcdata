@@ -97,7 +97,7 @@ function createTeamString(){
         TableString += "T"+RowCounter+":"
         for(var CellCounter = 0; CellCounter < TableCells; CellCounter++)
         {
-            if(document.getElementById("cell"+RowCounter+":"+CellCounter).value != null){
+            if(document.getElementById("cell"+RowCounter+":"+CellCounter).value != ""){
             TableString += document.getElementById("cell"+RowCounter+":"+CellCounter).value;
             }else{
             TableString += "0";
