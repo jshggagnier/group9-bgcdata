@@ -49,19 +49,19 @@ function UpdateTable(){
         while (cellcounter != (weeks+2))
         {
             //console.log(cellcounter + "/" + weeks);
-            if (cellcounter < (weeks+1)) {
+            if (cellcounter < (weeks+2)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
                 if(RowCounter == 0)
                 {
-                    var Cheese = new Date(StartDate.getTime() + ((cellcounter-2)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
+                    var Cheese = new Date(StartDate.getTime() + ((cellcounter-1)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
                     //maybe concatenate calculation here
-                    if(cellcounter != 1){
-                    currentcellpntr.innerHTML = Cheese.toString().substring(0,15);
-                    currentcellpntr.className = "itemheader";
-                    }else{
-                    currentcellpntr.innerHTML = "Item Type";
-                    currentcellpntr.className = "itemheader";
-                    }
+                    if(cellcounter == 1){
+                        currentcellpntr.innerHTML = "Item Type";
+                        currentcellpntr.className = "itemheader";
+                        }else{
+                        currentcellpntr.innerHTML = Cheese.toString().substring(0,15);
+                        currentcellpntr.className = "itemheader";
+                        }
                 }
                 else
                 {
