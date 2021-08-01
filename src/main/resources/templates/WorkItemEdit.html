@@ -60,12 +60,12 @@
     </div>
   </div>
 <script>
-  function AddTeam(){
+  
+function AddTeam(){
     var table = document.getElementById("InputTable");
     var TableRows = (table.rows.length-1);
     var newrow = table.insertRow(-1);
     newrow.id = "Row"+(TableRows+1);
-    newrow.className = "rowname";
     UpdateTable();
 }
 
@@ -108,10 +108,10 @@ function UpdateTable(){
             while(temp > 0){currentrowpntr.deleteCell(temp);temp--}
             cellcounter = 1;
         }
-        while (cellcounter != (weeks+1))
+        while (cellcounter != (weeks+2))
         {
             //console.log(cellcounter + "/" + weeks);
-            if (cellcounter < (weeks+1)) {
+            if (cellcounter < (weeks+2)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
                 if(RowCounter == 0)
                 {
@@ -131,14 +131,15 @@ function UpdateTable(){
                     {
                         currentcellpntr.innerHTML = "<input type='text' id='"+("cell"+RowCounter+":"+cellcounter)+"' required><br><button type='button' class='delbtn' id='btn"+RowCounter+"' onclick='deleterow("+RowCounter+")'>Delete This Row</button>";
                         currentcellpntr.className = "rowname";
-                    } else if (cellcounter == 1){
-                        currentcellpntr.innerHTML = '"<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>';
+                    }
+                    else if (cellcounter == 1){
+                        currentcellpntr.innerHTML = '<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>';
                         currentcellpntr.className = "rowname";
                     }
-                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0'>";}
+                    else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' >";}
                 }
             }
-            else if (cellcounter > (weeks+1)) {
+            else if (cellcounter > (weeks+2)) {
                 currentrowpntr.deleteCell(-1);
             }
             cellcounter = currentrowpntr.cells.length;
@@ -162,7 +163,8 @@ function createTeamString(){
             TableString += document.getElementById("cell"+RowCounter+":"+CellCounter).value;
             }else{
             TableString += "0";
-            }if(CellCounter != TableCells-1){
+            }
+            if(CellCounter != TableCells-1){
               TableString += ","
             }
         }
@@ -182,7 +184,6 @@ function deleterow(row)
     {
         document.getElementById("endDate").valueAsDate = StartDate;
     }
-    var weeks = weeksBetween(StartDate,EndDate);
     var TableRows = (table.rows.length-1);
     var target;
     var cellupdate = 0;
@@ -227,7 +228,13 @@ function FillTable(){
             if(CellCounter == 0){
                 Row[CellCounter] = Row[CellCounter].slice(3);
             }
-            if(document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
+            if(CellCounter == 1){
+                if(Row[CellCounter] == "QA"){
+                    document.getElementById("cell"+(i+1)+":"+CellCounter).options[1].selected;
+                }else{
+                    document.getElementById("cell"+(i+1)+":"+CellCounter).options[0].selected;
+                }
+            }else if (document.getElementById("cell"+(i+1)+":"+CellCounter) != null){
             document.getElementById("cell"+(i+1)+":"+CellCounter).value = Row[CellCounter];
             }
         }
