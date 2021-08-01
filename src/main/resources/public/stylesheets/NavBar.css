@@ -6,9 +6,9 @@
   padding: 0px;
   width: 100%;
   overflow: visible;
-  z-index: 1;
+  z-index: 5;
   background: #00196A;
-  height: 62px;
+  height: 66px;
 }
 
 /* Dropdown Button */
@@ -44,7 +44,7 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 2;
   /* font-size: 16px; */
-  /* top: 48px; */
+  top: 62px;
   min-width: 129px;
 }
 
