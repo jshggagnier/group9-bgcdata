@@ -49,14 +49,19 @@ function UpdateTable(){
         while (cellcounter != (weeks+2))
         {
             //console.log(cellcounter + "/" + weeks);
-            if (cellcounter < (weeks+2)) {
+            if (cellcounter < (weeks+1)) {
                 currentcellpntr = currentrowpntr.insertCell(-1);
                 if(RowCounter == 0)
                 {
-                    var Cheese = new Date(StartDate.getTime() + ((cellcounter-1)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
+                    var Cheese = new Date(StartDate.getTime() + ((cellcounter-2)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
                     //maybe concatenate calculation here
+                    if(cellcounter != 1){
                     currentcellpntr.innerHTML = Cheese.toString().substring(0,15);
                     currentcellpntr.className = "itemheader";
+                    }else{
+                    currentcellpntr.innerHTML = "Item Type";
+                    currentcellpntr.className = "itemheader";
+                    }
                 }
                 else
                 {
@@ -66,7 +71,7 @@ function UpdateTable(){
                         currentcellpntr.className = "rowname";
                     }
                     else if (cellcounter == 1){
-                        currentcellpntr.innerHTML = '"<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>';
+                        currentcellpntr.innerHTML = '<td><select id="cell'+RowCounter+":"+cellcounter+'"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>';
                         currentcellpntr.className = "rowname";
                     }
                     else {currentcellpntr.innerHTML = "<input type='number' id='"+("cell"+RowCounter+":"+cellcounter)+"'  min='0' >";}
