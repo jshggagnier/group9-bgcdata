@@ -42,9 +42,9 @@
   color: black;
   background-color: white;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
+  z-index: 5;
   /* font-size: 16px; */
-  top: 62px;
+  /* top: 62px; */
   min-width: 129px;
 }
 
