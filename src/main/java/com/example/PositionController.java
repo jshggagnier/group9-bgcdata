@@ -87,6 +87,28 @@ public class PositionController {
     }
   }
 
+  @GetMapping("/positionDelete/{nid}")
+  String DeletePosition(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal,
+      @PathVariable String nid) {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "DELETE FROM employees " + "WHERE (id='" + nid + "')";
+      stmt.executeUpdate(sql);
+
+      return "redirect:/viewPositions";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model, principal);

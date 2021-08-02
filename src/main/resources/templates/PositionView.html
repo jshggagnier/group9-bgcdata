@@ -45,7 +45,8 @@
         <th class="header-name" style="padding-right: 80px">Has End Date</th>
         <th class="header-name" style="padding-right: 80px">Is Coop</th>
         <th class="header-name" style="padding-right: 80px">Is Filled</th>
-        <th class="header-name" style="padding-right: 100px; border-top-right-radius: 7px;"></th>
+        <th class="header-name" style="padding-right: 10px;">Edit</th> <!-- for edit icon-->
+        <th class="header-name" style="border-top-right-radius: 7px;">Delete</th> <!-- for delete icon-->
 
       <tr th:each="n:${Positions}">
         <td style="padding-right: 150px" th:text="${n.name}"></td>
@@ -59,6 +60,8 @@
         <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
         <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
         <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
+
+        <!-- For Edit function -->
         <th:block th:switch="${userRole}">
           <td th:case="admin">
             <form th:action="@{/positionedit/{id}(id=${n.serialID})}">
@@ -73,6 +76,21 @@
             </form>
           </td>
         </th:block>
+
+        <!-- For Delete function -->
+        <th:block th:switch="${userRole}">
+          <td th:case="admin">
+            <form th:action="@{/positionDelete/{id}(id=${n.Id})}">
+              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
+            </form>
+          </td>
+          <td th:case="viewedit">
+            <form th:action="@{/positionDelete/{id}(id=${n.Id})}">
+              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
+            </form>
+          </td>
+        </th:block>
+
       </tr>
     </table>
     <br>
