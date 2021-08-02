@@ -202,7 +202,7 @@ public class WorkItemController {
       Statement stmt = connection.createStatement();
       String sql = "DELETE FROM workitems " + "WHERE (id='" + nid + "')";
       stmt.executeQuery(sql);
-      system.out.println("Deleted");
+      System.out.println("Deleted");
 
       return "WorkItemView";
     } catch (Exception e) {
