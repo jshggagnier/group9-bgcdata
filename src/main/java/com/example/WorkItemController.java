@@ -201,10 +201,10 @@ public class WorkItemController {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String sql = "DELETE FROM workitems " + "WHERE (id='" + nid + "')";
-      stmt.executeQuery(sql);
+      stmt.executeUpdate(sql);
       System.out.println("Deleted");
 
-      return "WorkItemView";
+      return "redirect:/viewWorkItems";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
