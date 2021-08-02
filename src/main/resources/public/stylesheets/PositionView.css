@@ -102,7 +102,7 @@ tr:hover {
 
 .false-div {
   text-transform:capitalize;
-  background-color:green;
+  background-color:crimson;
   border-radius: 3px;
   width: 50px;
   height:25px;
@@ -113,7 +113,7 @@ tr:hover {
 
 .true-div {
   text-transform:capitalize;
-  background-color:crimson;
+  background-color:green;
   border-radius: 3px;
   width: 50px;
   height:25px;
