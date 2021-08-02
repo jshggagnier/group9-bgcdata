@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @SpringBootApplication
-public class WorkitemGraph {
+public class GraphingController {
     @Value("${spring.datasource.url}")
     public String dbUrl;
   
@@ -59,6 +59,35 @@ public class WorkitemGraph {
             }
             model.put("Positions", dataList2);
             return "WorkitemGraph";
+        }
+        catch (Exception e) {
+            model.put("message", e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping("/HiringGraph")
+    public String GraphingPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal)
+    {
+        GetuserAuthenticationData(model,principal);
+        try (Connection connection = dataSource.getConnection()) 
+        {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(("SELECT * FROM employees"));
+            ArrayList<Position>dataList2 = new ArrayList<Position>();
+            while (rs.next()) {
+                Position obj2 = new Position();
+                obj2.setSerialID(rs.getInt("id"));
+                obj2.setName(rs.getString("name"));
+                obj2.setStartDate(rs.getString("startdate"));
+                obj2.setEndDate(rs.getString("enddate"));
+                obj2.setisCoop(rs.getBoolean("isCoop"));
+                obj2.setisFilled(rs.getBoolean("isFilled"));
+                obj2.sethasEndDate(rs.getBoolean("hasEndDate"));
+                dataList2.add(obj2);
+            }
+            model.put("Positions", dataList2);
+            return "PositionGraph";
         }
         catch (Exception e) {
             model.put("message", e.getMessage());

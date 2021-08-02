@@ -9,59 +9,6 @@ function calculateGraph() {
 
   var formattedSeries = [];
 
-  Workitems.forEach(function (item, index) {
-    var WorkElement = {};
-    var WorkData = [];
-    var WorkString = item.teamsAssigned;
-    //console.log(WorkString);
-
-    var countTeams = (WorkString.match(/\|/g) || []).length;
-    var elemStartDate = new Date(item.startDate);
-    var elemEndDate = new Date(item.endDate);
-    //console.log(elemStartDate,elemEndDate);
-
-    var countWeeks = weeksBetween(elemStartDate, elemEndDate);
-
-    var RoundedDay = elemStartDate.getDay(); // Get current day number, converting Sun. to 7
-    if (RoundedDay == 0) { roundedDay = 7 };
-    //console.log(RoundedDay);
-    if (RoundedDay !== 1)                         // Only manipulate the date if it isn't Mon.
-    {
-      elemStartDate.setHours(-24 * (RoundedDay - 1));
-    }   // Set the hours to day number minus 1 multiplied by negative 24
-
-    WorkString = WorkString.split('|').join(',').split(',')
-
-    var TeamCounterInt = 0;
-    var y = 0;
-    var DataPair = [];
-    while (TeamCounterInt < countTeams) {
-      WorkString.shift();
-      WorkString.shift();
-      while (y < countWeeks) {
-        if (TeamCounterInt == 0) {
-          DataPair = [];
-          DataPair.push(Date.UTC(elemStartDate.getUTCFullYear(), elemStartDate.getUTCMonth(), elemStartDate.getUTCDate() + (7 * y)));
-          DataPair.push(parseInt(WorkString.shift()));
-          WorkData.push(DataPair);
-        }
-        else {
-          WorkData[y][1] += parseInt(WorkString.shift());
-        }
-        y++;
-      }
-      TeamCounterInt++;
-      y = 0;
-    }
-    //console.log(WorkString,countTeams,countWeeks);
-
-    WorkElement.name = item.itemName;
-    WorkElement.data = WorkData;
-    WorkElement.type = "column";
-    formattedSeries.push(WorkElement);
-    //console.log(item, index)
-  })
-
   var FilledElem = {};
   var UnfilledElem = {};
   var linelength = weeksBetween(firstDay, lastDay);
@@ -76,8 +23,6 @@ function calculateGraph() {
     if (item.isFilled)// Affects both lines
     {
       while (x < linelength) {
-        var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
-        //console.log(StartScaling);
         if (item.hasEndDate) {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
             FilledData[x] += 1;
@@ -97,7 +42,6 @@ function calculateGraph() {
     {
       while (x < linelength) {
         var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
-        //console.log(StartScaling);
         if (item.hasEndDate) {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
             UnfilledData[x] += 1;
@@ -132,7 +76,7 @@ function calculateGraph() {
   Highcharts.chart('container', {
 
     title: {
-      text: 'WorkItem Graph'
+      text: 'Position Graph'
     },
 
     subtitle: {
