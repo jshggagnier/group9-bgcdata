@@ -80,12 +80,12 @@
         <!-- For Delete function -->
         <th:block th:switch="${userRole}">
           <td th:case="admin">
-            <form th:action="@{/positionDelete/{id}(id=${n.serialId})}">
+            <form th:action="@{/positionDelete/{id}(id=${n.serialID})}">
               <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
             </form>
           </td>
           <td th:case="viewedit">
-            <form th:action="@{/positionDelete/{id}(id=${n.serialId})}">
+            <form th:action="@{/positionDelete/{id}(id=${n.serialID})}">
               <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
             </form>
           </td>
