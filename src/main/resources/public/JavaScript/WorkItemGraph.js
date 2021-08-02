@@ -2,6 +2,14 @@ function weeksBetween(StartDate, EndDate) {
   return Math.ceil((EndDate - StartDate) / (7 * 24 * 60 * 60 * 1000));//rounds up the amount of weeks between the two dates (the number is the amount of milliseconds in a week)
 }
 
+function weighting(StartScaling,iscoop)
+{
+  if(StartScaling == 1) {if(iscoop){return 0.1;}else{return 0.1;}}
+  if(StartScaling == 2) {if(iscoop){return 0.25;}else{return 0.25;}}
+  if(StartScaling == 3) {if(iscoop){return 0.4;}else{return 0.5;}}
+  else {if(iscoop){return 0.65;}else{return 0.875;}}
+}
+
 function calculateGraph() {
   var currentdate = new Date();
   var firstDay = new Date(currentdate.getFullYear(), currentdate.getMonth() - 1, 1);
@@ -77,17 +85,21 @@ function calculateGraph() {
     {
       while (x < linelength) {
         var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
+        
+        var weight = weighting(StartScaling,item.isCoop);
+        console.log(StartScaling,item.isCoop,weight);
+        
         //console.log(StartScaling);
         if (item.hasEndDate) {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
-            FilledData[x] += 1;
-            UnfilledData[x] += 1;
+            FilledData[x] += weight;
+            UnfilledData[x] += weight;
           }
         }
         else {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8)))) {
-            FilledData[x] += 1;
-            UnfilledData[x] += 1;
+            FilledData[x] += weight;
+            UnfilledData[x] += weight;
           }
         }
         x++;
@@ -97,21 +109,35 @@ function calculateGraph() {
     {
       while (x < linelength) {
         var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
+        
+        var weight = weighting(StartScaling,item.isCoop);
+        
+
         //console.log(StartScaling);
         if (item.hasEndDate) {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
-            UnfilledData[x] += 1;
+            //console.log(UnfilledData[x],UnfilledData[x] + weight);
+            UnfilledData[x] += weight;
           }
         }
         else {
           if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8)))) {
-            UnfilledData[x] += 1;
+            //console.log(UnfilledData[x],UnfilledData[x] + weight);
+            UnfilledData[x] += weight;
           }
         }
         x++;
       }
     }
   })
+  x=0;
+  while (x < linelength) 
+  {
+    FilledData[x] = Math.round(FilledData[x] * 1000) / 1000
+    UnfilledData[x] = Math.round(UnfilledData[x] * 1000) / 1000
+    x++;
+  } // round all data entries to avoid weird floating errors
+
   console.log(FilledData, UnfilledData);
   FilledElem.type = "line";
   FilledElem.name = "Filled Positions";
