@@ -200,8 +200,8 @@ public class WorkItemController {
       Statement stmt = connection.createStatement();
       String sql = "DELETE FROM workitems " + "WHERE (id='" + nid + "')";
       stmt.executeQuery(sql);
-      
-      return "WorkItemView";
+
+      return "redirect:/viewWorkItems";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
