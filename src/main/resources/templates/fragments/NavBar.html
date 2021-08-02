@@ -23,12 +23,29 @@
       </div>
     </th:block>
 
-    <div th:unless="${userRole == 'Not Logged In'}" class="dropdown">
+    <th:block th:switch="${userRole}">
+    <div th:case="viewedit" class="dropdown">
       <button class="dropbtn">View Graphs</button>
       <div class="dropdown-content">
          <a th:href="@{/hiringGraph}">HeadCount Graph</a>
+         <a th:href="@{/WorkitemGraph}">Workitem Graph</a>
       </div>
     </div>
+    <div th:case="admin" class="dropdown">
+      <button class="dropbtn">View Graphs</button>
+      <div class="dropdown-content">
+         <a th:href="@{/hiringGraph}">HeadCount Graph</a>
+         <a th:href="@{/WorkitemGraph}">Workitem Graph</a>
+      </div>
+    </div>
+    <div th:case="viewonly" class="dropdown">
+      <button class="dropbtn">View Graphs</button>
+      <div class="dropdown-content">
+         <a th:href="@{/hiringGraph}">HeadCount Graph</a>
+         <a th:href="@{/WorkitemGraph}">Workitem Graph</a>
+      </div>
+    </div>
+  </th:block>
 
     <th:block th:switch="${userRole}">
       <div th:case="admin" class="dropdown">
