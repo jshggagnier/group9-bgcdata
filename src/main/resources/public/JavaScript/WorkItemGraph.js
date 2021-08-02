@@ -5,7 +5,7 @@ function weeksBetween(StartDate, EndDate) {
 function calculateGraph() {
   var currentdate = new Date();
   var firstDay = new Date(currentdate.getFullYear(), currentdate.getMonth() - 1, 1);
-  var lastDay = new Date(currentdate.getFullYear(), currentdate.getMonth() + 3, 0);
+  var lastDay = new Date(currentdate.getFullYear(), currentdate.getMonth() + 4, 0);
 
   var formattedSeries = [];
 
@@ -23,12 +23,12 @@ function calculateGraph() {
     var countWeeks = weeksBetween(elemStartDate, elemEndDate);
 
     var RoundedDay = elemStartDate.getDay(); // Get current day number, converting Sun. to 7
-    if(RoundedDay == 0) {roundedDay = 7};
+    if (RoundedDay == 0) { roundedDay = 7 };
     //console.log(RoundedDay);
     if (RoundedDay !== 1)                         // Only manipulate the date if it isn't Mon.
-      {
-        elemStartDate.setHours(-24 * (RoundedDay - 1));
-      }   // Set the hours to day number minus 1 multiplied by negative 24
+    {
+      elemStartDate.setHours(-24 * (RoundedDay - 1));
+    }   // Set the hours to day number minus 1 multiplied by negative 24
 
     WorkString = WorkString.split('|').join(',').split(',')
 
@@ -39,15 +39,13 @@ function calculateGraph() {
       WorkString.shift();
       WorkString.shift();
       while (y < countWeeks) {
-        if(TeamCounterInt == 0)
-        {
+        if (TeamCounterInt == 0) {
           DataPair = [];
           DataPair.push(Date.UTC(elemStartDate.getUTCFullYear(), elemStartDate.getUTCMonth(), elemStartDate.getUTCDate() + (7 * y)));
           DataPair.push(parseInt(WorkString.shift()));
           WorkData.push(DataPair);
         }
-        else
-        {
+        else {
           WorkData[y][1] += parseInt(WorkString.shift());
         }
         y++;
@@ -63,14 +61,72 @@ function calculateGraph() {
     formattedSeries.push(WorkElement);
     //console.log(item, index)
   })
+
+  var FilledElem = {};
+  var UnfilledElem = {};
+  var linelength = weeksBetween(firstDay, lastDay);
+  var FilledData = [];
+  var UnfilledData = [];
+  while (FilledData.length < linelength) { FilledData.push(0); }
+  while (UnfilledData.length < linelength) { UnfilledData.push(0); }
+
   Positions.forEach(function (item, index) {
-    
-
-    
-    //console.log(item, index)
+    var x = 0;
+    console.log(item,index);
+    if (item.isFilled)// Affects both lines
+    {
+      while (x < linelength) {
+        var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
+        //console.log(StartScaling);
+        if (item.hasEndDate) {
+          if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
+            FilledData[x] += 1;
+            UnfilledData[x] += 1;
+          }
+        }
+        else {
+          if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8)))) {
+            FilledData[x] += 1;
+            UnfilledData[x] += 1;
+          }
+        }
+        x++;
+      }
+    }
+    else //only Affects the unfilled graph
+    {
+      while (x < linelength) {
+        var StartScaling = weeksBetween(new Date(item.startDate), new Date(firstDay.getTime() + (x * 6.048e+8)))
+        //console.log(StartScaling);
+        if (item.hasEndDate) {
+          if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8))) && (new Date(firstDay.getTime() + (x * 6.048e+8)) < new Date(item.endDate))) {
+            UnfilledData[x] += 1;
+          }
+        }
+        else {
+          if ((new Date(item.startDate) < new Date(firstDay.getTime() + (x * 6.048e+8)))) {
+            UnfilledData[x] += 1;
+          }
+        }
+        x++;
+      }
+    }
   })
+  console.log(FilledData, UnfilledData);
+  FilledElem.type = "line";
+  FilledElem.name = "Filled Positions";
+  FilledElem.pointStart = Date.UTC(firstDay.getUTCFullYear(), firstDay.getUTCMonth(), firstDay.getUTCDate());
+  FilledElem.pointInterval = 6.048e+8;
+  FilledElem.data = FilledData;
 
+  UnfilledElem.type = "line";
+  UnfilledElem.name = "Unfilled Positions";
+  UnfilledElem.pointStart = Date.UTC(firstDay.getUTCFullYear(), firstDay.getUTCMonth(), firstDay.getUTCDate());
+  UnfilledElem.pointInterval = 6.048e+8;
+  UnfilledElem.data = UnfilledData;
 
+  formattedSeries.push(FilledElem);
+  formattedSeries.push(UnfilledElem);
   console.log(formattedSeries);
 
   Highcharts.chart('container', {

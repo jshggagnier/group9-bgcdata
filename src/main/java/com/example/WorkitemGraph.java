@@ -54,6 +54,7 @@ public class WorkitemGraph {
                 obj2.setEndDate(rs.getString("enddate"));
                 obj2.setisCoop(rs.getBoolean("isCoop"));
                 obj2.setisFilled(rs.getBoolean("isFilled"));
+                obj2.sethasEndDate(rs.getBoolean("hasEndDate"));
                 dataList2.add(obj2);
             }
             model.put("Positions", dataList2);
