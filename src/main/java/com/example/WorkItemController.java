@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
 import javax.sql.DataSource;
+
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -200,8 +202,9 @@ public class WorkItemController {
       Statement stmt = connection.createStatement();
       String sql = "DELETE FROM workitems " + "WHERE (id='" + nid + "')";
       stmt.executeQuery(sql);
+      console.log("Delete");
 
-      return "redirect:/viewWorkItems";
+      return "WorkItemView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
