@@ -99,3 +99,26 @@ tr:hover {
 	fill: #9dd1f3	;
 	stroke: #9dd1f3	;
 }
+
+.false-div {
+  text-transform:capitalize;
+  background-color:green;
+  border-radius: 3px;
+  width: 50px;
+  height:25px;
+  margin: 0 auto;
+  line-height: 25px;
+  text-align: center;
+}
+
+.true-div {
+  text-transform:capitalize;
+  background-color:crimson;
+  border-radius: 3px;
+  width: 50px;
+  height:25px;
+  margin: 0 auto;
+  line-height: 25px;
+  text-align: center;
+}
+

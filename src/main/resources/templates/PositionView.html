@@ -57,9 +57,21 @@
           <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
           <td style="padding-right: 80px" th:case="false">No End Date</td>
         </th:block>
-        <td style="padding-right: 80px" th:text="${n.hasEndDate}"></td>
-        <td style="padding-right: 80px" th:text="${n.isCoop}"></td>
-        <td style="padding-right: 80px" th:text="${n.isFilled}"></td>
+
+        <th:block th:switch="${n.hasEndDate}">
+          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.hasEndDate}"></div></td>
+          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.hasEndDate}"></div></td>
+        </th:block>
+        
+        <th:block th:switch="${n.isCoop}">
+          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.isCoop}"></div></td>
+          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.isCoop}"></div></td>
+        </th:block>
+
+        <th:block th:switch="${n.isFilled}">
+          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.isFilled}"></div></td>
+          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.isFilled}"></div></td>
+        </th:block>
 
         <!-- For Edit function -->
         <th:block th:switch="${userRole}">
