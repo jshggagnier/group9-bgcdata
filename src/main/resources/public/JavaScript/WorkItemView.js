@@ -8,7 +8,7 @@ var i = 0;
 var team = rows[j].cells[3].innerHTML;
 //console.log(team);
     team = team.split("|");
-var Team = "<table>";
+var Team = "<table> <tr><th>Team Name</th><th>Type</th></tr>";
     while(i < team.length){
         if(i != (team.length-1)){
     Team += "<tr>"
