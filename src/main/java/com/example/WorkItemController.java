@@ -187,6 +187,29 @@ public class WorkItemController {
     }
   }
 
+  @GetMapping("/WorkItemDelete/{nid}")
+  String DeleteWorkItem(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal,
+      @PathVariable String nid) {
+    String Role = GetuserAuthenticationData(model, principal);
+    if (Role.equals("unverified") || Role.equals("viewonly")) {
+      model.put("message",
+          "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+      return "error";
+    }
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "DELETE FROM workitems " + "WHERE (id='" + nid + "')";
+      stmt.executeQuery(sql);
+      
+      return "WorkItemView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+
+
   public String GetuserAuthenticationData(Map<String, Object> model,@AuthenticationPrincipal OidcUser principal)
   {
     String defaultrole = "unverified";
