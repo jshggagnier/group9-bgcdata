@@ -5,7 +5,7 @@ var frow = false;
 for(var j = 0; j < rows.length; j++){
     if(frow){
 var i = 0;
-var team = rows[j].cells[4].innerHTML;
+var team = rows[j].cells[3].innerHTML;
 //console.log(team);
     team = team.split("|");
 var Team = "<table>";
@@ -28,7 +28,7 @@ var Team = "<table>";
 i++;
 }
 //console.log(Team);
-rows[j].cells[4].innerHTML = Team+"</table>";
+rows[j].cells[3].innerHTML = Team+"</table>";
 }else{
     frow = true;
 }
