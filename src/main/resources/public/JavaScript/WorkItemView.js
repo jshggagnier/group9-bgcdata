@@ -1,11 +1,17 @@
-function parseTeamString(team){
+var AllTeamStrings = [];
+function parseTeamString(){
 var table = document.getElementById("WorkItemViewtable");
 var rows = table.rows;
+    if(AllTeamStrings.length == 0){
+        for(var i = 1; i < row.length; i++){
+            AllTeamStrings[(i-1)] = rows[j].cells[3].innerHTML;
+          }
+    }
 var StartDate = document.getElementById("startdate").valueAsDate;
 var EndDate = document.getElementById("enddate").valueAsDate;
 var weeks = weeksBetween(StartDate, EndDate);
 for(var j = 1; j < rows.length; j++){
-var team = team[(j-1)]
+var team = AllTeamStrings[(j-1)]
 //console.log(team);
 createTable(j, team, rows, weeks, StartDate);
 }

@@ -24,7 +24,7 @@
 <body style="font-family: Quicksand, sans-serif;">
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Work Items</h1><br>
-    <label>Start Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="startdate" onchange="parseTeamString(AllTeamStrings)"/><label>End Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="enddate" onchange="parseTeamString(AllTeamStrings)"/>
+    <label>Start Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="startdate" onchange="parseTeamString()"/><label>End Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="enddate" onchange="parseTeamString()"/>
     <table id="WorkItemViewtable"class="styled-table">
       <tr class="table-header" style="color: lavenderblush;">
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
@@ -77,34 +77,9 @@
   </div>
 </body>
 <script>
-  var date = new Date().getDate();
-  var Date = new Date().getDate();
-  var AllTeamStrings = new Array();
-  var table = document.getElementById("WorkItemViewtable");
-  var rows = table.rows;
-  for(var i = 1; i < row.length; i++){
-    AllTeamStrings[(i-1)] = rows[j].cells[3].innerHTML;
-  }
   document.getElementById('startdate').value = "2021-07-01";
-  document.getElementById("enddate").value = "2021-09-01"
-  if(date.getMonth() == 0){
-    Date.setYear(date.getYear()-1);
-    Date.setMonth(11);
-    document.getElementById('startdate').value = Date.toString();
-  }else{
-    Date = Date.setMonth(date.getMonth() -1);
-    document.getElementById('startdate').value = Date.toString();
-  }
-  Date = new Date().getDate();
-  if(date.getMonth() >= 10){
-    Date.setYear(date.getYear()+1);
-    Date.setMonth((11-date.getMonth())+2);
-    document.getElementById('enddate').value = Date.toString();
-  }else{
-    Date = Date.setMonth(date.getMonth()+ 2);
-    document.getElementById('enddate').value = Date.toString();
-  }
-  parseTeamString(AllTeamStrings);
+  document.getElementById("enddate").value = "2021-09-01";
+  parseTeamString();
   </script>
 </html>
 
