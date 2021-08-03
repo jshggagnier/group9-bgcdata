@@ -9,6 +9,7 @@ var team = rows[j].cells[3].innerHTML;
 //console.log(team);
 createTable(team, rows, weeks, StartDate);
 }
+//rows[1].cells[3].innerHTML += "</table>";
 }
 
 function weeksBetween(StartDate, EndDate) {
@@ -18,34 +19,36 @@ function weeksBetween(StartDate, EndDate) {
 function createTable(team, rows, weeks, startdate){
     var i = 0;
     team = team.split("|");
-    var Team = "<table> <tr><th>Team Name</th><th>Type</th>";
+    var Team = "<table><tr><th>Team Name</th><th>Type</th>";
     
-    for(var j = 1; j <= weeks; j++){
+    for(var j = 0; j <= weeks; j++){
         var d = startdate.getTime()+((j)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000));
         console.log(d);
-        var daterow = new Date(d);
-        Team += "<th>"+daterow.toString().substring(0, 15)+"</th>";
+        //var daterow = new Date(d);
+        Team += "<th>"+d/*daterow.toString().substring(0, 15)*/+"</th>";
     }
     Team += "</tr>"
-        while(i < team.length){
-            if(i != (team.length-1)){
+    while(i < weeks){
+        if(i != (team.length-1)){
         Team += "<tr>"
         team[i] = team[i].split(",");
-        var c = 0;
+        var c = true;
         team[i].forEach(t => {
-            if(c == 0){
+            if(c){
                 Team += "<td>"+t.slice(3)+"</td> ";
-                c++;
+                c = false;
             }else{
             Team += "<td>"+t+"</td>";
             }
         });
         Team += "</tr>"
     }
+
     i++;
     }
+
     //console.log(Team);
-    rows[j].cells[3].innerHTML = Team+"</table>";
+    rows[j].cells[3].innerHTML += Team+"</table>";
 
     /*
     if(weeks < 1) {weeks = 1;}
