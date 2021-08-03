@@ -4,12 +4,12 @@ var rows = table.rows;
 var frow = false;
 var StartDate = document.getElementById("startdate").valueAsDate;
 var EndDate = document.getElementById("enddate").valueAsDate;
-var weeks = weeksBetween(StartDate,EndDate);
+var weeks = weeksBetween(StartDate, EndDate);
 for(var j = 0; j < rows.length; j++){
     if(frow){
 var team = rows[j].cells[3].innerHTML;
 //console.log(team);
-createTable(team, rows, weeks, startdate);
+createTable(team, rows, weeks, StartDate);
 }else{
     frow = true;
 }
