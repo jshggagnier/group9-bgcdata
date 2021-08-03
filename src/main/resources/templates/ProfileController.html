@@ -7,24 +7,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google font Quicksand-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/stylesheets/ProfileController.css">
     <script src="/JavaScript/ProfileController.js"></script>
     <title>User Management</title>
 </head>
 
 <body>
-    <div class="db-container">
+    <div style="font-family: Quicksand, sans-serif;" class="db-container">
         <h1>User Management: Grant or Revoke Permissions</h1>
+        <h4>Select a user below to modify their permissions</h4>
         <table>
             <tr class="table-header">
-                <th style="border-top-left-radius: 7px;" class="header-name">Email Address</th>
-                <th class="header-name">Role</th>
+                <th style="border-top-left-radius: 7px;" class="header-name">User - Email Address</th>
+                <th class="header-name">Current Permission Type</th>
                 <th class="header-name" style="border-top-right-radius: 7px;"></th>
             </tr>
             <tr th:each="n:${Users}">
                 <td th:text="${n.Email}"></td>
                 <td th:text="${n.Role}"></td>
-                <td><button type="button" th:attr="onclick=|setup('${n.Email}','${n.Role}')|">Select User</button></td>
+                <td><button style="font-weight: 800;" type="button" th:attr="onclick=|setup('${n.Email}','${n.Role}')|">Select User</button></td>
             </tr>
             <tr class="table-header">
                 <th style="border-bottom-left-radius: 7px;" class="header-name"></th>
@@ -34,20 +41,22 @@
         </table>
     </div>
     <div class="databox">
-        <div>Select A User above to Modify Permissions</div>
-        <form action="#" method="post" th:action="@{/ManageUsers}" th:object="${PermissionData}">
+        <form style="margin-left: 0 auto; text-align: center; font-family: Quicksand, sans-serif;" action="#" method="post" th:action="@{/ManageUsers}" th:object="${PermissionData}">
             <input type="text" name="role" value="" id="role" hidden></input>
             <input type="text" name="email" value="" id="email" hidden></input>
-            <div>Chosen User: </div><div class="targetuser" id="displaymail"></div>
-            <div>Unverified:<input type="radio" name="currole" value="unverified" onchange="modifyfields()"
-                    id="unverified"></div>
-            <div>View Only:<input type="radio" name="currole" value="View Only" onchange="modifyfields()" id="ViewOnly">
-            </div>
-            <div>View/Edit:<input type="radio" name="currole" value="View/Edit" onchange="modifyfields()" id="ViewEdit">
-            </div>
-            <div>Administrator:<input type="radio" name="currole" value="admin" onchange="modifyfields()" id="admin">
-            </div>
-            <input type="submit" value="Update User" />
+            <h1 style="color:lavenderblush;">Selected User: </h1>
+            <h4 class="targetuser" id="displaymail"></h4>
+            <br>
+            <br>
+
+            <h4 style="color:lavenderblush;">Select a permission type below:</h4>
+            <div>Administrator:<input type="radio" name="currole" value="admin" onchange="modifyfields()" id="admin"></div>
+            <div>View & Edit:<input type="radio" name="currole" value="View/Edit" onchange="modifyfields()" id="ViewEdit"></div>
+            <div>View Only:<input type="radio" name="currole" value="View Only" onchange="modifyfields()" id="ViewOnly"></div>
+            <div>Unverified/None:<input type="radio" name="currole" value="unverified" onchange="modifyfields()" id="unverified"></div>
+
+            <br>
+            <input style="font-family: Quicksand, sans-serif;" type="submit" value="Update User Permissions"/>
         </form>
     </div>
 </body>

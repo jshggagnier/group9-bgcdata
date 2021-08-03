@@ -21,19 +21,19 @@
 <body>
   <h1>Modify Position Data</h1>
   <h4>Enter the details for the chosen position</h4>
-    <div class="form-data">
+    <div style="font-family: Quicksand, sans-serif;" class="form-data">
       <form action="#" method="post" th:action="@{/PositionUpdate}" th:object="${Position}">
         <div class="form-name">Name<sup>*</sup></div>
-        <input type="text" field="*{Name}" name="Name" id="Name" placeholder="Name of the Resource" required />
+        <input style="font-family: Quicksand, sans-serif;" type="text" field="*{Name}" name="Name" id="Name" placeholder="Name of the Resource" required />
         <div class="form-name">Team<sup>*</sup></div>
-        <input type="text" field="*{Team}" name="Team" id="Team" placeholder="Name of the Team" required />
+        <input style="font-family: Quicksand, sans-serif;" type="text" field="*{Team}" name="Team" id="Team" placeholder="Name of the Team" required />
         <div class="form-name">Role<sup>*</sup></div>
-        <input type="text" field="*{Role}" name="Role" id="Role" placeholder="Role of the position" required />
+        <input style="font-family: Quicksand, sans-serif;" type="text" field="*{Role}" name="Role" id="Role" placeholder="Role of the position" required />
         <div class="form-name">Starting Date<sup>*</sup></div>
-        <input type="date" id="sd" field="*{StartDate}" name="StartDate" placeholder="Starting Date"
+        <input style="font-family: Quicksand, sans-serif;" type="date" id="sd" field="*{StartDate}" name="StartDate" placeholder="Starting Date"
           onchange="InvalidDateCheck()" required />
         <div id="endDateLabel" class="form-name">Ending Date (If Applicable)</div>
-        <input type="date" id="ed" field="*{EndDate}" name="EndDate" placeholder="Ending Date (If Applicable)"
+        <input style="font-family: Quicksand, sans-serif;" type="date" id="ed" field="*{EndDate}" name="EndDate" placeholder="Ending Date (If Applicable)"
           onchange="InvalidDateCheck()" required />
         </input>
         <label for="checkbox" class="form-name">Is there a position end date?<sup>*</sup></label>
@@ -44,7 +44,7 @@
         <div class="form-name">Co-op position? <input type="checkbox" field="*{isCoop}" id="iscoop" name="isCoop"></div>
         <div class="form-name">Position currently filled? <input type="checkbox" field="*{isFilled}" id="isfilled" name="isFilled"></div><br>
         <input type="text" field="*{serialID}" name="serialID" id="serialID" required style="display: none;">
-        <input type="submit" value="Submit Data" />
+        <input style="font-family: Quicksand, sans-serif;" type="submit" value="Submit Data" />
       </form>
     </div>
 </body>

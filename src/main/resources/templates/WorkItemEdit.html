@@ -33,29 +33,29 @@
 
   <title>Edit Workitem</title>
 </head>
-<body>
+<body style="font-family: Quicksand, san-serif;">
   <div class="form-data">
     <h1>Edit Work Item</h1>
-    <h5>Make the changes to the Work Item</h5>
+    <h4>Make the changes to the Work Item</h4>
     <div class="databox">
     <form action="#" method="post" th:action="@{/WorkItemEdit}" th:object="${WorkItem}">
-        <input style="border-radius: 20px; width: 100%" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
-        <input style="border-radius: 20px;" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
-        <input style="border-radius: 20px;" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
+        <input style="border-radius: 20px; width: 100%; font-family: Quicksand, san-serif;" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
+        <input style="border-radius: 20px; font-family: Quicksand, san-serif;" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate" required>
+        <input style="border-radius: 20px; font-family: Quicksand, san-serif;" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate" required>
         <table id="InputTable" onchange="createTeamString()">
             <tr id="Row0">
               <th class="headerrow">Resource Name</th><th>Item Type</th>
             </tr>
           <tr id="Row1">
-              <td class="rowname"><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td>
-              <td class="rowname" ><select id="cell1:1"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>
+              <td style="font-family: Quicksand, san-serif;" class="rowname"><input type='text' id="cell1:0"><br><button class="delbtn" type='button' onclick='deleterow(1)'>Delete This Row</button></td>
+              <td style="font-family: Quicksand, san-serif;"class="rowname" ><select id="cell1:1"><option value="Dev">Dev</option><option value="QA">QA</option></select></td>
             </tr>
         </table>
         <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
         <input type="hidden" th:field="*{Id}"></input>
-        <button style="border-radius: 20px;" class="inside_btn" type="button" onclick="AddTeam()">Add Resource</button>
-        <div><textarea cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
-        <input style="border-radius: 20px;" type="submit" value="Update Work Item">
+        <button style="font-family: Quicksand, san-serif;" style="border-radius: 20px;" class="inside_btn" type="button" onclick="AddTeam()">Add Resource</button>
+        <div><textarea style="font-family: Quicksand, san-serif;" cols="50" rows="5" th:field="*{FundingInformation}" name="FundingInformation" placeholder="Funding Information" required></textarea></div>
+        <input style="border-radius: 20px; font-family: Quicksand, sans-serif;" type="submit" value="Update Work Item">
     </form>
     </div>
   </div>

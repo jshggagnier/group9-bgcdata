@@ -25,6 +25,7 @@ table {
 
 td {
   border-bottom: 2px solid ghostwhite;
+  font-weight: 800;
 }
 
 tr:hover {
@@ -35,7 +36,6 @@ tr:hover {
   margin: 0 auto;
   margin-top: 3%;
   text-align: center;
-  font-family: 'Lato';
 }
 
 .header-name {
@@ -102,23 +102,27 @@ tr:hover {
 
 .false-div {
   text-transform:capitalize;
-  background-color:crimson;
+  background-color:#FF2400;
   border-radius: 3px;
   width: 50px;
   height:25px;
   margin: 0 auto;
   line-height: 25px;
   text-align: center;
+  color: lavenderblush;
+  font-weight: 800;
 }
 
 .true-div {
   text-transform:capitalize;
-  background-color:green;
+  background-color:limegreen;
   border-radius: 3px;
   width: 50px;
   height:25px;
   margin: 0 auto;
   line-height: 25px;
   text-align: center;
+  color: lavenderblush;
+  font-weight: 800;
 }
 

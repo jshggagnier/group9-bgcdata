@@ -13,7 +13,7 @@
   <!-- For live server - please remove in final iteration!-->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemSubmit.css">
 
-  <!-- Google font-->
+  <!-- Google font Quicksand-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
@@ -41,19 +41,19 @@
 <body>
   <div class="form-data">
     <h1>New Work Item Form</h1>
-    <h5>Enter the details for the new Work Item</h5>
+    <h4>Enter the details for the new Work Item</h4>
     <div class="databox">
     <form action="#" method="post" th:action="@{/WorkItemSubmit}" th:object="${WorkItem}">
       <label style="font-weight: bolder;">Name: </label>
-      <input style="border-radius: 20px;" class="workitem-name" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
+      <input style="border-radius: 20px; font-family: Quicksand, sans-serif;" class="workitem-name" type="text" th:field="*{ItemName}" placeholder="Work Item Name" required>
 
       <div>
         <label style="font-weight: bolder;">Start Date: </label><br>
-        <input style="border-radius: 20px;" class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate"
+        <input style="border-radius: 20px; font-family: Quicksand, sans-serif;" class="workitem-startdate" type="date" th:field="*{StartDate}" onchange="UpdateTable()" id="startDate"
           required></br>
 
         <label style="font-weight: bolder;">End Date: </label><br>
-        <input style="border-radius: 20px;" class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate"
+        <input style="border-radius: 20px; font-family: Quicksand, sans-serif;" class="workitem-enddate" type="date" th:field="*{EndDate}" onchange="UpdateTable()" id="endDate"
           required>
       </div>
       <div class="tablebox1">
@@ -63,22 +63,22 @@
             <td class="headerrow">Resource Name</td>
           </tr>
           <tr id="Row1">
-            <td class="rowname"><input type='text' id="cell1:0" required><br><button class="delbtn" type='button' id="btn1"
+            <td class="rowname"><input type='text' id="cell1:0" required><br><button style="font-family: Quicksand, sans-serif;" class="delbtn" type='button' id="btn1"
                 onclick='deleterow(1)'>Delete This Row</button></td>
                 <td class="rowname">
                   <select id="cell1:1">
-                  <option value="Dev">Dev</option><option value="QA">QA</option>
+                  <option style="font-family: Quicksand, sans-serif;" value="Dev">Dev</option><option style="font-family: Quicksand, sans-serif;" value="QA">QA</option>
                   </select>
                 </td>
             <td><input type='number' id="cell1:2" min="0"></td>
           </tr>
         </table>
-        <button class="addteambtn" type="button" onclick="AddTeam()">Add Resource</button>
+        <button style="font-family: Quicksand, sans-serif;" class="addteambtn" type="button" onclick="AddTeam()">Add Resource</button>
       </div>
       <input type="hidden" id="TBstring" th:field="*{TeamsAssigned}"></input>
-      <div><textarea cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation"
+      <div><textarea font-family: Quicksand, sans-serif; cols="30" rows="5" th:field="*{FundingInformation}" name="FundingInformation"
           placeholder="Funding Information" required></textarea></div>
-      <input style="border-radius: 20px;" type="submit" value="New Work Item">
+      <input style="border-radius: 20px; font-family: Quicksand, sans-serif;" type="submit" value="New Work Item">
     </form>
   </div>
   </div>

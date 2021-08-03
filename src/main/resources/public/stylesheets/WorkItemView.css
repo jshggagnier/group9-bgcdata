@@ -26,6 +26,7 @@ table {
 
 td {
   border-bottom: 2px solid ghostwhite;
+  font-weight: 800;
 }
 
 tr:hover {
@@ -36,7 +37,6 @@ tr:hover {
   margin: 0 auto;
   margin-top: 3%;
   text-align: center;
-  font-family: 'Lato';
 }
 
 .header-name {

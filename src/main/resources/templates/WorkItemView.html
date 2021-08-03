@@ -10,16 +10,21 @@
   <!--Font & Icon import-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- Google font Quicksand-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  
 
   <!-- For VSCode live server -->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/WorkItemView.css">
   <title>View Work Items Database</title>
 </head>
-<body>
+<body style="font-family: Quicksand, sans-serif;">
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Work Items</h1><br>
-    <label>Start Date: </label><input type="date" id="startdate" onchange="parseTeamString()"/><label>End Date: </label><input type="date" id="enddate" onchange="parseTeamString()"/>
+    <label>Start Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="startdate" onchange="parseTeamString()"/><label>End Date: </label><input style="font-family: Quicksand, sans-serif;" type="date" id="enddate" onchange="parseTeamString()"/>
     <table id="WorkItemViewtable"class="styled-table">
       <tr class="table-header" style="color: lavenderblush;">
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
@@ -68,7 +73,7 @@
         </tr>
     </table>
     <br>
-    <button class="back-btn" onclick="window.history.back();">Go Back</button>
+    <button style="font-family: Quicksand, sans-serif;" class="back-btn" onclick="window.history.back();">Go Back</button>
   </div>
 </body>
 <script>

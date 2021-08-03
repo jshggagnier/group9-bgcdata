@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/NavBar :: NavBar}">
-
 </html>
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -24,7 +21,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- Google font Quicksand-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  
 
   <link rel="stylesheet" href="stylesheets/PositionView.css">
   <!-- For VSCode live server -->
@@ -32,7 +34,7 @@
   <title>View Position Database</title>
 </head>
 
-<body>
+<body style="font-family: Quicksand, sans-serif;">
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Positions</h1><br>
     <table class="styled-table">
@@ -113,8 +115,8 @@
 
   <!-- <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
   </div> -->
-  <div class="db-container">
-    <h2 style="text-align: center">Employment Visualization Graph</h2>
+  <div style="font-family: Quicksand, sans-serif;" class="db-container">
+    <h1 style="text-align: center">Employment Visualization Graph</h1>
     <input type="date" id="fromDate" placeholder="From:" />
     <input type="date" id="toDate" placeholder="To:" />
     <button class="chartBtn" onclick="drawChart()">Draw Graph</button>
@@ -122,7 +124,6 @@
 
 
   <div class="container">
-
 
     <div id="container" style="width: 900px; height: 400px; margin: 0 auto"></div>
 
@@ -243,7 +244,7 @@
 
 
 <div class="db-container">
-  <button class="back-btn" onclick="window.history.back();">Go Back</button>
+  <button style="font-family: Quicksand, sans-serif;" class="back-btn" onclick="window.history.back();">Go Back</button>
 </div>
 
 </html>
