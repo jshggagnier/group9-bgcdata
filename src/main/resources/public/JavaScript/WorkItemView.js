@@ -35,10 +35,13 @@ function createTable(row, team, rows, weeks, startdate){
     }
     Team += "</tr>"
     var start = weeksBetween(startdate, Date.parse(rows[row].cells[1].innerHTML));
-    var end = weeks-weeksBetween(Date.parse(rows[row].cells[2].innerHTML), EndDate)
+    var end = weeks-weeksBetween(Date.parse(rows[row].cells[2].innerHTML), EndDate);
     while(i < weeks){
-        if(start < i < end){
+        if(i < (team.length-1)){
         Team += "<tr>"
+        for(var m = 0; m < start; m++){
+            Team += "<td></td>";
+        }
         team[i] = team[i].split(",");
         var c = true;
         team[i].forEach(t => {
@@ -49,9 +52,10 @@ function createTable(row, team, rows, weeks, startdate){
             Team += "<td>"+t+"</td>";
             }
         });
+        for(var m = 0; m < end; m++){
+            Team += "<td></td>";
+        }
         Team += "</tr>"
-    }else{
-        Team += "<td></td>";
     }
 
     i++;
