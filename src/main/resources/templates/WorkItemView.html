@@ -19,7 +19,7 @@
 <body>
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Work Items</h1><br>
-    <input type="date" id="startdate"><input><input type="date" id="enddate"><input>
+    <label>Start Date: </label><input type="date" id="startdate" onchange="parseTeamString()"/><label>End Date: </label><input type="date" id="enddate" onchange="parseTeamString()"/>
     <table id="WorkItemViewtable"class="styled-table">
       <tr class="table-header" style="color: lavenderblush;">
         <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Item Name</th>
@@ -72,8 +72,8 @@
   </div>
 </body>
 <script>
-  var date = new Date.getDate();
-  var Date = new Date.getDate();
+  var date = new Date().getDate();
+  var Date = new Date().getDate();
   if(date.getMonth() == 0){
     Date.setYear(date.getYear()-1);
     Date.setMonth(11);
@@ -82,7 +82,7 @@
     Date = Date.setMonth(date.getMonth() -1);
     document.getElementById('startdate').value = Date.toString();
   }
-  Date = new Date.getDate();
+  Date = new Date().getDate();
   if(date.getMonth() >= 10){
     Date.setYear(date.getYear()+1);
     Date.setMonth((11-date.getMonth())+2);
