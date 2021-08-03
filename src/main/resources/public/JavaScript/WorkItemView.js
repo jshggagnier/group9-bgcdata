@@ -2,11 +2,11 @@ var AllTeamStrings = [];
 function parseTeamString(){
 var table = document.getElementById("WorkItemViewtable");
 var rows = table.rows;
-    if(AllTeamStrings.length == 0){
-        for(var i = 1; i < row.length; i++){
-            AllTeamStrings[(i-1)] = rows[j].cells[3].innerHTML;
-          }
-    }
+if(AllTeamStrings.length == 0){
+    for(var i = 1; i < rows.length; i++){
+        AllTeamStrings[(i-1)] = rows[i].cells[3].innerHTML;
+      }
+}
 var StartDate = document.getElementById("startdate").valueAsDate;
 var EndDate = document.getElementById("enddate").valueAsDate;
 var weeks = weeksBetween(StartDate, EndDate);
