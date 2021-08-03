@@ -1,13 +1,13 @@
-function parseTeamString(){
+function parseTeamString(team){
 var table = document.getElementById("WorkItemViewtable");
 var rows = table.rows;
 var StartDate = document.getElementById("startdate").valueAsDate;
 var EndDate = document.getElementById("enddate").valueAsDate;
 var weeks = weeksBetween(StartDate, EndDate);
 for(var j = 1; j < rows.length; j++){
-var team = rows[j].cells[3].innerHTML;
+var team = team[(j-1)]
 //console.log(team);
-createTable(j,team, rows, weeks, StartDate);
+createTable(j, team, rows, weeks, StartDate);
 }
 //rows[1].cells[3].innerHTML += "</table>";
 }
@@ -16,7 +16,7 @@ function weeksBetween(StartDate, EndDate) {
     return Math.ceil((EndDate - StartDate) / (7 * 24 * 60 * 60 * 1000));//rounds up the amount of weeks between the two dates (the number is the amount of milliseconds in a week)
 }
 
-function createTable(row,team, rows, weeks, startdate){
+function createTable(row, team, rows, weeks, startdate){
     var i = 0;
     team = team.split("|");
     var Team = "<table><tr><th>Team Name</th><th>Type</th>";
