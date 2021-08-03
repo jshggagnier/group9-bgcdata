@@ -7,7 +7,7 @@ var weeks = weeksBetween(StartDate, EndDate);
 for(var j = 1; j < rows.length; j++){
 var team = rows[j].cells[3].innerHTML;
 //console.log(team);
-createTable(team, rows, weeks, StartDate);
+createTable(j,team, rows, weeks, StartDate);
 }
 //rows[1].cells[3].innerHTML += "</table>";
 }
@@ -16,20 +16,20 @@ function weeksBetween(StartDate, EndDate) {
     return Math.ceil((EndDate - StartDate) / (7 * 24 * 60 * 60 * 1000));//rounds up the amount of weeks between the two dates (the number is the amount of milliseconds in a week)
 }
 
-function createTable(team, rows, weeks, startdate){
+function createTable(row,team, rows, weeks, startdate){
     var i = 0;
     team = team.split("|");
     var Team = "<table><tr><th>Team Name</th><th>Type</th>";
     
     for(var j = 0; j <= weeks; j++){
         var d = startdate.getTime()+((j)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000));
-        console.log(d);
-        //var daterow = new Date(d);
+        //console.log(d);
+        //var daterow = Date(d);
         Team += "<th>"+d/*daterow.toString().substring(0, 15)*/+"</th>";
     }
     Team += "</tr>"
-    while(i < weeks){
-        if(i != (team.length-1)){
+    while(i < team.length-1){
+        if(i < (team.length-1)){
         Team += "<tr>"
         team[i] = team[i].split(",");
         var c = true;
@@ -47,8 +47,8 @@ function createTable(team, rows, weeks, startdate){
     i++;
     }
 
-    //console.log(Team);
-    rows[j].cells[3].innerHTML += Team+"</table>";
+    //console.log(rows);
+    rows[row].cells[3].innerHTML = Team+"</table>";
 
     /*
     if(weeks < 1) {weeks = 1;}
