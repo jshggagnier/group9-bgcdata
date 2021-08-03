@@ -1,18 +1,13 @@
 function parseTeamString(){
 var table = document.getElementById("WorkItemViewtable");
 var rows = table.rows;
-var frow = false;
 var StartDate = document.getElementById("startdate").valueAsDate;
 var EndDate = document.getElementById("enddate").valueAsDate;
 var weeks = weeksBetween(StartDate, EndDate);
-for(var j = 0; j < rows.length; j++){
-    if(frow){
+for(var j = 1; j < rows.length; j++){
 var team = rows[j].cells[3].innerHTML;
 //console.log(team);
 createTable(team, rows, weeks, StartDate);
-}else{
-    frow = true;
-}
 }
 }
 
@@ -21,13 +16,15 @@ function weeksBetween(StartDate, EndDate) {
 }
 
 function createTable(team, rows, weeks, startdate){
-    //console.log("Updating Table")
     var i = 0;
     team = team.split("|");
     var Team = "<table> <tr><th>Team Name</th><th>Type</th>";
+    
     for(var j = 1; j <= weeks; j++){
-        var Cheese = new Date(startdate.getTime() + ((j)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000)));
-        Team += "<th>"+Cheese.toString().substring(0, 15)+"</th>";
+        var d = startdate.getTime()+((j)*(7 * 24 * 60 * 60 * 1000) + (24 * 60 * 60 * 1000));
+        console.log(d);
+        var daterow = new Date(d);
+        Team += "<th>"+daterow.toString().substring(0, 15)+"</th>";
     }
     Team += "</tr>"
         while(i < team.length){
@@ -35,7 +32,6 @@ function createTable(team, rows, weeks, startdate){
         Team += "<tr>"
         team[i] = team[i].split(",");
         var c = 0;
-        //console.log(team);
         team[i].forEach(t => {
             if(c == 0){
                 Team += "<td>"+t.slice(3)+"</td> ";
