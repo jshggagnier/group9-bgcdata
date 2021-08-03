@@ -13,7 +13,7 @@ var weeks = weeksBetween(StartDate, EndDate);
 for(var j = 1; j < rows.length; j++){
 var team = AllTeamStrings[(j-1)]
 //console.log(team);
-createTable(j, team, rows, weeks, StartDate);
+createTable(j, team, rows, weeks, StartDate, EndDate);
 }
 //rows[1].cells[3].innerHTML += "</table>";
 }
@@ -22,7 +22,7 @@ function weeksBetween(StartDate, EndDate) {
     return Math.ceil((EndDate - StartDate) / (7 * 24 * 60 * 60 * 1000));//rounds up the amount of weeks between the two dates (the number is the amount of milliseconds in a week)
 }
 
-function createTable(row, team, rows, weeks, startdate){
+function createTable(row, team, rows, weeks, startdate, enddate){
     var i = 0;
     team = team.split("|");
     var Team = "<table><tr><th>Team Name</th><th>Type</th>";
@@ -35,21 +35,29 @@ function createTable(row, team, rows, weeks, startdate){
     }
     Team += "</tr>"
     var start = weeksBetween(startdate, Date.parse(rows[row].cells[1].innerHTML));
-    var end = weeks-weeksBetween(Date.parse(rows[row].cells[2].innerHTML), EndDate);
+    var end = weeks-weeksBetween(Date.parse(rows[row].cells[2].innerHTML), enddate);
     while(i < weeks){
         if(i < (team.length-1)){
         Team += "<tr>"
-        for(var m = 0; m < start; m++){
-            Team += "<td></td>";
-        }
         team[i] = team[i].split(",");
-        var c = true;
+        var c = 0;
         team[i].forEach(t => {
-            if(c){
+            if(c == 0){
                 Team += "<td>"+t.slice(3)+"</td> ";
-                c = false;
+                c++;
             }else{
-            Team += "<td>"+t+"</td>";
+                if(c == 1){
+                Team += "<td>"+t+"</td>";
+                c++;
+                }
+                if(c == 2){
+                for(var m = 0; m < start; m++){
+                    Team += "<td></td>";
+                }
+                c++;
+                }else{
+                Team += "<td>"+t+"</td>";
+            }
             }
         });
         for(var m = 0; m < end; m++){
