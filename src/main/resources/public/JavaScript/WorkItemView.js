@@ -51,6 +51,7 @@ function createTable(team, rows, weeks, startdate){
     //console.log(Team);
     rows[j].cells[3].innerHTML = Team+"</table>";
 
+    /*
     if(weeks < 1) {weeks = 1;}
     //
     var TableRows = weeks+2;
@@ -103,5 +104,6 @@ function createTable(team, rows, weeks, startdate){
             }
             cellcounter = currentrowpntr.cells.length;
         }
-    }
+    } 
+    */
 }

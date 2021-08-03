@@ -71,6 +71,26 @@
     <button class="back-btn" onclick="window.history.back();">Go Back</button>
   </div>
 </body>
-<script>parseTeamString();</script>
+<script>
+  var date = new Date.getDate();
+  var Date = new Date.getDate();
+  if(date.getMonth() == 0){
+    Date.setYear(date.getYear()-1);
+    Date.setMonth(11);
+    document.getElementById('startdate').value = Date.toString();
+  }else{
+    Date = Date.setMonth(date.getMonth() -1);
+    document.getElementById('startdate').value = Date.toString();
+  }
+  Date = new Date.getDate();
+  if(date.getMonth() >= 10){
+    Date.setYear(date.getYear()+1);
+    Date.setMonth((11-date.getMonth())+2);
+    document.getElementById('enddate').value = Date.toString();
+  }else{
+    Date = Date.setMonth(date.getMonth()+ 2);
+    document.getElementById('enddate').value = Date.toString();
+  }
+parseTeamString();</script>
 </html>
 
