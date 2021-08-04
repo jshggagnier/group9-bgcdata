@@ -31,6 +31,14 @@
   <link rel="stylesheet" href="stylesheets/PositionView.css">
   <!-- For VSCode live server -->
   <link rel="stylesheet" href="/src/main/resources/public/stylesheets/PositionView.css">
+
+  <style>
+    ::-webkit-scrollbar {display:none;}
+    /* Chrome, Safari, Edge, Opera */
+    html {
+      scrollbar-width: none;
+    }
+  </style>
   <title>View Position Database</title>
 </head>
 
@@ -38,41 +46,44 @@
   <div class="db-container">
     <h1 style="font-weight: bolder;">BGC Positions</h1><br>
     <table class="styled-table">
-      <tr class="table-header" style="color: lavenderblush;">
-        <th class="header-name" style="padding-right: 150px; border-top-left-radius: 7px;">Resource</th>
-        <th class="header-name" style="padding-right: 100px">Team</th>
-        <th class="header-name" style="padding-right: 100px">Position</th>
-        <th class="header-name" style="padding-right: 80px">Start Date</th>
-        <th class="header-name" style="padding-right: 80px">End Date</th>
-        <th class="header-name" style="padding-right: 80px">Has End Date</th>
-        <th class="header-name" style="padding-right: 80px">Is Coop</th>
-        <th class="header-name" style="padding-right: 80px">Is Filled</th>
-        <th class="header-name" style="padding-right: 10px;">Edit</th> <!-- for edit icon-->
+
+      <thead class="table-header" style="color: lavenderblush;">
+        <th class="header-name" style="border-top-left-radius: 7px;">Resource</th>
+        <th class="header-name">Team</th>
+        <th class="header-name">Position</th>
+        <th class="header-name">Start Date</th>
+        <th class="header-name">End Date</th>
+        <th class="header-name">Has End Date</th>
+        <th class="header-name">Is Coop</th>
+        <th class="header-name">Is Filled</th>
+        <th class="header-name">Edit</th> <!-- for edit icon-->
         <th class="header-name" style="border-top-right-radius: 7px;">Delete</th> <!-- for delete icon-->
+      </thead>
 
       <tr th:each="n:${Positions}">
-        <td style="padding-right: 150px" th:text="${n.name}"></td>
-        <td style="padding-right: 100px" th:text="${n.team}"></td>
-        <td style="padding-right: 100px" th:text="${n.role}"></td>
-        <td style="padding-right: 80px" th:text="${n.StartDate}"></td>
+        <td th:text="${n.name}"></td>
+        <td th:text="${n.team}"></td>
+        <td th:text="${n.role}"></td>
+        <td th:text="${n.StartDate}"></td>
+
         <th:block th:switch="${n.hasEndDate}">
-          <td style="padding-right: 80px" th:case="true" th:text="${n.EndDate}"></td>
-          <td style="padding-right: 80px" th:case="false">No End Date</td>
+          <td th:case="true" th:text="${n.EndDate}"></td>
+          <td th:case="false">No End Date</td>
         </th:block>
 
         <th:block th:switch="${n.hasEndDate}">
-          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.hasEndDate}"></div></td>
-          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.hasEndDate}"></div></td>
+          <td th:case="true"><div class="true-div" th:text="${n.hasEndDate}"></div></td>
+          <td th:case="false"><div class="false-div" th:text="${n.hasEndDate}"></div></td>
         </th:block>
         
         <th:block th:switch="${n.isCoop}">
-          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.isCoop}"></div></td>
-          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.isCoop}"></div></td>
+          <td th:case="true"><div class="true-div" th:text="${n.isCoop}"></div></td>
+          <td th:case="false"><div class="false-div" th:text="${n.isCoop}"></div></td>
         </th:block>
 
         <th:block th:switch="${n.isFilled}">
-          <td style="padding-right: 80px" th:case="true"><div class="true-div" th:text="${n.isFilled}"></div></td>
-          <td style="padding-right: 80px" th:case="false"><div class="false-div" th:text="${n.isFilled}"></div></td>
+          <td th:case="true"><div class="true-div" th:text="${n.isFilled}"></div></td>
+          <td th:case="false"><div class="false-div" th:text="${n.isFilled}"></div></td>
         </th:block>
 
         <!-- For Edit function -->
@@ -104,8 +115,8 @@
             </form>
           </td>
         </th:block>
-
       </tr>
+
     </table>
     <br>
 

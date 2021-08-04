@@ -15,12 +15,27 @@ table,td,th {
   margin: 0 auto;
 }
 
+th, td {
+  width: 200px;
+}
+
 table {
   background-color:#ffffff;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   overflow: scroll;
   max-height: 600px;
+}
+
+thead {
+  display: block;
+}
+
+tbody {
+  display:block;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 td {
@@ -36,6 +51,7 @@ tr:hover {
   margin: 0 auto;
   margin-top: 3%;
   text-align: center;
+
 }
 
 .header-name {
@@ -44,6 +60,7 @@ tr:hover {
   padding-bottom: 18px;
   font-weight: 2000;
   font-size: medium;
+  text-align: center;
 }
 
 .table-header {
