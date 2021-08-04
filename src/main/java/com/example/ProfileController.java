@@ -22,6 +22,29 @@ public class ProfileController {
   
     @Autowired
     private DataSource dataSource;
+
+
+    @GetMapping("/UserDelete/{email}")
+    String DeleteUser(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal,
+        @PathVariable String email) {
+      String Role = GetuserAuthenticationData(model, principal);
+      if (Role.equals("unverified") || Role.equals("viewonly")) {
+        model.put("message",
+            "Unauthorized user: Contact your Administrator to grant you permissions to edit the database");
+        return "error";
+      }
+      try (Connection connection = dataSource.getConnection()) {
+        Statement stmt = connection.createStatement();
+        String sql = "DELETE FROM users " + "WHERE (email='" + email + "')";
+        stmt.executeUpdate(sql);
+
+        return "redirect:/ManageUsers";
+      } catch (Exception e) {
+        model.put("message", e.getMessage());
+        return "error";
+      }
+    }
+
     
     @GetMapping("/ManageUsers")
     public String ManageUsers(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal)
@@ -114,3 +137,5 @@ public class ProfileController {
     //Database calls for the role in question
   }
 }
+
+

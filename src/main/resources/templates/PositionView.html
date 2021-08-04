@@ -95,12 +95,12 @@
         <th:block th:switch="${userRole}">
           <td th:case="admin">
             <form th:action="@{/positionDelete/{id}(id=${n.serialID})}">
-              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
+              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash fa-lg"></i></button>
             </form>
           </td>
           <td th:case="viewedit">
             <form th:action="@{/positionDelete/{id}(id=${n.serialID})}">
-              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash"></i></button>
+              <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fa fa-trash fa-lg"></i></button>
             </form>
           </td>
         </th:block>

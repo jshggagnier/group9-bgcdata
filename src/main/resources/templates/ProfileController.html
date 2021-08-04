@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+      <!--Font & Icon import-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Google font Quicksand-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +19,10 @@
 
     <link rel="stylesheet" href="/stylesheets/ProfileController.css">
     <script src="/JavaScript/ProfileController.js"></script>
+
+    <!-- For VSCode live server -->
+    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/ProfileController.css">
+
     <title>User Management</title>
 </head>
 
@@ -26,15 +34,39 @@
             <tr class="table-header">
                 <th style="border-top-left-radius: 7px;" class="header-name">User - Email Address</th>
                 <th class="header-name">Current Permission Type</th>
-                <th class="header-name" style="border-top-right-radius: 7px;"></th>
+                <th class="header-name">Select User</th> <!-- Select User button-->
+                <th class="header-name" style="border-top-right-radius: 7px;">Delete User</th> <!-- Delete button-->
+                
             </tr>
+
             <tr th:each="n:${Users}">
                 <td th:text="${n.Email}"></td>
                 <td th:text="${n.Role}"></td>
-                <td><button style="font-weight: 800;" type="button" th:attr="onclick=|setup('${n.Email}','${n.Role}')|">Select User</button></td>
+                <td><button type="button" th:attr="onclick=|setup('${n.Email}','${n.Role}')|">Select User</button></td>
+
+                <th:block th:switch="${userRole}">
+                    <td th:case="admin">
+                      <form th:action="@{/UserDelete/{email}(email=${n.Email})}">
+                        <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fas fa-user-slash fa-lg"></i></button>
+                      </form>
+                    </td>
+                    <td th:case="viewedit">
+                      <form th:action="@{/UserDelete/{email}(email=${n.Email})}">
+                        <button style="border: none; background:transparent;" type="submit" value="Delete"><i style="color:#00196A" class="fas fa-user-slash fa-lg"></i></button>
+                      </form>
+                    </td>
+                    <td th:case="viewonly">
+                    </td>
+                    <td th:case="unverified">
+                    </td>
+                </th:block>
             </tr>
-            <tr class="table-header">
+
+
+
+            <tr class="table-footer">
                 <th style="border-bottom-left-radius: 7px;" class="header-name"></th>
+                <th class="header-name"></th>
                 <th class="header-name"></th>
                 <th class="header-name" style="border-bottom-right-radius: 7px;"></th>
             </tr>
