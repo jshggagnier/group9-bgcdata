@@ -108,7 +108,6 @@ public class PositionController {
     }
   }
 
-
   @GetMapping("/viewPositions")
   String viewPositions(Map<String, Object> model, @AuthenticationPrincipal OidcUser principal) {
     String Role = GetuserAuthenticationData(model, principal);
@@ -126,12 +125,8 @@ public class PositionController {
       // ArrayList<String> a = new ArrayList<String>();
       ArrayList<String> notCoopNames = new ArrayList<String>();
       ArrayList<String> coopNames = new ArrayList<String>();
-      
+
       ArrayList<ArrayList<Integer>> m = new ArrayList<ArrayList<Integer>>();
-
-      ArrayList<ArrayList<Integer>> coopDates = new ArrayList<ArrayList<Integer>>();
-      ArrayList<ArrayList<Integer>> permamentDates = new ArrayList<ArrayList<Integer>>();
-
       ArrayList<ArrayList<Long>> coopDatesMilli = new ArrayList<ArrayList<Long>>();
       ArrayList<ArrayList<Long>> permamentDatesMilli = new ArrayList<ArrayList<Long>>();
 
@@ -159,8 +154,6 @@ public class PositionController {
         String d = rs.getString("startdate").substring(5, 7);
         String e = rs.getString("EndDate").substring(5, 7);
 
-        Boolean color = rs.getBoolean("isCoop");
-
         int d1 = Integer.parseInt(d);
         int d2 = Integer.parseInt(e);
 
@@ -177,15 +170,9 @@ public class PositionController {
         long millisEnd = dateEnd.getTime();
 
         millisecDates.add(millisStart);
-        if(rs.getBoolean("hasEndDate")){
+        if (rs.getBoolean("hasEndDate")) {
           millisecDates.add(millisEnd);
-          }
-
-        // if (obj.getisCoop()) {
-        // coopDates.add(t);
-        // } else {
-        // permamentDates.add(t);
-        // }
+        }
 
         if (obj.getisCoop()) {
           coopDatesMilli.add(millisecDates);
@@ -197,26 +184,7 @@ public class PositionController {
       }
 
       model.put("Positions", dataList);
-      // model.put("Names", a);
       model.put("dates", m);
-
-      // Date date = sdf.parse(myDateForTest);
-      // long millis = date.getTime();
-      // model.put("myTest", millis);
-
-      // ArrayList<ArrayList<Integer>> finalDates = new
-      // ArrayList<ArrayList<Integer>>();
-      // ArrayList<Integer> emptyDates = new ArrayList<Integer>();
-
-      // for (int i = 0; i < permamentDates.size(); i++) {
-      // finalDates.add(emptyDates);
-      // }
-      // for (int i = 0; i < coopDates.size(); i++) {
-      // finalDates.add(coopDates.get(i));
-      // }
-
-      // model.put("finalDates", finalDates);
-      // model.put("permamentDates", permamentDates);
 
       ArrayList<ArrayList<Long>> finalDates = new ArrayList<ArrayList<Long>>();
       ArrayList<Long> emptyDates = new ArrayList<Long>();
@@ -229,10 +197,10 @@ public class PositionController {
       }
 
       ArrayList<String> allOrderedNames = new ArrayList<String>();
-      for(int i=0; i<notCoopNames.size(); i++){
+      for (int i = 0; i < notCoopNames.size(); i++) {
         allOrderedNames.add(notCoopNames.get(i));
       }
-      for(int i=0; i<coopNames.size(); i++){
+      for (int i = 0; i < coopNames.size(); i++) {
         allOrderedNames.add(coopNames.get(i));
       }
 
@@ -321,8 +289,6 @@ public class PositionController {
         t.add(d1);
         t.add(d2);
 
-        // m.add(t);
-
         if (obj.getisCoop()) {
           coopDates.add(t);
           coopNames.add(x);
@@ -335,7 +301,6 @@ public class PositionController {
 
       model.put("Positions", dataList);
       model.put("Positions", dataList);
-      // model.put("Names", a);
       model.put("dates", m);
 
       ArrayList<ArrayList<Integer>> finalDates = new ArrayList<ArrayList<Integer>>();
@@ -350,10 +315,10 @@ public class PositionController {
         finalDates.add(coopDates.get(i));
       }
 
-      for(int i=0; i<notCoopNames.size(); i++){
+      for (int i = 0; i < notCoopNames.size(); i++) {
         allOrderedNames.add(notCoopNames.get(i));
       }
-      for(int i=0; i<coopNames.size(); i++){
+      for (int i = 0; i < coopNames.size(); i++) {
         allOrderedNames.add(coopNames.get(i));
       }
 
